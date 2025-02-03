@@ -43,15 +43,6 @@
                                 <a href="/superadmin/ikpa/revisi/{{$item->id}}"
                                     class="btn btn-success btn-sm rounded-pill">Revisi
                                 </a>
-                                <a href="/superadmin/ikpa/deviasi/{{$item->id}}"
-                                    class="btn btn-success btn-sm rounded-pill">Deviasi
-                                </a>
-                                <a href="/superadmin/ikpa/penyerapan/{{$item->id}}"
-                                    class="btn btn-success btn-sm rounded-pill">Penyerapan
-                                </a>
-                                <a href="/superadmin/ikpa/capaian/{{$item->id}}"
-                                    class="btn btn-success btn-sm rounded-pill">Capaian
-                                </a>
 
                             </td>
                             <td class="text-right">
