@@ -22,12 +22,33 @@ Route::middleware('auth')->group(function () {
     Route::post('/superadmin/ikpa/edit/{id}', [IkpaController::class, 'update']);
     Route::get('/superadmin/ikpa/delete/{id}', [IkpaController::class, 'delete']);
 
+    Route::get('/superadmin/ikpa/revisi', [IkpaController::class, 'revisi']);
     Route::get('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'index']);
     Route::post('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'store']);
     Route::get('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'edit']);
     Route::post('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'update']);
     Route::get('/superadmin/ikpa/revisi/{id}/delete/{revisi_id}', [RevisiController::class, 'delete']);
-
+    Route::get(
+        '/superadmin/ikpa/deviasi',
+        function () {
+            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
+            return back();
+        }
+    );
+    Route::get(
+        '/superadmin/ikpa/penyerapan',
+        function () {
+            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
+            return back();
+        }
+    );
+    Route::get(
+        '/superadmin/ikpa/capaian',
+        function () {
+            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
+            return back();
+        }
+    );
     Route::get(
         '/superadmin/ikpa/deviasi/{id}',
         function () {

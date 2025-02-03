@@ -216,21 +216,51 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/superadmin/ikpa"
-                                class="nav-link {{request()->is('superadmin/ikpa*') ? 'active':''}}">
+                        <li class="nav-item {{request()->is('superadmin/ikpa*') ? 'menu-is-opening menu-open':''}}">
+                            <a href="#" class="nav-link {{request()->is('superadmin/ikpa*') ? 'active':''}}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     PERHITUNGAN IKPA
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/superadmin/ikpa/revisi"
+                                        class="nav-link {{request()->is('superadmin/ikpa/revisi*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Revisi DPA</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/superadmin/ikpa/deviasi"
+                                        class="nav-link {{request()->is('superadmin/ikpa/deviasi*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Deviasi DPA</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/superadmin/ikpa/penyerapan"
+                                        class="nav-link {{request()->is('superadmin/ikpa/penyerapan*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penyerapan Anggaran</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/superadmin/ikpa/capaian"
+                                        class="nav-link {{request()->is('superadmin/ikpa/capaian*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Capaian Output</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="/superadmin/skpd"
                                 class="nav-link {{request()->is('superadmin/skpd*') ? 'active':''}}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
-                                    SKPD
+                                    PENILAIAN
                                 </p>
                             </a>
                         </li>
