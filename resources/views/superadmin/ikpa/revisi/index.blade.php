@@ -8,7 +8,7 @@
                 <h3 class="card-title">Data IKPA</h3>
 
                 <div class="card-tools">
-                    <a href="/superadmin/ikpa/revisi/add" class='btn btn-sm btn-primary'>Tambah Data</a>
+                    <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Tambah Data</a>
                 </div>
             </div>
             <!-- /.card-header -->
