@@ -10,8 +10,8 @@
         <div class="card">
             <div class="card-body text-center">
 
-                <a href="/superadmin/ikpa" class="btn btn-app text-bold" style="box-shadow: 1px 2px 2px black;">
-                    <i class="fas fa-edit"></i> Perhitungan IKPA
+                <a href="/superadmin/ikpa/revisi" class="btn btn-app text-bold" style="box-shadow: 1px 2px 2px black;">
+                    <i class="fas fa-edit"></i> Revisi DPA
                 </a>
                 <a href="/superadmin/skpd" class="btn btn-app text-bold" style="box-shadow: 1px 2px 2px black;">
                     <i class="fas fa-inbox"></i> Data SKPD
