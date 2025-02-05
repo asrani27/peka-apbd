@@ -26,7 +26,7 @@ class IkpaController extends Controller
     {
         Ikpa::create($req->all());
         Session::flash('success', 'Berhasil Disimpan');
-        return redirect('/superadmin/ikpa');
+        return redirect('/superadmin/ikpa/revisi');
     }
 
     public function edit($id)
@@ -38,12 +38,12 @@ class IkpaController extends Controller
     {
         Ikpa::find($id)->update($req->all());
         Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/ikpa');
+        return redirect('/superadmin/ikpa/revisi');
     }
 
     public function delete($id)
     {
         Ikpa::find($id)->delete();
-        return redirect('/superadmin/ikpa');
+        return redirect('/superadmin/ikpa/revisi');
     }
 }
