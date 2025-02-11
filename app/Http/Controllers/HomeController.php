@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function superadmin()
     {
         $skpd = Skpd::get()->map(function ($item) {
-            $param['label'] = $item->nama;
+            $param['label'] = $item->singkatan;
             $param['y'] = rand(60, 100);
             return $param;
         })->toArray();

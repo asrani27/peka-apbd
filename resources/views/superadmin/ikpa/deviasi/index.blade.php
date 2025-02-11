@@ -5,10 +5,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data Revisi</h3>
+                <h3 class="card-title">Data Deviasi</h3>
 
                 <div class="card-tools">
-                    <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Tambah Data</a>
+                    <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Template Excel</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -24,8 +24,8 @@
                             <th>Bulan</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>Aksi</th>
-                            <th></th>
+                            <th>Tarik Data</th>
+                            <th>Import Data</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,17 +40,21 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->jabatan}}</td>
                             <td>
-                                <a href="/superadmin/ikpa/revisi/{{$item->id}}"
-                                    class="btn btn-success btn-sm rounded-pill">Revisi
+                                <a href="/superadmin/ikpa/revisi/{{$item->id}}" class="btn btn-success">
+                                    Tarik Data
                                 </a>
-
                             </td>
-                            <td class="text-right">
+                            <td>
+                                <div class="col-12 d-flex align-items-center gap-2">
+                                    <form method="post" action="/superadmin/ikpa/deviasi/{{$item->id}}"
+                                        enctype="multipart/form-data" class="d-flex align-items-center gap-2">
+                                        @csrf
+                                        <input type="file" name="file" class="form-control">
+                                        <button type="submit" class="btn btn-primary">Import Data</button>
+                                    </form>
+                                </div>
 
-                                <a href="/superadmin/ikpa/edit/{{$item->id}}" class="btn btn-sm btn-success"><i
-                                        class="fa fa-edit"></i></a>
-                                <a href="/superadmin/ikpa/delete/{{$item->id}}" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Yakin ingin dihapus?');"><i class="fa fa-trash"></i></a>
+
                             </td>
                         </tr>
                         @endforeach

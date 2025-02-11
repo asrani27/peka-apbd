@@ -18,6 +18,11 @@ class IkpaController extends Controller
         $data = Ikpa::paginate(10);
         return view('superadmin.ikpa.revisi.index', compact('data'));
     }
+    public function deviasi()
+    {
+        $data = Ikpa::paginate(10);
+        return view('superadmin.ikpa.deviasi.index', compact('data'));
+    }
     public function create()
     {
         return view('superadmin.ikpa.create');

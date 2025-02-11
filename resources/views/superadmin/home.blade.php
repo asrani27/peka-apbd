@@ -8,18 +8,6 @@
     </div>
     <div class="col-md-12">
         <div class="card">
-            <div class="card-body text-center">
-
-                <a href="/superadmin/ikpa/revisi" class="btn btn-app text-bold" style="box-shadow: 1px 2px 2px black;">
-                    <i class="fas fa-edit"></i> Revisi DPA
-                </a>
-                <a href="/superadmin/skpd" class="btn btn-app text-bold" style="box-shadow: 1px 2px 2px black;">
-                    <i class="fas fa-inbox"></i> Data SKPD
-                </a>
-
-            </div>
-        </div>
-        <div class="card">
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
         </div>
     </div>
@@ -55,8 +43,11 @@
             suffix: "%"
         },
         axisX: {
-            title: "SKPD",
-            labelFormatter: function() { return ""; } 
+            title: "SKPD",  
+    labelAngle: -45, // Miringkan agar tidak bertabrakan
+    labelFontSize: 12,
+    labelAutoFit: false, // Paksa tampil semua label
+    interval: 1, // Pastikan semua label muncul
         },
         data: [{
             type: "column",

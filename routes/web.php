@@ -28,13 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'edit']);
     Route::post('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'update']);
     Route::get('/superadmin/ikpa/revisi/{id}/delete/{revisi_id}', [RevisiController::class, 'delete']);
-    Route::get(
-        '/superadmin/ikpa/deviasi',
-        function () {
-            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
-            return back();
-        }
-    );
+
+    Route::get('/superadmin/ikpa/deviasi', [IkpaController::class, 'deviasi']);
     Route::get(
         '/superadmin/ikpa/penyerapan',
         function () {
