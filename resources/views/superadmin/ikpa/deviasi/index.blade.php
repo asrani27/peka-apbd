@@ -8,7 +8,8 @@
                 <h3 class="card-title">Data Deviasi</h3>
 
                 <div class="card-tools">
-                    <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Template Excel</a>
+                    <a href="/excel/template_deviasi.xlsx" class='btn btn-sm btn-primary' target="_blank">Template
+                        Excel</a>
                 </div>
             </div>
             <!-- /.card-header -->
