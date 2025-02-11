@@ -6,6 +6,24 @@
         <img src="/logo/bpkpad.png" width="15%">
         <h2>PEKA ABPD KOTA BANJARMASIN</h2>
     </div>
+    <div class="col-12">
+        <div class="card-body">
+            <form method="post">
+                @csrf
+                <select class="form-control" name="penilaian">
+                    <option value="">-penilaiain-</option>
+                    <option value="REVISI">REVISI</option>
+                    <option value="DEVIASI">DEVIASI</option>
+                    <option value="PENYERAPAN">PENYERAPAN</option>
+                    <option value="CAPAIAN">CAPAIAN</option>
+                </select>
+                <button type="submit" class="btn btn-primary">
+                    TAMPILKAN
+                </button>
+            </form>
+
+        </div>
+    </div>
     <div class="col-md-12">
         <div class="card">
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
