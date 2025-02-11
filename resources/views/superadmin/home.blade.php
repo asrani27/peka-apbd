@@ -44,10 +44,10 @@
         },
         axisX: {
             title: "SKPD",  
-    labelAngle: -45, // Miringkan agar tidak bertabrakan
-    labelFontSize: 12,
-    labelAutoFit: false, // Paksa tampil semua label
-    interval: 1, // Pastikan semua label muncul
+            labelAngle: -45, // Miringkan agar tidak bertabrakan
+            labelFontSize: 12,
+            labelAutoFit: false, // Paksa tampil semua label
+            interval: 1, // Pastikan semua label muncul
         },
         data: [{
             type: "column",
