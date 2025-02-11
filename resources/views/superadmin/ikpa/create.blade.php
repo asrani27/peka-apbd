@@ -30,26 +30,22 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">SEMESTER</label>
-                        <select class="form-control" required name="semester">
-                            <option value="">-tahun-</option>
+                        <select class="form-control" required name="semester" id="semester">
+                            <option value="">-semester-</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">TRIWULAN</label>
-                        <select class="form-control" required name="triwulan">
-                            <option value="">-tahun-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                        <select class="form-control" required name="triwulan" id="triwulan">
+                            <option value="">-triwulan-</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">BULAN</label>
 
-                        <select class="form-control" required name="bulan">
+                        <select class="form-control" required name="bulan" id="bulan">
                             <option value="">-bulan-</option>
                             @foreach (bulan() as $item)
                             <option value="{{$item}}">{{$item}}</option>
@@ -58,11 +54,11 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">NAMA</label>
-                        <input type="text" name="nama" class="form-control" required>
+                        <input type="text" name="nama" class="form-control" value="-" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">JABATAN</label>
-                        <input type="text" name="jabatan" class="form-control" required>
+                        <input type="text" name="jabatan" class="form-control" value="-" required>
                     </div>
                 </div>
                 <!-- /.card-body -->
@@ -77,3 +73,43 @@
 </div>
 
 @endsection
+@push('js')
+<script>
+    $(document).ready(function () {
+    const triwulanOptions = {
+    "1": ["1", "2"],
+    "2": ["3", "4"]
+    };
+
+    const bulanOptions = {
+    "1": ["Januari", "Februari", "Maret"],
+    "2": ["April", "Mei", "Juni"],
+    "3": ["Juli", "Agustus", "September"],
+    "4": ["Oktober", "November", "Desember"]
+    };
+
+    $("#semester").change(function () {
+    let semesterVal = $(this).val();
+    $("#triwulan").html('<option value="">-triwulan-</option>');
+    $("#bulan").html('<option value="">-bulan-</option>');
+
+    if (semesterVal) {
+    triwulanOptions[semesterVal].forEach(function (triwulan) {
+    $("#triwulan").append('<option value="' + triwulan + '">' + triwulan + '</option>');
+    });
+    }
+    });
+
+    $("#triwulan").change(function () {
+    let triwulanVal = $(this).val();
+    $("#bulan").html('<option value="">-bulan-</option>');
+
+    if (triwulanVal) {
+    bulanOptions[triwulanVal].forEach(function (bulan) {
+    $("#bulan").append('<option value="' + bulan + '">' + bulan + '</option>');
+    });
+    }
+    });
+    });
+</script>
+@endpush

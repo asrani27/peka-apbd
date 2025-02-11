@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">SEMESTER</label>
-                        <select class="form-control" required name="semester">
+                        <select class="form-control" required name="semester" id="semester">
                             <option value="">-semester-</option>
                             <option value="1" {{$data->semester == '1' ? 'selected':''}}>1</option>
                             <option value="2" {{$data->semester == '2' ? 'selected':''}}>2</option>
@@ -39,18 +39,14 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">TRIWULAN</label>
-                        <select class="form-control" required name="triwulan">
+                        <select class="form-control" required name="triwulan" id="triwulan">
                             <option value="">-triwulan-</option>
-                            <option value="1" {{$data->triwulan == '1' ? 'selected':''}}>1</option>
-                            <option value="2" {{$data->triwulan == '2' ? 'selected':''}}>2</option>
-                            <option value="3" {{$data->triwulan == '3' ? 'selected':''}}>3</option>
-                            <option value="4" {{$data->triwulan == '4' ? 'selected':''}}>4</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">BULAN</label>
 
-                        <select class="form-control" required name="bulan">
+                        <select class="form-control" required name="bulan" id="bulan">
                             <option value="">-bulan-</option>
                             @foreach (bulan() as $item)
                             <option value="{{$item}}" {{$data->bulan == $item ? 'selected':''}}>{{$item}}</option>
@@ -78,3 +74,59 @@
 </div>
 
 @endsection
+@push('js')
+
+<script>
+    $(document).ready(function () {
+        const triwulanOptions = {
+            "1": ["1", "2"], 
+            "2": ["3", "4"]
+        };
+
+        const bulanOptions = {
+            "1": ["Januari", "Februari", "Maret"],
+            "2": ["April", "Mei", "Juni"],
+            "3": ["Juli", "Agustus", "September"],
+            "4": ["Oktober", "November", "Desember"]
+        };
+
+        function updateTriwulan(selectedTriwulan = null) {
+            let semesterVal = $("#semester").val();
+            $("#triwulan").html('<option value="">-triwulan-</option>');
+
+            if (semesterVal) {
+                triwulanOptions[semesterVal].forEach(function (triwulan) {
+                    let selected = triwulan === selectedTriwulan ? 'selected' : '';
+                    $("#triwulan").append(`<option value="${triwulan}" ${selected}>${triwulan}</option>`);
+                });
+            }
+        }
+
+        function updateBulan(selectedBulan = null) {
+            let triwulanVal = $("#triwulan").val();
+            $("#bulan").html('<option value="">-bulan-</option>');
+
+            if (triwulanVal) {
+                bulanOptions[triwulanVal].forEach(function (bulan) {
+                    let selected = bulan === selectedBulan ? 'selected' : '';
+                    $("#bulan").append(`<option value="${bulan}" ${selected}>${bulan}</option>`);
+                });
+            }
+        }
+
+        // Saat halaman dimuat, set nilai yang sudah ada
+        updateTriwulan("{{$data->triwulan}}");
+        updateBulan("{{$data->bulan}}");
+
+        // Event listener untuk perubahan nilai
+        $("#semester").change(function () {
+            updateTriwulan();
+            $("#bulan").html('<option value="">-bulan-</option>'); // Reset bulan saat semester berubah
+        });
+
+        $("#triwulan").change(function () {
+            updateBulan();
+        });
+    });
+</script>
+@endpush
