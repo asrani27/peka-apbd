@@ -135,7 +135,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <br /><br />
+                {{-- <br /><br />
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
                     <thead>
                         <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
@@ -171,7 +171,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <br />
+                <br /> --}}
             </div>
         </div>
     </div>
