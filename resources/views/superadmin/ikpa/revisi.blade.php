@@ -2,41 +2,42 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-4">SKPD</dt>
-                    <dd class="col-sm-8">{{$data->skpd->nama}}</dd>
-                    <dt class="col-sm-4">Tahun</dt>
-                    <dd class="col-sm-8">{{$data->tahun}}</dd>
-                    <dt class="col-sm-4">Nama</dt>
-                    <dd class="col-sm-8">{{$data->nama}}</dd>
-                    <dt class="col-sm-4">Jabatan</dt>
-                    <dd class="col-sm-8">{{$data->jabatan}}</dd>
-                </dl>
+                <table width="100%" cellpadding="5">
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold"
+                            width="10%">SKPD</td>
+                        <td style="border: 1px solid black;">: {{$data->skpd->nama}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TAHUN</td>
+                        <td style="border: 1px solid black;">: {{$data->tahun}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">SEMESTER
+                        </td>
+                        <td style="border: 1px solid black;">: {{$data->semester}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TRIWULAN
+                        </td>
+                        <td style="border: 1px solid black;">: {{$data->triwulan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">BULAN</td>
+                        <td style="border: 1px solid black;">: {{$data->bulan}}</td>
+                    </tr>
+                </table>
+
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-4">Semester</dt>
-                    <dd class="col-sm-8">{{$data->semester}}</dd>
-                    <dt class="col-sm-4">Triwulan</dt>
-                    <dd class="col-sm-8">{{$data->triwulan}}</dd>
-                    <dt class="col-sm-4">Bulan</dt>
-                    <dd class="col-sm-8">{{$data->bulan}}</dd>
-                </dl>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-    </div>
+
 
     <div class="col-md-12">
         <h2>Revisi DPA</h2>
