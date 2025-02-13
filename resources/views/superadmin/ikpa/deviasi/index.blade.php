@@ -10,6 +10,8 @@
                 <div class="card-tools">
                     <a href="/excel/template_deviasi.xlsx" class='btn btn-sm btn-primary' target="_blank">Template
                         Excel</a>
+                    <a href="/superadmin/ikpa/deviasi/add" class='btn btn-sm btn-primary'>Tambah
+                        Data</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -41,7 +43,7 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->jabatan}}</td>
                             <td>
-                                <a href="/superadmin/ikpa/revisi/{{$item->id}}" class="btn btn-success">
+                                <a href="#" class="btn btn-success">
                                     Tarik Data
                                 </a>
                             </td>

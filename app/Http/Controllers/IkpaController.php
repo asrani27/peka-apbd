@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Ikpa;
 use Illuminate\Http\Request;
+use App\Imports\DeviasiImport;
+use App\Models\Deviasi;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 
 class IkpaController extends Controller
@@ -12,6 +15,22 @@ class IkpaController extends Controller
     {
         $data = Ikpa::paginate(10);
         return view('superadmin.ikpa.index', compact('data'));
+    }
+    public function add_deviasi()
+    {
+        return view('superadmin.ikpa.deviasi.create');
+    }
+    public function store_deviasi(Request $req)
+    {
+        $check = Deviasi::where('skpd_id', $req->skpd_id)->where('tahun', $req->tahun)->first();
+        if ($check == null) {
+            Excel::import(new DeviasiImport($req->tahun, $req->skpd_id), $req->file);
+            Session::flash('success', 'Berhasil Disimpan');
+        } else {
+
+            Session::flash('warning', 'data pada tahun ini sudah di tambah, jika ingin update, klik edit');
+        }
+        return redirect('/superadmin/ikpa/deviasi');
     }
     public function revisi()
     {
