@@ -73,28 +73,28 @@
                                     <tr style="font-size:10px;font-weight:bold;">
                                         <td style="border:1px solid black">TOTAL</td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_c'))}}
+                                            {{number_format($item->detail()->sum('kolom_c'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_d'))}}
+                                            {{number_format($item->detail()->sum('kolom_d'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_e'))}}
+                                            {{number_format($item->detail()->sum('kolom_e'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_f'))}}
+                                            {{number_format($item->detail()->sum('kolom_f'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_g'))}}
+                                            {{number_format($item->detail()->sum('kolom_g'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_h'))}}
+                                            {{number_format($item->detail()->sum('kolom_h'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_i'))}}
+                                            {{number_format($item->detail()->sum('kolom_i'))}}
                                         </td>
                                         <td style="border:1px solid black;text-align:right">
-                                            {{number_format($item2->sum('kolom_j'))}}
+                                            {{number_format($item->detail()->sum('kolom_j'))}}
                                         </td>
                                     </tr>
                                 </table>
