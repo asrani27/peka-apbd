@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Deviasi;
+use App\Models\DeviasiDetail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
@@ -14,14 +15,16 @@ class DeviasiImport implements ToModel, WithStartRow
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     protected $skpd_id;
+    protected $deviasi;
     protected $tahun;
     protected $rowCount = 0; // Counter untuk membatasi jumlah baris
     protected $maxRows = 12; // Karena start dari baris 7, batas 18 - 7 + 1 = 12 baris
 
-    public function __construct($tahun, $skpd_id)
+    public function __construct($tahun, $skpd_id, $deviasi)
     {
         $this->tahun = $tahun;
         $this->skpd_id = $skpd_id;
+        $this->deviasi = $deviasi;
     }
 
     public function model(array $row)
@@ -32,9 +35,10 @@ class DeviasiImport implements ToModel, WithStartRow
         }
         $this->rowCount++; // Tambahkan counter setiap kali baris diproses
 
-        return new Deviasi([
+        return new DeviasiDetail([
             'tahun' => $this->tahun,
             'skpd_id' => $this->skpd_id,
+            'deviasi_id' => $this->deviasi->id,
             'bulan' => $row[1],
             'kolom_c' => $row[2],
             'kolom_d' => $row[3],
