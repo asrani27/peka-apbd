@@ -18,7 +18,6 @@
                             <th>No</th>
                             <th>Kode</th>
                             <th>Nama</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,16 +26,6 @@
                             <td>{{$key + 1}}</td>
                             <td>{{$item->kode}}</td>
                             <td>{{$item->nama}}</td>
-                            <td>
-                                @if ($item->user == null)
-                                <a href="/superadmin/skpd/createuser/{{$item->id}}" class="btn btn-sm btn-warning"><i
-                                        class="fa fa-key"> Create User </i></a>
-                                @else
-                                <a href="/superadmin/skpd/resetpass/{{$item->id}}" class="btn btn-sm btn-success"><i
-                                        class="fa fa-lock"> Reset Pass </i></a>
-
-                                @endif
-                            </td>
                         </tr>
                         @endforeach
 

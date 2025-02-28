@@ -23,7 +23,8 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="box-shadow: 0px 1px 10px black;">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light"
+            style="box-shadow: 0px 1px 10px silver;">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -168,26 +169,21 @@
         <!-- Main Sidebar Container -->
 
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <img src="https://png.pngitem.com/pimgs/s/261-2614816_colorful-prismatic-circle-gambar-lingkaran-warna-warni-hd.png"
-                    alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">BPKPAD</span>
+                <img src="/logo/peka.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+                <span class="brand-text font-weight-light">
+                    @if (Auth::user()->roles == 'superadmin')
+                    BPKPAD
+                    @else
+                    {{Auth::user()->skpd->singkatan}}
+                    @endif
+                </span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="https://cdn-icons-png.flaticon.com/256/1177/1177568.png"
-                            class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">MAIN NAVIGATION</a>
-                    </div>
-                </div>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -256,11 +252,20 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="/superadmin/skpd"
-                                class="nav-link {{request()->is('superadmin/skpd*') ? 'active':''}}">
-                                <i class="nav-icon fas fa-list"></i>
+                            <a href="/superadmin/penilaian"
+                                class="nav-link {{request()->is('superadmin/penilaian*') ? 'active':''}}">
+                                <i class="nav-icon fas fa-pen"></i>
                                 <p>
                                     PENILAIAN
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/superadmin/skpd"
+                                class="nav-link {{request()->is('superadmin/skpd*') ? 'active':''}}">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    SKPD
                                 </p>
                             </a>
                         </li>

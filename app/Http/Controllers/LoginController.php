@@ -18,6 +18,9 @@ class LoginController extends Controller
             if (Auth::user()->roles == 'superadmin') {
                 Session::flash('success', 'Selamat Datang');
                 return redirect('/superadmin');
+            } elseif (Auth::user()->roles == 'admin') {
+                Session::flash('success', 'Selamat Datang');
+                return redirect('/admin');
             } else {
                 Session::flash('success', 'Selamat Datang');
                 return 'role lain';

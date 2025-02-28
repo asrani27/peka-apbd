@@ -8,4 +8,10 @@ class Skpd extends Model
 {
     protected $table = 'skpd';
     protected $guarded = ['id'];
+
+    public $timestamps = false;
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

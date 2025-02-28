@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeviasiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IkpaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RevisiController;
 use App\Http\Controllers\SkpdController;
 use App\Models\Deviasi;
@@ -15,9 +17,15 @@ Route::get('/', [LoginController::class, 'welcome']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'admin']);
+});
+Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
+    Route::get('/superadmin/penilaian', [PenilaianController::class, 'index']);
     Route::get('/superadmin/skpd', [SkpdController::class, 'index']);
+    Route::get('/superadmin/skpd/createuser/{id}', [SkpdController::class, 'createuser']);
+    Route::get('/superadmin/skpd/resetpass/{id}', [SkpdController::class, 'resetpass']);
     Route::get('/superadmin/ikpa', [IkpaController::class, 'index']);
     Route::get('/superadmin/ikpa/add', [IkpaController::class, 'create']);
     Route::post('/superadmin/ikpa/add', [IkpaController::class, 'store']);
