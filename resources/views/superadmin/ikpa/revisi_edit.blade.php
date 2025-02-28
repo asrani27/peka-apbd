@@ -2,41 +2,89 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-12">
         <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-4">SKPD</dt>
-                    <dd class="col-sm-8">{{$data->skpd->nama}}</dd>
-                    <dt class="col-sm-4">Tahun</dt>
-                    <dd class="col-sm-8">{{$data->tahun}}</dd>
-                    <dt class="col-sm-4">Nama</dt>
-                    <dd class="col-sm-8">{{$data->nama}}</dd>
-                    <dt class="col-sm-4">Jabatan</dt>
-                    <dd class="col-sm-8">{{$data->jabatan}}</dd>
-                </dl>
+
+                <table width="100%" cellpadding="5">
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold"
+                            width="10%">SKPD</td>
+                        <td style="border: 1px solid black;">: {{$data->skpd->nama}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TAHUN</td>
+                        <td style="border: 1px solid black;">: {{$data->tahun}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">SEMESTER
+                        </td>
+                        <td style="border: 1px solid black;">: {{$data->semester}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TRIWULAN
+                        </td>
+                        <td style="border: 1px solid black;">: {{$data->triwulan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">BULAN</td>
+                        <td style="border: 1px solid black;">: {{$data->bulan}}</td>
+                    </tr>
+                </table>
+                <br />
+                <ul>
+                    @if ($data->keberatan->count() != 0)
+                    Keberatan telah di ajukan : <br />
+                    @foreach ($data->keberatan as $item)
+
+                    <li> {{$item->isi}}</li>
+                    @endforeach
+
+                    @endif
+                </ul>
+
+                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Jumlah Revisi</th>
+                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
+                            <th style="border: 1px solid black">NKRA Tahunan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
+                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
+                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Indikator</th>
+                            <th style="border: 1px solid black">Skor</th>
+                            <th style="border: 1px solid black">Bobot</th>
+                            <th style="border: 1px solid black">Skor Indikator Tertimbang</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">Revisi DPA</td>
+                            <td style="border: 1px solid black">{{$skor}}</td>
+                            <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
+                            <td style="border: 1px solid black">{{$sit}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-4">Semester</dt>
-                    <dd class="col-sm-8">{{$data->semester}}</dd>
-                    <dt class="col-sm-4">Triwulan</dt>
-                    <dd class="col-sm-8">{{$data->triwulan}}</dd>
-                    <dt class="col-sm-4">Bulan</dt>
-                    <dd class="col-sm-8">{{$data->bulan}}</dd>
-                </dl>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-    </div>
+
 
     <div class="col-md-12">
         <h2>Revisi DPA</h2>
@@ -171,43 +219,8 @@
                         </tr>
                     </tfoot>
                 </table>
-                <br /><br />
-                <table class="table table-sm" style="border: 1px solid black; text-align:center">
-                    <thead>
-                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Jumlah Revisi</th>
-                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
-                            <th style="border: 1px solid black">NKRA Tahunan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
-                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
-                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
-                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <br />
-                <table class="table table-sm" style="border: 1px solid black; text-align:center">
-                    <thead>
-                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Indikator</th>
-                            <th style="border: 1px solid black">Skor</th>
-                            <th style="border: 1px solid black">Bobot</th>
-                            <th style="border: 1px solid black">Skor Indikator Tertimbang</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
-                            <td style="border: 1px solid black">Revisi DPA</td>
-                            <td style="border: 1px solid black">{{$skor}}</td>
-                            <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
-                            <td style="border: 1px solid black">{{$sit}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
+
             </div>
         </div>
     </div>
