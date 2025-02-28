@@ -31,7 +31,18 @@
                         <td style="border: 1px solid black;">: {{$data->bulan}}</td>
                     </tr>
                 </table>
-                <br /><br />
+                <br />
+                <ul>
+                    @if ($data->keberatan->count() != 0)
+                    Keberatan telah di ajukan : <br />
+                    @foreach ($data->keberatan as $item)
+
+                    <li> {{$item->isi}}</li>
+                    @endforeach
+
+                    @endif
+                </ul>
+
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
                     <thead>
                         <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
