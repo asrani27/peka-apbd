@@ -15,6 +15,7 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PenyerapanController;
 use App\Http\Controllers\AdminDeviasiController;
 use App\Http\Controllers\AdminPenyerapanController;
+use App\Http\Controllers\AdminRevisiController;
 
 Route::get('/', [LoginController::class, 'welcome']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -31,6 +32,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/ikpa/deviasi/delete/{id}', [AdminDeviasiController::class, 'delete']);
 
     Route::get('/admin/ikpa/penyerapan', [AdminPenyerapanController::class, 'index']);
+
+    Route::get('/admin/ikpa/revisi', [AdminRevisiController::class, 'index']);
+    Route::get('/admin/ikpa/revisi/{id}', [AdminRevisiController::class, 'detail']);
     Route::get(
         '/admin/ikpa/capaian',
         function () {

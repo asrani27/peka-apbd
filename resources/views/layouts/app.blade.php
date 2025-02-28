@@ -289,6 +289,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="/admin/ikpa/revisi"
+                                        class="nav-link {{request()->is('admin/ikpa/revisi*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Revisi DPA</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="/admin/ikpa/deviasi"
                                         class="nav-link {{request()->is('admin/ikpa/deviasi*') ? 'active':''}}">
                                         <i class="far fa-circle nav-icon"></i>

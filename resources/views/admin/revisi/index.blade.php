@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data Revisi (Data ini di input oleh BPKPAD)</h3>
+                <h3 class="card-title">Data Revisi DPA</h3>
 
                 <div class="card-tools">
                     {{-- <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Tambah Data</a> --}}
@@ -22,7 +22,6 @@
                             <th>Semester</th>
                             <th>Triwulan</th>
                             <th>Bulan</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +35,7 @@
                             <td>{{$item->bulan}}</td>
                             <td>
                                 <a href="/admin/ikpa/revisi/{{$item->id}}"
-                                    class="btn btn-success btn-sm rounded-pill">Detail Revisi
+                                    class="btn btn-success btn-sm rounded-pill">Revisi
                                 </a>
 
                             </td>

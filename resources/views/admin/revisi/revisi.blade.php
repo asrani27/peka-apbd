@@ -3,41 +3,32 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <table width="100%" cellpadding="5">
-                    <tr>
-                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold"
-                            width="10%">SKPD
-                        </td>
-                        <td style="border: 1px solid black;">: {{$data->skpd->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TAHUN</td>
-                        <td style="border: 1px solid black;">: {{$data->tahun}}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">SEMESTER
-                        </td>
-                        <td style="border: 1px solid black;">: {{$data->semester}}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TRIWULAN
-                        </td>
-                        <td style="border: 1px solid black;">: {{$data->triwulan}}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">BULAN</td>
-                        <td style="border: 1px solid black;">: {{$data->bulan}}</td>
-                    </tr>
-                </table>
-                <br />
-                Note : * Anda hanya bisa melihat dan mengajukan keberatan atas data revisi DPA yang di input oleh BPKPAD
-            </div>
-        </div>
-
+        <table width="100%" cellpadding="5">
+            <tr>
+                <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold" width="10%">SKPD
+                </td>
+                <td style="border: 1px solid black;">: {{$data->skpd->nama}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TAHUN</td>
+                <td style="border: 1px solid black;">: {{$data->tahun}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">SEMESTER
+                </td>
+                <td style="border: 1px solid black;">: {{$data->semester}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TRIWULAN
+                </td>
+                <td style="border: 1px solid black;">: {{$data->triwulan}}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">BULAN</td>
+                <td style="border: 1px solid black;">: {{$data->bulan}}</td>
+            </tr>
+        </table>
     </div>
-
 
     <div class="col-md-12">
         <h2>Revisi DPA</h2>
@@ -56,6 +47,7 @@
                             <th style="border: 1px solid black">Pagu Akhir</th>
                             <th style="border: 1px solid black">Perubahan Pagu</th>
                             <th style="border: 1px solid black">Termasuk Objek Perhitungan</th>
+                            <th style="border: 1px solid black" rowspan="2" colspan="2"></th>
                         </tr>
                         <tr style="font-size:10px" class="bg-warning" style="border: 1px solid black">
                             <th style="border: 1px solid black">semester {{$data->semester}}</th>
@@ -86,12 +78,54 @@
                             </td>
                             <td style="border: 1px solid black;">{{$item->pp}}</td>
                             <td style="border: 1px solid black;">{{$item->top}}</td>
+                            <td style="border: 1px solid black;">
+                                <a href="/superadmin/ikpa/revisi/{{$data->id}}/edit/{{$item->id}}"><i
+                                        class="fa fa-edit"></i></a>
+                            </td>
 
+                            <td style="border: 1px solid black;">
+                                <a href="/superadmin/ikpa/revisi/{{$data->id}}/delete/{{$item->id}}"
+                                    onclick="return confirm('Yakin ingin dihapus?');" class="text-danger"><i
+                                        class="fa fa-trash"></i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <form method="post" action="/superadmin/ikpa/revisi/{{$data->id}}">
+                                @csrf
+                                <td style="border: 1px solid black"></td>
+                                <td style="border: 1px solid black">
+                                    <input type="date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}"
+                                        name="tanggal_nodin">
+                                </td>
+                                <td style="border: 1px solid black">
+                                    <input type="date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}"
+                                        name="tanggal_pengesahan">
+                                </td>
+                                <td style="border: 1px solid black">
+                                    <input type="text" name="revisi_ke" required>
+                                </td>
+                                <td style="border: 1px solid black">
+                                    <input type="text" name="jenis_revisi" required>
+                                </td>
+                                <td style="border: 1px solid black">
+                                    <input type="text" name="pagu_awal" required
+                                        onkeypress="return hanyaAngka(event)" />
+                                </td>
+                                <td style="border: 1px solid black">
+                                    <input type="text" name="pagu_akhir" required
+                                        onkeypress="return hanyaAngka(event)" />
+                                </td>
+                                <td style="border: 1px solid black" colspan="3">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>
+                                        save / enter</button>
+                                </td>
 
-
+                            </form>
+                        </tr>
+                    </tfoot>
                 </table>
                 <br /><br />
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
