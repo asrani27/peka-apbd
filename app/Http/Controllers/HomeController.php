@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         $skpd = Skpd::get()->map(function ($item) {
             $param['label'] = $item->singkatan;
-            $param['y'] = rand(60, 100);
+            $param['y'] = 0;
             return $param;
         })->toArray();
         return view('superadmin.home', compact('skpd'));
