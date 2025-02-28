@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ikpa;
+use App\Models\Keberatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminRevisiController extends Controller
 {
@@ -12,6 +14,23 @@ class AdminRevisiController extends Controller
     {
         $data = Ikpa::where('skpd_id', Auth::user()->skpd->id)->paginate(10);
         return view('admin.ikpa.revisi.index', compact('data'));
+    }
+
+    public function storeKeberatan(Request $req, $id)
+    {
+        $data = Ikpa::find($id);
+        $new = new Keberatan();
+        $new->ikpa_id = $id;
+        $new->isi = $req->isi;
+        $new->save();
+        Session::flash('success', 'Keberatan dikirim');
+        return back();
+    }
+    public function deleteKeberatan($id)
+    {
+        Keberatan::find($id)->delete();
+        Session::flash('success', 'Keberatan dihapus');
+        return back();
     }
     public function detail($id)
     {

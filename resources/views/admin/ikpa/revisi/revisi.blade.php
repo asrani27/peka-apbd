@@ -32,7 +32,24 @@
                     </tr>
                 </table>
                 <br />
-                Note : * Anda hanya bisa melihat dan mengajukan keberatan atas data revisi DPA yang di input oleh BPKPAD
+                Note : * Anda hanya bisa melihat dan mengajukan keberatan atas data revisi DPA yang di input oleh
+                BPKPAD<br />
+
+                <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-default">Ajukan
+                    Keberatan</a>
+
+                <ul>
+                    @if ($data->keberatan->count() != 0)
+                    List Keberatan : <br />
+                    @foreach ($data->keberatan as $item)
+
+                    <li> <a href="/admin/ikpa/revisi/keberatan/delete/{{$item->id}}"
+                            onclick="return confirm('Yakin ingin di hapus?');"><i class="fa fa-times"></i></a>
+                        &nbsp;&nbsp;{{$item->isi}}</li>
+                    @endforeach
+
+                    @endif
+                </ul>
             </div>
         </div>
 
@@ -133,5 +150,31 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="modal-default" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="modal-title">Ajukan Keberatan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="post" action="/admin/ikpa/revisi/keberatan/{{$data->id}}">
+                @csrf
+                <div class="modal-body">
+                    <textarea class="form-control" rows="3" placeholder="isi" name="isi"></textarea>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class=" btn btn-primary"><i class="fa fa-paper-plane"></i>
+                        Kirim</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 @endsection

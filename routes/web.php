@@ -35,6 +35,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/ikpa/revisi', [AdminRevisiController::class, 'index']);
     Route::get('/admin/ikpa/revisi/{id}', [AdminRevisiController::class, 'detail']);
+    Route::post('/admin/ikpa/revisi/keberatan/{id}', [AdminRevisiController::class, 'storeKeberatan']);
+    Route::get('/admin/ikpa/revisi/keberatan/delete/{id}', [AdminRevisiController::class, 'deleteKeberatan']);
     Route::get(
         '/admin/ikpa/capaian',
         function () {

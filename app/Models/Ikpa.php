@@ -17,4 +17,8 @@ class Ikpa extends Model
     {
         return $this->hasMany(Revisi::class, 'ikpa_id');
     }
+    public function keberatan()
+    {
+        return $this->hasMany(Keberatan::class, 'ikpa_id');
+    }
 }
