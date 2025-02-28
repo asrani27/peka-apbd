@@ -65,13 +65,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'edit']);
     Route::post('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'update']);
     Route::get('/superadmin/ikpa/deviasi/delete/{id}', [DeviasiController::class, 'delete']);
-    Route::get(
-        '/superadmin/ikpa/penyerapan',
-        function () {
-            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
-            return back();
-        }
-    );
+    Route::get('/superadmin/ikpa/penyerapan', [PenyerapanController::class, 'index']);
     Route::get(
         '/superadmin/ikpa/capaian',
         function () {

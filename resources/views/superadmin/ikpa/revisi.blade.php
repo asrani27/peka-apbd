@@ -31,7 +31,43 @@
                         <td style="border: 1px solid black;">: {{$data->bulan}}</td>
                     </tr>
                 </table>
-
+                <br /><br />
+                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Jumlah Revisi</th>
+                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
+                            <th style="border: 1px solid black">NKRA Tahunan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
+                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
+                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Indikator</th>
+                            <th style="border: 1px solid black">Skor</th>
+                            <th style="border: 1px solid black">Bobot</th>
+                            <th style="border: 1px solid black">Skor Indikator Tertimbang</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">Revisi DPA</td>
+                            <td style="border: 1px solid black">{{$skor}}</td>
+                            <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
+                            <td style="border: 1px solid black">{{$sit}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
             </div>
             <!-- /.card-body -->
         </div>

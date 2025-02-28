@@ -12,12 +12,23 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive">
-                <table class="table table-hover text-nowrap table-sm">
+                <table class="table table-hover text-nowrap table-sm table-bordered">
                     <thead class="bg-primary">
                         <tr>
-                            <th>No</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
+                            <th rowspan="2" style="vertical-align: middle; text-align:center">No</th>
+                            <th rowspan="2" style="vertical-align: middle; text-align:center">Kode</th>
+                            <th rowspan="2" style="vertical-align: middle; text-align:center">Nama</th>
+                            <th colspan="5" style="vertical-align: middle; text-align:center">Nilai Capaian</th>
+                            <th colspan="2" style="vertical-align: middle; text-align:center">Periode</th>
+                        </tr>
+                        <tr class="bg-primary">
+                            <th style="vertical-align: middle; text-align:center">Revisi DPA</th>
+                            <th style="vertical-align: middle; text-align:center">Deviasi DPA</th>
+                            <th style="vertical-align: middle; text-align:center">Penyerapan Anggaran</th>
+                            <th style="vertical-align: middle; text-align:center">Capaian Output</th>
+                            <th style="vertical-align: middle; text-align:center">Total Nilai Capaian</th>
+                            <th style="vertical-align: middle; text-align:center">Semester</th>
+                            <th style="vertical-align: middle; text-align:center">Triwulan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +37,13 @@
                             <td>{{$key + 1}}</td>
                             <td>{{$item->kode}}</td>
                             <td>{{$item->nama}}</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">0</td>
                         </tr>
                         @endforeach
 
