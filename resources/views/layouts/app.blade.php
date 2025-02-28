@@ -202,7 +202,7 @@
                         </li>
                         @endguest
 
-                        @auth
+                        @if (Auth::user()->roles == 'superadmin')
 
                         <li class="nav-item">
                             <a href="/superadmin" class="nav-link {{request()->is('superadmin') ? 'active':''}}">
@@ -269,6 +269,50 @@
                                 </p>
                             </a>
                         </li>
+                        @else
+
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link {{request()->is('admin') ? 'active':''}}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    DASHBOARD
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{request()->is('admin/ikpa*') ? 'menu-is-opening menu-open':''}}">
+                            <a href="#" class="nav-link {{request()->is('admin/ikpa*') ? 'active':''}}">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    PERHITUNGAN IKPA
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/ikpa/deviasi"
+                                        class="nav-link {{request()->is('admin/ikpa/deviasi*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Deviasi DPA</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/ikpa/penyerapan"
+                                        class="nav-link {{request()->is('admin/ikpa/penyerapan*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Penyerapan Anggaran</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/ikpa/capaian"
+                                        class="nav-link {{request()->is('admin/ikpa/capaian*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Capaian Output</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
+
                         <li class="nav-item">
                             <a href="/logout" class="nav-link" onclick="return confirm('Yakin ingin keluar?');">
                                 <i class="nav-icon fas fa-arrow-right"></i>
@@ -277,7 +321,6 @@
                                 </p>
                             </a>
                         </li>
-                        @endauth
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

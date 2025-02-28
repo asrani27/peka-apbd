@@ -1,17 +1,20 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DeviasiController;
+use App\Models\Deviasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IkpaController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PenilaianController;
-use App\Http\Controllers\RevisiController;
 use App\Http\Controllers\SkpdController;
-use App\Models\Deviasi;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RevisiController;
+use App\Http\Controllers\DeviasiController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\PenyerapanController;
+use App\Http\Controllers\AdminDeviasiController;
+use App\Http\Controllers\AdminPenyerapanController;
 
 Route::get('/', [LoginController::class, 'welcome']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -19,6 +22,15 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'admin']);
+
+    Route::get('/admin/ikpa/deviasi', [AdminDeviasiController::class, 'index']);
+    Route::get('/admin/ikpa/deviasi/add', [AdminDeviasiController::class, 'add']);
+    Route::post('/admin/ikpa/deviasi/add', [AdminDeviasiController::class, 'store']);
+    Route::get('/admin/ikpa/deviasi/edit/{id}', [AdminDeviasiController::class, 'edit']);
+    Route::post('/admin/ikpa/deviasi/edit/{id}', [AdminDeviasiController::class, 'update']);
+    Route::get('/admin/ikpa/deviasi/delete/{id}', [AdminDeviasiController::class, 'delete']);
+
+    Route::get('/admin/ikpa/penyerapan', [AdminPenyerapanController::class, 'index']);
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
