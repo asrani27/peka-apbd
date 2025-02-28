@@ -31,6 +31,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/ikpa/deviasi/delete/{id}', [AdminDeviasiController::class, 'delete']);
 
     Route::get('/admin/ikpa/penyerapan', [AdminPenyerapanController::class, 'index']);
+    Route::get(
+        '/admin/ikpa/capaian',
+        function () {
+            Session::flash('warning', 'Aplikasi dalam pengembangan');
+            return back();
+        }
+    );
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
