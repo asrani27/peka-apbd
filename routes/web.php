@@ -11,7 +11,8 @@ use App\Http\Controllers\RevisiController;
 use App\Http\Controllers\SkpdController;
 use App\Models\Deviasi;
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', [LoginController::class, 'welcome']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth')->group(function () {

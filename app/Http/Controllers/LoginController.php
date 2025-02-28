@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    public function welcome()
+    {
+        return view('welcome');
+    }
     public function index()
     {
         if (Auth::check()) {
