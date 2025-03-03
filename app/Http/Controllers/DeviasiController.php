@@ -17,6 +17,11 @@ class DeviasiController extends Controller
         $data = Deviasi::orderBy('id', 'DESC')->paginate(10);
         return view('superadmin.ikpa.deviasi.index', compact('data'));
     }
+    public function detail($id)
+    {
+        $data = Deviasi::find($id);
+        return view('superadmin.ikpa.deviasi.detail', compact('data'));
+    }
     public function add()
     {
         return view('superadmin.ikpa.deviasi.create');

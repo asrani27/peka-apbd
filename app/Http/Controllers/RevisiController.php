@@ -26,7 +26,9 @@ class RevisiController extends Controller
         $skor = $data->semester == 1 ? $nkra_semester : $nkra_tahunan;
         $bobot_revisi = 0.15;
         $sit = $skor * $bobot_revisi;
-        return view('superadmin.ikpa.revisi', compact('data', 'revisi', 'jml_revisi', 'nkra_semester', 'nkra_tahunan', 'skor', 'bobot_revisi', 'sit'));
+
+        $bobot_deviasi = 0.20;
+        return view('superadmin.ikpa.revisi', compact('data', 'revisi', 'jml_revisi', 'nkra_semester', 'nkra_tahunan', 'skor', 'bobot_revisi', 'sit', 'bobot_deviasi'));
     }
 
     public function store(Request $req, $id)

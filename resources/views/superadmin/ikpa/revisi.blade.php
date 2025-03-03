@@ -46,16 +46,30 @@
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
                     <thead>
                         <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Jumlah Revisi</th>
-                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
+                            <th style="border: 1px solid black">Jumlah Revisi Sem 1</th>
+                            <th style="border: 1px solid black">NKRA Semester 1</th>
                             <th style="border: 1px solid black">NKRA Tahunan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="background-color: rgb(234, 233, 231); font-size:12px">
-                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
-                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
-                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
+                            <td style="border: 1px solid black">{{$data->jumlahRevisi(1)}}</td>
+                            <td style="border: 1px solid black">{{$data->nkra_semester(1)}}</td>
+                            <td style="border: 1px solid black">{{$data->nkra_tahunan(1,2)}}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Jumlah Revisi Sem 2</th>
+                            <th style="border: 1px solid black">NKRA Semester 2</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">{{$data->jumlahRevisi(2)}}</td>
+                            <td style="border: 1px solid black">{{$data->nkra_semester(2)}}</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -72,9 +86,17 @@
                     <tbody>
                         <tr style="background-color: rgb(234, 233, 231); font-size:12px">
                             <td style="border: 1px solid black">Revisi DPA</td>
-                            <td style="border: 1px solid black">{{$skor}}</td>
+                            <td style="border: 1px solid black">{{$data->skorRevisi($data->semester)}}</td>
                             <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
-                            <td style="border: 1px solid black">{{$sit}}</td>
+                            <td style="border: 1px solid black">{{$data->skorRevisiTertimbang($data->semester)}}</td>
+                        </tr>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">Deviasi DPA</td>
+                            <td style="border: 1px solid black">
+                                {{number_format($data->skorDeviasi($data->tahun,$data->bulan),2)}}</td>
+                            <td style="border: 1px solid black">{{$bobot_deviasi * 100}} %</td>
+                            <td style="border: 1px solid black">
+                                {{number_format($data->skorDeviasiTertimbang($data->tahun,$data->bulan),2)}}</td>
                         </tr>
                     </tbody>
                 </table>

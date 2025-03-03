@@ -33,7 +33,10 @@
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
                             <td>
-                                <table width="100%" cellpadding="5">
+                                <a href="/superadmin/ikpa/deviasi/detail/{{$item->id}}" class="btn btn-sm btn-info">
+                                    <i class="fa fa-eye"></i> Detail Deviasi
+                                </a>
+                                {{-- <table width="100%" cellpadding="5">
                                     <tr class="bg-warning" style="font-size:10px;font-weight:bold;text-align:center">
                                         <td rowspan="2" style="border:1px solid black">BULAN</td>
                                         <td colspan="4" style="border:1px solid black">RAK Tahunan</td>
@@ -97,7 +100,7 @@
                                             {{number_format($item->detail()->sum('kolom_j'))}}
                                         </td>
                                     </tr>
-                                </table>
+                                </table> --}}
                             </td>
                             <td>
                                 {{-- <div class="col-12 d-flex align-items-center gap-2">

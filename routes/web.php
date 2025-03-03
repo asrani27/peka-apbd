@@ -69,6 +69,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/deviasi/add', [DeviasiController::class, 'add']);
     Route::post('/superadmin/ikpa/deviasi/add', [DeviasiController::class, 'store']);
     Route::get('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'edit']);
+    Route::get('/superadmin/ikpa/deviasi/detail/{id}', [DeviasiController::class, 'detail']);
     Route::post('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'update']);
     Route::get('/superadmin/ikpa/deviasi/delete/{id}', [DeviasiController::class, 'delete']);
     Route::get('/superadmin/ikpa/penyerapan', [PenyerapanController::class, 'index']);

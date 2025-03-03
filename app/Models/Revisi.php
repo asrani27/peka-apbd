@@ -13,4 +13,9 @@ class Revisi extends Model
     {
         return $this->belongsTo(Ikpa::class);
     }
+    public function perubahanPagu()
+    {
+        return $this->pagu_awal == $this->pagu_akhir ? 'Tidak' : 'Ya';
+    }
+    
 }

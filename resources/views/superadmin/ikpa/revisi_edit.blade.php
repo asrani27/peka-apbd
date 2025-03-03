@@ -47,8 +47,22 @@
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
                     <thead>
                         <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Jumlah Revisi</th>
-                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
+                            <th style="border: 1px solid black">Jumlah Revisi Sem 1</th>
+                            <th style="border: 1px solid black">NKRA Semester 1</th>
+                            <th style="border: 1px solid black">NKRA Tahunan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
+                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
+                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                            <th style="border: 1px solid black">Jumlah Revisi Sem 2</th>
+                            <th style="border: 1px solid black">NKRA Semester 2</th>
                             <th style="border: 1px solid black">NKRA Tahunan</th>
                         </tr>
                     </thead>
