@@ -44,7 +44,7 @@
                     @endif
                 </ul>
 
-                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                {{-- <table class="table table-sm" style="border: 1px solid black; text-align:center">
                     <thead>
                         <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
                             <th style="border: 1px solid black">Jumlah Revisi Sem 1</th>
@@ -92,7 +92,7 @@
                             <td style="border: 1px solid black">{{$sit}}</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> --}}
             </div>
             <!-- /.card-body -->
         </div>

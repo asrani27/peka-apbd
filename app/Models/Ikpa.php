@@ -70,4 +70,12 @@ class Ikpa extends Model
     {
         return round($this->skorDeviasi($tahun, $bulan) * 20 / 100, 2);
     }
+    public function skorPenyerapan($tahun, $bulan)
+    {
+        return optional(DeviasiDetail::where('tahun', $tahun)->where('bulan', $bulan)->first())->penyerapanAnggaran() ?? 0;
+    }
+    public function skorPenyerapanTertimbang($tahun, $bulan)
+    {
+        return round($this->skorPenyerapan($tahun, $bulan) * 30 / 100, 2);
+    }
 }

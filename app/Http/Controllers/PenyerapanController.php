@@ -12,4 +12,9 @@ class PenyerapanController extends Controller
         $data = Deviasi::orderBy('id', 'DESC')->paginate(10);
         return view('superadmin.ikpa.penyerapan.index', compact('data'));
     }
+    public function detail($id)
+    {
+        $data = Deviasi::find($id);
+        return view('superadmin.ikpa.penyerapan.detail', compact('data'));
+    }
 }

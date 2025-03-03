@@ -22,8 +22,7 @@
                             <th>Semester</th>
                             <th>Triwulan</th>
                             <th>Bulan</th>
-                            <th>Nama</th>
-                            <th>Jabatan</th>
+                            <th>Detail</th>
                             <th>Aksi</th>
                             <th></th>
                         </tr>
@@ -37,8 +36,37 @@
                             <td>{{$item->semester}}</td>
                             <td>{{$item->triwulan}}</td>
                             <td>{{$item->bulan}}</td>
-                            <td>{{$item->nama}}</td>
-                            <td>{{$item->jabatan}}</td>
+                            <td>
+                                <table class="table table-sm" style="border: 1px solid black; text-align:center">
+                                    <thead>
+                                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
+                                            <th style="border: 1px solid black">Indikator</th>
+                                            <th style="border: 1px solid black">Skor</th>
+                                            <th style="border: 1px solid black">Bobot</th>
+                                            <th style="border: 1px solid black">Skor Indikator Tertimbang</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                                            <td style="border: 1px solid black">Revisi DPA</td>
+                                            <td style="border: 1px solid black">{{$item->skorRevisi($item->semester)}}
+                                            </td>
+                                            <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
+                                            <td style="border: 1px solid black">
+                                                {{$item->skorRevisiTertimbang($item->semester)}}</td>
+                                        </tr>
+                                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                                            <td style="border: 1px solid black">Deviasi DPA</td>
+                                            <td style="border: 1px solid black">
+                                                {{number_format($item->skorDeviasi($item->tahun,$item->bulan),2)}}</td>
+                                            <td style="border: 1px solid black">{{$bobot_deviasi * 100}} %</td>
+                                            <td style="border: 1px solid black">
+                                                {{number_format($item->skorDeviasiTertimbang($item->tahun,$item->bulan),2)}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                             <td>
                                 <a href="/superadmin/ikpa/revisi/{{$item->id}}"
                                     class="btn btn-success btn-sm rounded-pill">Revisi

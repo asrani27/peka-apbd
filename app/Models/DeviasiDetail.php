@@ -84,6 +84,114 @@ class DeviasiDetail extends Model
 
         return $akumulasi;
     }
+    public function RAKKomulatif51()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_c;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKKomulatif52()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_d;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKKomulatif53()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_e;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKKomulatif54()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_f;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKKomulatifKB()
+    {
+        return $this->RAKKomulatif51() + $this->RAKKomulatif52() + $this->RAKKomulatif53() + $this->RAKKomulatif54();
+    }
+    public function RAKRealisasi51()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_g;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKRealisasi52()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_h;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKRealisasi53()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_i;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKRealisasi54()
+    {
+        $details = self::where('deviasi_id', $this->deviasi_id)
+            ->where('id', '<=', $this->id)
+            ->get();
+
+        $akumulasi = $details->sum(function ($detail) {
+            return $detail->kolom_j;
+        });
+
+        return $akumulasi;
+    }
+    public function RAKRealisasiKB()
+    {
+        return $this->RAKRealisasi51() + $this->RAKRealisasi52() + $this->RAKRealisasi53() + $this->RAKRealisasi54();
+    }
+    public function penyerapanAnggaran()
+    {
+        return ($this->RAKRealisasiKB() / $this->deviasi->totalPagu()) * 100;
+    }
     function bulanKeAngka($bulan)
     {
         $bulan = strtolower($bulan);

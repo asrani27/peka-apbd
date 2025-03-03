@@ -28,7 +28,7 @@
 
 
     <div class="col-md-12">
-        <h2>Deviasi DPA</h2>
+        <h2>Penyerapan Anggaran</h2>
         <div class="card">
             <!-- /.card-header -->
             <div class="card-body table-responsive">
@@ -40,19 +40,11 @@
                         <td colspan="4" style="border:1px solid black">RAK Tahunan</td>
                         <td colspan="4" style="border:1px solid black">Realisasi RAK</td>
                         <td rowspan="2" style="background-color: white"></td>
-                        <td colspan="5" style="border:1px solid black">Proporsi Pagu*</td>
+                        <td colspan="5" style="border:1px solid black">RAK (Rupiah) Kumulatif</td>
 
-                        <td colspan="4" style="border:1px solid black">Deviasi*</td>
-                        <td colspan="4" style="border:1px solid black">Koreksi Deviasi Maksimal 100%</td>
-                        <td colspan="4" style="border:1px solid black">Deviasi Tertimbang***</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Deviasi Seluruh KB</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Akumulatif Deviasi Seluruh KB
-                        </td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Dev DIPAn Rata-Rata per Bulan
-                            (dalam nilai
-                            absolut)</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Nilai IKPA (Interval 15%)</td>
+                        <td colspan="5" style="border:1px solid black">Realisasi RAK (Rupiah) Kumulatif</td>
 
+                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Penyerapan Anggaran</td>
 
                     </tr>
                     <tr class="bg-warning" style="font-size:12px;font-weight:bold;text-align:center">
@@ -68,19 +60,12 @@
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
                         <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">TOTAL</td>
+                        <td style="border:1px solid black; min-width:110px;">Komulatif RAK KB</td>
                         <td style="border:1px solid black; min-width:110px;">51</td>
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
                         <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
+                        <td style="border:1px solid black; min-width:110px;">Kumulatif Realisasi RAK</td>
                     </tr>
                     @foreach ($data->detail as $key=> $item2)
                     <tr style="font-size:15px;font-weight:bold;">
@@ -105,68 +90,38 @@
 
                         <td></td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK51(),2)}} %
+                            {{number_format($item2->RAKKomulatif51())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK52(),2)}} %
+                            {{number_format($item2->RAKKomulatif52())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK53(),2)}} %
+                            {{number_format($item2->RAKKomulatif53())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK54(),2)}} %
+                            {{number_format($item2->RAKKomulatif54())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->totalProporsiPagu(),2)}} %
+                            {{number_format($item2->RAKKomulatifKB())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi51(),2)}} %
+                            {{number_format($item2->RAKRealisasi51())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi52(),2)}} %
+                            {{number_format($item2->RAKRealisasi52())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi53(),2)}} %
+                            {{number_format($item2->RAKRealisasi53())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi54(),2)}} %
+                            {{number_format($item2->RAKRealisasi54())}}
                         </td>
 
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi51(),2)}} %
+                            {{number_format($item2->RAKRealisasiKB())}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi52(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi53(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi54(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang51(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang52(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang53(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang54(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->seluruhDeviasi(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->akumulasiDeviasi(),2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiRataRata(),2)}}
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->nilai_ikpa,2)}}
+                            {{number_format($item2->penyerapanAnggaran(),2)}} %
                         </td>
 
 
@@ -201,60 +156,6 @@
                         </td>
                     </tr>
 
-                    <tr style="font-size:15px;font-weight:bold;background-color:bisque">
-                        <td style="border:1px solid black" colspan="2">TOTAL PAGU</td>
-                        <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->totalPagu())}}
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                    </tr>
-                    <tr style="font-size:15px;font-weight:bold;background-color:bisque">
-                        <td style="border:1px solid black" colspan="2">*Proporsi pagu berdasarkan kelompok belanja</td>
-                        <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK51(),2)}} %
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK52(),2)}} %
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK53(),2)}} %
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK54(),2)}} %
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                        <td style="border:1px solid black;text-align:right">
-
-                        </td>
-                    </tr>
                 </table>
                 {{-- <br /><br />
                 <table class="table table-sm" style="border: 1px solid black; text-align:center">
