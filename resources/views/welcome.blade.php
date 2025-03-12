@@ -124,8 +124,8 @@
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                        <h1 data-aos="fade-up">Peka APBD</h1>
-                        <p data-aos="fade-up" data-aos-delay="100">Kepanjangan Dari Peka APBD</p>
+                        <h1 data-aos="fade-up">PEKA APBD</h1>
+                        <p data-aos="fade-up" data-aos-delay="100">Penilaian dan Evaluasi Kinerja APBD</p>
                         <div class="d-flex flex-column flex-md-row" data-aos="fade-up" data-aos-delay="200">
                             <a href="/login" class="btn-get-started">Masuk <i class="bi bi-arrow-right"></i></a>
 
