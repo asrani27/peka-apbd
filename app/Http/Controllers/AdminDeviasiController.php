@@ -65,7 +65,7 @@ class AdminDeviasiController extends Controller
             try {
 
                 $new = new Deviasi();
-                $new->skpd_id = $req->skpd_id;
+                $new->skpd_id = Auth::user()->skpd->id;
                 $new->tahun = $req->tahun;
                 $new->save();
 
