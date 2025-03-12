@@ -111,7 +111,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="btn-getstarted flex-md-shrink-0" href="/login">Masuk</a>
+            {{-- <a class="btn-getstarted flex-md-shrink-0" href="/login">Masuk</a> --}}
 
         </div>
     </header>
