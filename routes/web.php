@@ -47,6 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
+    Route::get('/superadmin/penilaian/hasil', [PenilaianController::class, 'index']);
     Route::get('/superadmin/penilaian', [PenilaianController::class, 'index']);
     Route::get('/superadmin/skpd', [SkpdController::class, 'index']);
     Route::get('/superadmin/skpd/createuser/{id}', [SkpdController::class, 'createuser']);

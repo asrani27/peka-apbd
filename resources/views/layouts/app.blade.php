@@ -251,7 +251,34 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li
+                            class="nav-item {{request()->is('superadmin/penilaian*') ? 'menu-is-opening menu-open':''}}">
+                            <a href="#" class="nav-link {{request()->is('superadmin/penilaian*') ? 'active':''}}">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    PENILAIAN
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/superadmin/penilaian/jadwal"
+                                        class="nav-link {{request()->is('superadmin/penilaian/jadwal*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Jadwal Penialain </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/superadmin/penilaian/hasil"
+                                        class="nav-link {{request()->is('superadmin/penilaian/hasil*') ? 'active':''}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Hasil Penialaian</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="/superadmin/penilaian"
                                 class="nav-link {{request()->is('superadmin/penilaian*') ? 'active':''}}">
                                 <i class="nav-icon fas fa-pen"></i>
@@ -259,7 +286,7 @@
                                     PENILAIAN
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="/superadmin/skpd"
                                 class="nav-link {{request()->is('superadmin/skpd*') ? 'active':''}}">
