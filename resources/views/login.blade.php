@@ -161,7 +161,7 @@
                             <div class="col-12">
                                 <div class="info-item text-center" data-aos="fade" data-aos-delay="200">
 
-                                    <img src="/logo/login.png" width="70%">
+                                    <img src="/logo/com.png" width="70%">
                                 </div>
                             </div><!-- End Info Item -->
 
