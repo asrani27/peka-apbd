@@ -68,7 +68,7 @@
                         <td style="border:1px solid black; min-width:110px;">Kumulatif Realisasi RAK</td>
                     </tr>
                     @foreach ($data->detail as $key=> $item2)
-                    <tr style="font-size:15px;font-weight:bold;">
+                    <tr style="font-size:10px;font-weight:bold; font-family: 'Roboto Mono', monospace;"">
                         <td style=" border:1px solid black">{{$key + 1}}</td>
                         <td style=" border:1px solid black">{{$item2->bulan}}</td>
                         <td style=" border:1px solid black;text-align:right">
@@ -127,9 +127,9 @@
 
                     </tr>
                     @endforeach
-                    <tr style="font-size:15px;font-weight:bold;background-color:bisque">
+                    <tr style="font-size:12px;font-weight:bold;background-color:bisque; font-family: 'Roboto Mono', monospace;"">
 
-                        <td style="border:1px solid black" colspan="2">JUMLAH</td>
+                        <td style=" border:1px solid black" colspan="2">JUMLAH</td>
                         <td style="border:1px solid black;text-align:right">
                             {{number_format($data->detail()->sum('kolom_c'))}}
                         </td>

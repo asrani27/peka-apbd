@@ -16,6 +16,7 @@ use App\Http\Controllers\PenyerapanController;
 use App\Http\Controllers\AdminDeviasiController;
 use App\Http\Controllers\AdminPenyerapanController;
 use App\Http\Controllers\AdminRevisiController;
+use App\Http\Controllers\CapaianController;
 
 Route::get('/', [LoginController::class, 'welcome']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -75,13 +76,14 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/deviasi/delete/{id}', [DeviasiController::class, 'delete']);
     Route::get('/superadmin/ikpa/penyerapan', [PenyerapanController::class, 'index']);
     Route::get('/superadmin/ikpa/penyerapan/detail/{id}', [PenyerapanController::class, 'detail']);
-    Route::get(
-        '/superadmin/ikpa/capaian',
-        function () {
-            Session::flash('warning', 'Aplikasi Kenangan sedang pengembangan');
-            return back();
-        }
-    );
+
+    Route::get('/superadmin/ikpa/capaian', [CapaianController::class, 'index']);
+    Route::get('/superadmin/ikpa/capaian/add', [CapaianController::class, 'add']);
+    Route::post('/superadmin/ikpa/capaian/add', [CapaianController::class, 'store']);
+    Route::get('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'edit']);
+    Route::get('/superadmin/ikpa/capaian/detail/{id}', [CapaianController::class, 'detail']);
+    Route::post('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'update']);
+    Route::get('/superadmin/ikpa/capaian/delete/{id}', [CapaianController::class, 'delete']);
 
     Route::get(
         '/superadmin/ikpa/penyerapan/{id}',
