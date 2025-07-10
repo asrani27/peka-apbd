@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCapaianController;
 use App\Models\Deviasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,13 +39,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/ikpa/revisi/{id}', [AdminRevisiController::class, 'detail']);
     Route::post('/admin/ikpa/revisi/keberatan/{id}', [AdminRevisiController::class, 'storeKeberatan']);
     Route::get('/admin/ikpa/revisi/keberatan/delete/{id}', [AdminRevisiController::class, 'deleteKeberatan']);
-    Route::get(
-        '/admin/ikpa/capaian',
-        function () {
-            Session::flash('warning', 'Aplikasi dalam pengembangan');
-            return back();
-        }
-    );
+
+    Route::get('/admin/ikpa/capaian', [AdminCapaianController::class, 'index']);
+    Route::get('/admin/ikpa/capaian/add', [AdminCapaianController::class, 'add']);
+    Route::post('/admin/ikpa/capaian/add', [AdminCapaianController::class, 'store']);
+    Route::get('/admin/ikpa/capaian/edit/{id}', [AdminCapaianController::class, 'edit']);
+    Route::post('/admin/ikpa/capaian/edit/{id}', [AdminCapaianController::class, 'update']);
+    Route::get('/admin/ikpa/capaian/delete/{id}', [AdminCapaianController::class, 'delete']);
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
