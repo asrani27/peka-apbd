@@ -13,10 +13,10 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">SKPD</label>
-                        <select class="form-control" name="skpd_id" required>
+                        <select class="form-control" name="skpd_id" disabled>
                             <option value="">-skpd-</option>
                             @foreach (skpd() as $item)
-                            <option value="{{$item->id}}">
+                            <option value="{{$item->id}}" {{Auth::user()->skpd->id == $item->id ? 'selected':''}}>
                                 {{$item->nama}}</option>
                             @endforeach
                         </select>
