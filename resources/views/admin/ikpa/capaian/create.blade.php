@@ -8,7 +8,7 @@
                 <h3 class="card-title">Tambah Data</h3>
 
             </div>
-            <form method="POST" action="/superadmin/ikpa/capaian/add" enctype="multipart/form-data">
+            <form method="POST" action="/admin/ikpa/capaian/add" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
