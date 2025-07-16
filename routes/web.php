@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/ikpa/capaian/edit/{id}', [AdminCapaianController::class, 'edit']);
     Route::post('/admin/ikpa/capaian/edit/{id}', [AdminCapaianController::class, 'update']);
     Route::get('/admin/ikpa/capaian/delete/{id}', [AdminCapaianController::class, 'delete']);
+    Route::get('/admin/ikpa/capaian/detail/{id}', [AdminCapaianController::class, 'detail']);
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);

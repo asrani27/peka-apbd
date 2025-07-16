@@ -85,4 +85,9 @@ class AdminCapaianController extends Controller
             return back();
         }
     }
+    public function detail($id)
+    {
+        $data = Capaian::find($id);
+        return view('admin.ikpa.capaian.detail', compact('data'));
+    }
 }
