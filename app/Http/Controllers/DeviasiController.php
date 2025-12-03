@@ -205,7 +205,7 @@ class DeviasiController extends Controller
             return redirect('/superadmin/ikpa/deviasi');
         } catch (\Exception $e) {
             DB::rollBack(); // Jika ada error, rollback transaksi
-            Session::flash('error', $e);
+            Session::flash('error', $e->getMessage());
             return back();
         }
     }
@@ -267,7 +267,7 @@ class DeviasiController extends Controller
                     return redirect('/superadmin/ikpa/deviasi');
                 } catch (\Exception $e) {
                     DB::rollBack(); // Jika ada error, rollback transaksi
-                    Session::flash('error', $e);
+                    Session::flash('error', $e->getMessage());
                     return back();
                 }
             } else {
@@ -293,7 +293,7 @@ class DeviasiController extends Controller
                     return redirect('/superadmin/ikpa/deviasi');
                 } catch (\Exception $e) {
                     DB::rollBack(); // Jika ada error, rollback transaksi
-                    Session::flash('error', $e);
+                    Session::flash('error', $e->getMessage());
                     return back();
                 }
             } else {
