@@ -55,7 +55,7 @@
                                             <td style="border: 1px solid black">
                                                 {{$item->skorRevisiTertimbang($item->semester)}}</td>
                                         </tr>
-                                        {{-- <tr style="background-color: rgb(234, 233, 231); font-size:12px">
+                                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
                                             <td style="border: 1px solid black">Deviasi DPA</td>
                                             <td style="border: 1px solid black">
                                                 {{number_format($item->skorDeviasi($item->tahun,$item->bulan),2)}}</td>
@@ -79,7 +79,7 @@
                                             <td style="border: 1px solid black">0</td>
                                             <td style="border: 1px solid black">40 %</td>
                                             <td style="border: 1px solid black">0</td>
-                                        </tr> --}}
+                                        </tr>
                                     </tbody>
                                 </table>
                             </td>
