@@ -114,10 +114,11 @@
                                 <td>{{$item->kode}}</td>
                                 <td>{{$item->nama}}</td>
                                 <td style="text-align: center">
-                                    @if($ikpaData && $semester)
-                                    {{$ikpaData->skorRevisiTertimbang($semester)}}
+                                    {{-- {{dd($ikpaData, $ikpaData->semester)}} --}}
+                                    @if($ikpaData && $ikpaData->semester)
+                                    {{$ikpaData->skorRevisiTertimbang($ikpaData->semester)}}
                                     @else
-                                    0
+                                    {{110 * 0.15}}
                                     @endif
                                 </td>
                                 <td style="text-align: center">
