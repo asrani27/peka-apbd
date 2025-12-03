@@ -57,6 +57,8 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/skpd', [SkpdController::class, 'index']);
     Route::get('/superadmin/skpd/createuser/{id}', [SkpdController::class, 'createuser']);
     Route::get('/superadmin/skpd/resetpass/{id}', [SkpdController::class, 'resetpass']);
+    Route::get('/superadmin/skpd/edit/{id}', [SkpdController::class, 'edit']);
+    Route::put('/superadmin/skpd/update/{id}', [SkpdController::class, 'update']);
     Route::get('/superadmin/ikpa', [IkpaController::class, 'index']);
     Route::get('/superadmin/ikpa/add', [IkpaController::class, 'create']);
     Route::post('/superadmin/ikpa/add', [IkpaController::class, 'store']);

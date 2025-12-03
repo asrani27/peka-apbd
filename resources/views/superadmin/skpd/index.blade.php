@@ -28,6 +28,9 @@
                             <td>{{$item->kode}}</td>
                             <td>{{$item->nama}}</td>
                             <td>
+                                <a href="/superadmin/skpd/edit/{{$item->id}}" class="btn btn-sm btn-primary"><i
+                                        class="fa fa-edit"> Edit </i></a>
+                                
                                 @if ($item->user == null)
                                 <a href="/superadmin/skpd/createuser/{{$item->id}}" class="btn btn-sm btn-warning"><i
                                         class="fa fa-key"> Create User </i></a>
