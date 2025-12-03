@@ -39,7 +39,8 @@
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
                             <td>
-                                <a href="/superadmin/ikpa/deviasi/detail/{{$item->id}}" class="btn btn-sm btn-info">
+                                <a href="/superadmin/ikpa/deviasi/detail/{{$item->id}}" 
+                                   class="btn btn-sm {{$item->detail()->sum('kolom_c') > 0 ? 'btn-success' : 'btn-danger'}}">
                                     <i class="fa fa-eye"></i> Detail Deviasi
                                 </a>
                                 {{-- <table width="100%" cellpadding="5">
