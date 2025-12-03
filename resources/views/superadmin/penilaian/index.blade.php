@@ -99,6 +99,7 @@
 
                             @php
                             $ikpaData = $item->ikpa->first(); // Get first IKPA record for this SKPD
+                            $deviasiData = $item->deviasi->first(); // Get first Deviasi record for this SKPD
 
                             // Convert month number to month name
                             $monthNames = [
@@ -121,8 +122,8 @@
                                 </td>
                                 <td style="text-align: center">
 
-                                    @if($ikpaData && $tahun && $bulan)
-                                    {{$ikpaData->skorDeviasiTertimbang($tahun, $bulan)}}
+                                    @if($deviasiData && $tahun && $bulan)
+                                    {{$deviasiData->skorDeviasiTertimbang($tahun, $bulan)}}
                                     @else
                                     0
                                     @endif
