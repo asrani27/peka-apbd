@@ -24,19 +24,7 @@
                             <div class="card-body">
                                 <form id="filterForm">
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="semester_filter">
-                                                    <i class="fas fa-calendar-alt"></i> Semester
-                                                </label>
-                                                <select class="form-control" id="semester_filter" name="semester">
-                                                    <option value="">Semua Semester</option>
-                                                    <option value="1">Semester 1</option>
-                                                    <option value="2">Semester 2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="triwulan_filter">
                                                     <i class="fas fa-chart-pie"></i> Triwulan
@@ -132,6 +120,7 @@
                                     @endif
                                 </td>
                                 <td style="text-align: center">
+
                                     @if($ikpaData && $tahun && $bulan)
                                     {{$ikpaData->skorDeviasiTertimbang($tahun, $bulan)}}
                                     @else
@@ -189,7 +178,6 @@
 @push('js')
 <script>
     function applyFilters() {
-    const semester = document.getElementById('semester_filter').value;
     const triwulan = document.getElementById('triwulan_filter').value;
     const tahun = document.getElementById('tahun_filter').value;
     
@@ -197,12 +185,6 @@
     let url = new URL(window.location.href);
     
     // Add or update parameters
-    if (semester) {
-        url.searchParams.set('semester', semester);
-    } else {
-        url.searchParams.delete('semester');
-    }
-    
     if (triwulan) {
         url.searchParams.set('triwulan', triwulan);
     } else {
@@ -221,7 +203,6 @@
 
 function resetFilters() {
     // Reset all select elements
-    document.getElementById('semester_filter').value = '';
     document.getElementById('triwulan_filter').value = '';
     document.getElementById('tahun_filter').value = '';
     
@@ -238,13 +219,8 @@ function resetFilters() {
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    const semester = urlParams.get('semester');
     const triwulan = urlParams.get('triwulan');
     const tahun = urlParams.get('tahun');
-    
-    if (semester) {
-        document.getElementById('semester_filter').value = semester;
-    }
     
     if (triwulan) {
         document.getElementById('triwulan_filter').value = triwulan;
