@@ -20,6 +20,21 @@
                 <br />
                 <a href="/superadmin/ikpa/deviasi/detail/{{$data->skpd->kode}}/{{$data->tahun}}/tarikdata"
                     class="btn btn-primary"><i class="fa fa-sync"></i> Tarik Data Kenangan</a>
+
+                @php
+                $septemberData = $data->detail->where('bulan', 'September')->first();
+                @endphp
+
+                @if($septemberData)
+                <div class="mt-3">
+                    <div class="alert alert-info">
+                        <strong>Nilai IKPA September:</strong>
+
+                        <span class="float-right font-weight-bold">{{ number_format($septemberData->nilai_ikpa, 2)
+                            }}</span>
+                    </div>
+                </div>
+                @endif
             </div>
             <!-- /.card-body -->
         </div>
