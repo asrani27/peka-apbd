@@ -36,12 +36,12 @@ class IkpaController extends Controller
     }
     public function revisi()
     {
-        $data = Ikpa::paginate(10);
+        $data = Ikpa::get();
         return view('superadmin.ikpa.revisi.index', compact('data'));
     }
     public function deviasi()
     {
-        $data = Ikpa::paginate(10);
+        $data = Ikpa::get();
         return view('superadmin.ikpa.deviasi.index', compact('data'));
     }
     public function create()
@@ -78,7 +78,7 @@ class IkpaController extends Controller
         try {
             $bulanNama = $request->input('bulan');
             $tahun = $request->input('tahun');
-            
+
             // Validate input
             if (!$bulanNama || !$tahun) {
                 return response()->json([
@@ -86,37 +86,56 @@ class IkpaController extends Controller
                     'message' => 'Bulan dan tahun harus diisi'
                 ]);
             }
-            
+
             if ($tahun < 2020 || $tahun > 2030) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tahun harus antara 2020-2030'
                 ]);
             }
-            
+
             // Validate month name
             $validMonths = [
-                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
             ];
-            
+
             if (!in_array($bulanNama, $validMonths)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Bulan tidak valid'
                 ]);
             }
-            
+
             // Calculate semester and triwulan based on month name
             $monthToNumber = [
-                'Januari' => 1, 'Februari' => 2, 'Maret' => 3, 'April' => 4,
-                'Mei' => 5, 'Juni' => 6, 'Juli' => 7, 'Agustus' => 8,
-                'September' => 9, 'Oktober' => 10, 'November' => 11, 'Desember' => 12
+                'Januari' => 1,
+                'Februari' => 2,
+                'Maret' => 3,
+                'April' => 4,
+                'Mei' => 5,
+                'Juni' => 6,
+                'Juli' => 7,
+                'Agustus' => 8,
+                'September' => 9,
+                'Oktober' => 10,
+                'November' => 11,
+                'Desember' => 12
             ];
-            
+
             $bulanNumber = $monthToNumber[$bulanNama];
             $semester = ($bulanNumber <= 6) ? 1 : 2;
-            
+
             if ($bulanNumber <= 3) {
                 $triwulan = 1;
             } elseif ($bulanNumber <= 6) {
@@ -126,12 +145,12 @@ class IkpaController extends Controller
             } else {
                 $triwulan = 4;
             }
-            
+
             // Get all SKPD
             $skpdList = Skpd::all();
             $insertedCount = 0;
             $skippedCount = 0;
-            
+
             foreach ($skpdList as $skpd) {
                 try {
                     // Check if data already exists
@@ -139,7 +158,7 @@ class IkpaController extends Controller
                         ->where('bulan', $bulanNama)
                         ->where('tahun', $tahun)
                         ->first();
-                    
+
                     if (!$existingData) {
                         // Create new IKPA record
                         Ikpa::create([
@@ -160,13 +179,12 @@ class IkpaController extends Controller
                     continue;
                 }
             }
-            
+
             return response()->json([
                 'success' => true,
-                'message' => "Berhasil memasukkan {$insertedCount} data SKPD. " . 
-                            ($skippedCount > 0 ? "{$skippedCount} data sudah ada dan dilewati." : "")
+                'message' => "Berhasil memasukkan {$insertedCount} data SKPD. " .
+                    ($skippedCount > 0 ? "{$skippedCount} data sudah ada dan dilewati." : "")
             ]);
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
