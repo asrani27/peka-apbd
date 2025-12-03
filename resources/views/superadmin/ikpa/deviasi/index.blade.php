@@ -12,6 +12,10 @@
                         Excel</a>
                     <a href="/superadmin/ikpa/deviasi/add" class='btn btn-sm btn-primary'>Tambah
                         Data</a>
+                    <a href="/superadmin/ikpa/deviasi/insert-all-2025" class='btn btn-sm btn-success' 
+                       onclick="return confirm('Apakah Anda yakin ingin menambahkan data deviasi untuk semua SKPD tahun 2025?');">
+                        <i class="fa fa-plus"></i> Masukkan Semua SKPD Tahun 2025
+                    </a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -20,6 +24,7 @@
                     <thead class="bg-primary">
                         <tr>
                             <th>No</th>
+                            <th>Kode</th>
                             <th>SKPD</th>
                             <th>Tahun</th>
                             <th>Detail</th>
@@ -30,6 +35,7 @@
                         @foreach ($data as $key => $item)
                         <tr style="font-size:14px">
                             <td>{{$key + 1}}</td>
+                            <td>{{$item->skpd == null ? null : $item->skpd->kode}}</td>
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
                             <td>

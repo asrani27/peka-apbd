@@ -93,8 +93,79 @@ class DeviasiController extends Controller
 
     public function index()
     {
-        $data = Deviasi::orderBy('id', 'DESC')->paginate(10);
+        $data = Deviasi::join('skpd', 'deviasi.skpd_id', '=', 'skpd.id')
+            ->orderBy('skpd.kode', 'ASC')
+            ->select('deviasi.*')
+            ->get();
         return view('superadmin.ikpa.deviasi.index', compact('data'));
+    }
+
+    public function insertAllSkpd2025()
+    {
+        DB::beginTransaction();
+        try {
+            $tahun = 2025;
+            $skpdList = Skpd::all();
+            $insertedCount = 0;
+
+            foreach ($skpdList as $skpd) {
+                // Check if deviasi data already exists for this SKPD and tahun
+                $existing = Deviasi::where('skpd_id', $skpd->id)
+                    ->where('tahun', $tahun)
+                    ->first();
+
+                if (!$existing) {
+                    // Create new deviasi record
+                    $newDeviasi = new Deviasi();
+                    $newDeviasi->skpd_id = $skpd->id;
+                    $newDeviasi->tahun = $tahun;
+                    $newDeviasi->save();
+
+                    // Create 12 months of deviasi detail records with default values
+                    $bulanList = [
+                        'Januari',
+                        'Februari',
+                        'Maret',
+                        'April',
+                        'Mei',
+                        'Juni',
+                        'Juli',
+                        'Agustus',
+                        'September',
+                        'Oktober',
+                        'November',
+                        'Desember'
+                    ];
+
+                    foreach ($bulanList as $bulan) {
+                        $newDetail = new DeviasiDetail();
+                        $newDetail->deviasi_id = $newDeviasi->id;
+                        $newDetail->skpd_id = $skpd->id;
+                        $newDetail->tahun = $tahun;
+                        $newDetail->bulan = $bulan;
+                        $newDetail->kolom_c = 0;
+                        $newDetail->kolom_d = 0;
+                        $newDetail->kolom_e = 0;
+                        $newDetail->kolom_f = 0;
+                        $newDetail->kolom_g = 0;
+                        $newDetail->kolom_h = 0;
+                        $newDetail->kolom_i = 0;
+                        $newDetail->kolom_j = 0;
+                        $newDetail->save();
+                    }
+
+                    $insertedCount++;
+                }
+            }
+
+            DB::commit();
+            Session::flash('success', "Berhasil menambahkan data deviasi untuk {$insertedCount} SKPD tahun {$tahun}");
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Session::flash('error', 'Gagal menambahkan data: ' . $e->getMessage());
+            return back();
+        }
     }
     public function detail($id)
     {
