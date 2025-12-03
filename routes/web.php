@@ -76,8 +76,10 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/deviasi/detail/{id}', [DeviasiController::class, 'detail']);
     Route::post('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'update']);
     Route::get('/superadmin/ikpa/deviasi/delete/{id}', [DeviasiController::class, 'delete']);
+    Route::get('/superadmin/ikpa/deviasi/detail/{kode_skpd}/{tahun}/tarikdata', [DeviasiController::class, 'tarikdata']);
     Route::get('/superadmin/ikpa/penyerapan', [PenyerapanController::class, 'index']);
     Route::get('/superadmin/ikpa/penyerapan/detail/{id}', [PenyerapanController::class, 'detail']);
+
 
     Route::get('/superadmin/ikpa/capaian', [CapaianController::class, 'index']);
     Route::get('/superadmin/ikpa/capaian/add', [CapaianController::class, 'add']);

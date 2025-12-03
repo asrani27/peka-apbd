@@ -16,10 +16,10 @@
                         <td style="border: 1px solid black; background-color:antiquewhite; font-weight:bold">TAHUN</td>
                         <td style="border: 1px solid black;">: {{$data->tahun}}</td>
                     </tr>
-
                 </table>
                 <br />
-
+                <a href="/superadmin/ikpa/deviasi/detail/{{$data->skpd->kode}}/{{$data->tahun}}/tarikdata"
+                    class="btn btn-primary"><i class="fa fa-sync"></i> Tarik Data Kenangan</a>
             </div>
             <!-- /.card-body -->
         </div>

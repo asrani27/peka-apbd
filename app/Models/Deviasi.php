@@ -38,19 +38,25 @@ class Deviasi extends Model
     }
     public function proporsiPaguRAK51()
     {
-        return $this->jumlahRAK51() / $this->totalPagu() * 100;
+        $total = $this->totalPagu();
+        return $total > 0 ? ($this->jumlahRAK51() / $total) * 100 : 0;
     }
+
     public function proporsiPaguRAK52()
     {
-        return $this->jumlahRAK52() / $this->totalPagu() * 100;
+        $total = $this->totalPagu();
+        return $total > 0 ? ($this->jumlahRAK52() / $total) * 100 : 0;
     }
+
     public function proporsiPaguRAK53()
     {
         return 0;
     }
+
     public function proporsiPaguRAK54()
     {
-        return $this->jumlahRAK54() / $this->totalPagu() * 100;
+        $total = $this->totalPagu();
+        return $total > 0 ? ($this->jumlahRAK54() / $total) * 100 : 0;
     }
     public function totalProporsiPagu()
     {
