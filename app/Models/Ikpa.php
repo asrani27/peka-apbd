@@ -64,6 +64,7 @@ class Ikpa extends Model
     }
     public function skorDeviasi($tahun, $bulan)
     {
+        dd($tahun, $bulan);
         return optional(DeviasiDetail::where('tahun', $tahun)->where('bulan', $bulan)->first())->nilai_ikpa ?? 0;
     }
     public function skorDeviasiTertimbang($tahun, $bulan)

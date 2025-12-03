@@ -58,7 +58,7 @@
                                         <tr style="background-color: rgb(234, 233, 231); font-size:12px">
                                             <td style="border: 1px solid black">Deviasi DPA</td>
                                             <td style="border: 1px solid black">
-                                                {{dd($item->skorDeviasi($item->tahun,$item->bulan),2)}}
+
                                                 {{number_format($item->skorDeviasi($item->tahun,$item->bulan),2)}}</td>
                                             <td style="border: 1px solid black">20 %</td>
                                             <td style="border: 1px solid black">
