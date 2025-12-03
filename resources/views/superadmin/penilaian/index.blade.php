@@ -66,10 +66,12 @@
                                             <div class="form-group">
                                                 <label>&nbsp;</label>
                                                 <div class="d-block">
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="applyFilters()">
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        onclick="applyFilters()">
                                                         <i class="fas fa-search"></i> Terapkan
                                                     </button>
-                                                    <button type="button" class="btn btn-default btn-sm ml-1" onclick="resetFilters()">
+                                                    <button type="button" class="btn btn-default btn-sm ml-1"
+                                                        onclick="resetFilters()">
                                                         <i class="fas fa-redo"></i> Reset
                                                     </button>
                                                 </div>
@@ -81,98 +83,98 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Table -->
                 <div class="mt-3 table-responsive">
                     <table class="table table-hover text-nowrap table-sm table-bordered">
-                    <thead class="bg-primary">
-                        <tr>
-                            <th rowspan="2" style="vertical-align: middle; text-align:center">No</th>
-                            <th rowspan="2" style="vertical-align: middle; text-align:center">Kode</th>
-                            <th rowspan="2" style="vertical-align: middle; text-align:center">Nama</th>
-                            <th colspan="5" style="vertical-align: middle; text-align:center">Nilai Capaian</th>
-                            <th colspan="2" style="vertical-align: middle; text-align:center">Periode</th>
-                        </tr>
-                        <tr class="bg-primary">
-                            <th style="vertical-align: middle; text-align:center">Revisi DPA</th>
-                            <th style="vertical-align: middle; text-align:center">Deviasi DPA</th>
-                            <th style="vertical-align: middle; text-align:center">Penyerapan Anggaran</th>
-                            <th style="vertical-align: middle; text-align:center">Capaian Output</th>
-                            <th style="vertical-align: middle; text-align:center">Total Nilai Capaian</th>
-                            <th style="vertical-align: middle; text-align:center">Semester</th>
-                            <th style="vertical-align: middle; text-align:center">Triwulan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($skpd as $key => $item)
-                        @php
+                        <thead class="bg-primary">
+                            <tr>
+                                <th rowspan="2" style="vertical-align: middle; text-align:center">No</th>
+                                <th rowspan="2" style="vertical-align: middle; text-align:center">Kode</th>
+                                <th rowspan="2" style="vertical-align: middle; text-align:center">Nama</th>
+                                <th colspan="5" style="vertical-align: middle; text-align:center">Nilai Capaian</th>
+                                <th colspan="2" style="vertical-align: middle; text-align:center">Periode</th>
+                            </tr>
+                            <tr class="bg-primary">
+                                <th style="vertical-align: middle; text-align:center">Revisi DPA</th>
+                                <th style="vertical-align: middle; text-align:center">Deviasi DPA</th>
+                                <th style="vertical-align: middle; text-align:center">Penyerapan Anggaran</th>
+                                <th style="vertical-align: middle; text-align:center">Capaian Output</th>
+                                <th style="vertical-align: middle; text-align:center">Total Nilai Capaian</th>
+                                <th style="vertical-align: middle; text-align:center">Semester</th>
+                                <th style="vertical-align: middle; text-align:center">Triwulan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($skpd as $key => $item)
+                            @php
                             $ikpaData = $item->ikpa->first(); // Get first IKPA record for this SKPD
-                        @endphp
-                        <tr>
-                            <td>{{$key + 1}}</td>
-                            <td>{{$item->kode}}</td>
-                            <td>{{$item->nama}}</td>
-                            <td style="text-align: center">
-                                @if($ikpaData && $semester)
+                            @endphp
+                            <tr>
+                                <td>{{$key + 1}}</td>
+                                <td>{{$item->kode}}</td>
+                                <td>{{$item->nama}}</td>
+                                <td style="text-align: center">
+                                    @if($ikpaData && $semester)
                                     {{$ikpaData->skorRevisiTertimbang($semester)}}
-                                @else
+                                    @else
                                     0
-                                @endif
-                            </td>
-                            <td style="text-align: center">
-                                @if($ikpaData && $tahun && $bulan)
+                                    @endif
+                                </td>
+                                <td style="text-align: center">
+                                    @if($ikpaData && $tahun && $bulan)
                                     {{$ikpaData->skorDeviasiTertimbang($tahun, $bulan)}}
-                                @else
+                                    @else
                                     0
-                                @endif
-                            </td>
-                            <td style="text-align: center">
-                                @if($ikpaData && $tahun && $bulan)
+                                    @endif
+                                </td>
+                                <td style="text-align: center">
+                                    @if($ikpaData && $tahun && $bulan)
                                     {{$ikpaData->skorPenyerapanTertimbang($tahun, $bulan)}}
-                                @else
+                                    @else
                                     0
-                                @endif
-                            </td>
-                            <td style="text-align: center">
-                                @if($ikpaData && $tahun && $bulan)
+                                    @endif
+                                </td>
+                                <td style="text-align: center">
+                                    @if($ikpaData && $tahun && $bulan)
                                     {{-- Placeholder for Capaian Output score --}}
                                     0
-                                @else
+                                    @else
                                     0
-                                @endif
-                            </td>
-                            <td style="text-align: center">
-                                {{-- Calculate Total Nilai Capaian --}}
-                                @if($ikpaData && $semester && $tahun && $bulan)
-                                    {{($ikpaData->skorRevisiTertimbang($semester) + 
-                                       $ikpaData->skorDeviasiTertimbang($tahun, $bulan) + 
-                                       $ikpaData->skorPenyerapanTertimbang($tahun, $bulan) + 0)}}
-                                @else
+                                    @endif
+                                </td>
+                                <td style="text-align: center">
+                                    {{-- Calculate Total Nilai Capaian --}}
+                                    @if($ikpaData && $semester && $tahun && $bulan)
+                                    {{($ikpaData->skorRevisiTertimbang($semester) +
+                                    $ikpaData->skorDeviasiTertimbang($tahun, $bulan) +
+                                    $ikpaData->skorPenyerapanTertimbang($tahun, $bulan) + 0)}}
+                                    @else
                                     0
-                                @endif
-                            </td>
-                            <td style="text-align: center">
-                                {{$semester ?? '-'}}
-                            </td>
-                            <td style="text-align: center">
-                                {{$triwulan ?? '-'}}
-                            </td>
-                        </tr>
-                        @endforeach
+                                    @endif
+                                </td>
+                                <td style="text-align: center">
+                                    {{$semester ?? '-'}}
+                                </td>
+                                <td style="text-align: center">
+                                    {{$triwulan ?? '-'}}
+                                </td>
+                            </tr>
+                            @endforeach
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('js')
 <script>
-function applyFilters() {
+    function applyFilters() {
     const semester = document.getElementById('semester_filter').value;
     const triwulan = document.getElementById('triwulan_filter').value;
     const tahun = document.getElementById('tahun_filter').value;
