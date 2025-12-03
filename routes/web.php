@@ -67,6 +67,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/delete/{id}', [IkpaController::class, 'delete']);
 
     Route::get('/superadmin/ikpa/revisi', [IkpaController::class, 'revisi']);
+    Route::post('/superadmin/ikpa/revisi/insert-all-skpd', [IkpaController::class, 'insertAllSkpd']);
     Route::get('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'index']);
     Route::post('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'store']);
     Route::get('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'edit']);
