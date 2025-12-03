@@ -11,8 +11,80 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive">
-                <table class="table table-hover text-nowrap table-sm table-bordered">
+            <div class="card-body">
+                <!-- Filter Section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-outline card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-filter"></i> Filter Data
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="filterForm">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="semester_filter">
+                                                    <i class="fas fa-calendar-alt"></i> Semester
+                                                </label>
+                                                <select class="form-control" id="semester_filter" name="semester">
+                                                    <option value="">Semua Semester</option>
+                                                    <option value="1">Semester 1</option>
+                                                    <option value="2">Semester 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="triwulan_filter">
+                                                    <i class="fas fa-chart-pie"></i> Triwulan
+                                                </label>
+                                                <select class="form-control" id="triwulan_filter" name="triwulan">
+                                                    <option value="">Semua Triwulan</option>
+                                                    <option value="1">Triwulan 1</option>
+                                                    <option value="2">Triwulan 2</option>
+                                                    <option value="3">Triwulan 3</option>
+                                                    <option value="4">Triwulan 4</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="tahun_filter">
+                                                    <i class="fas fa-calendar"></i> Tahun
+                                                </label>
+                                                <select class="form-control" id="tahun_filter" name="tahun">
+                                                    <option value="">Semua Tahun</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <div class="d-block">
+                                                    <button type="button" class="btn btn-primary btn-sm" onclick="applyFilters()">
+                                                        <i class="fas fa-search"></i> Terapkan
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm ml-1" onclick="resetFilters()">
+                                                        <i class="fas fa-redo"></i> Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Table -->
+                <div class="mt-3 table-responsive">
+                    <table class="table table-hover text-nowrap table-sm table-bordered">
                     <thead class="bg-primary">
                         <tr>
                             <th rowspan="2" style="vertical-align: middle; text-align:center">No</th>
@@ -33,17 +105,58 @@
                     </thead>
                     <tbody>
                         @foreach ($skpd as $key => $item)
+                        @php
+                            $ikpaData = $item->ikpa->first(); // Get first IKPA record for this SKPD
+                        @endphp
                         <tr>
                             <td>{{$key + 1}}</td>
                             <td>{{$item->kode}}</td>
                             <td>{{$item->nama}}</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
-                            <td style="text-align: center">0</td>
+                            <td style="text-align: center">
+                                @if($ikpaData && $semester)
+                                    {{$ikpaData->skorRevisiTertimbang($semester)}}
+                                @else
+                                    0
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                @if($ikpaData && $tahun && $bulan)
+                                    {{$ikpaData->skorDeviasiTertimbang($tahun, $bulan)}}
+                                @else
+                                    0
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                @if($ikpaData && $tahun && $bulan)
+                                    {{$ikpaData->skorPenyerapanTertimbang($tahun, $bulan)}}
+                                @else
+                                    0
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                @if($ikpaData && $tahun && $bulan)
+                                    {{-- Placeholder for Capaian Output score --}}
+                                    0
+                                @else
+                                    0
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                {{-- Calculate Total Nilai Capaian --}}
+                                @if($ikpaData && $semester && $tahun && $bulan)
+                                    {{($ikpaData->skorRevisiTertimbang($semester) + 
+                                       $ikpaData->skorDeviasiTertimbang($tahun, $bulan) + 
+                                       $ikpaData->skorPenyerapanTertimbang($tahun, $bulan) + 0)}}
+                                @else
+                                    0
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                {{$semester ?? '-'}}
+                            </td>
+                            <td style="text-align: center">
+                                {{$triwulan ?? '-'}}
+                            </td>
                         </tr>
                         @endforeach
 
@@ -56,3 +169,74 @@
 </div>
 
 @endsection
+
+@push('js')
+<script>
+function applyFilters() {
+    const semester = document.getElementById('semester_filter').value;
+    const triwulan = document.getElementById('triwulan_filter').value;
+    const tahun = document.getElementById('tahun_filter').value;
+    
+    // Build URL with query parameters
+    let url = new URL(window.location.href);
+    
+    // Add or update parameters
+    if (semester) {
+        url.searchParams.set('semester', semester);
+    } else {
+        url.searchParams.delete('semester');
+    }
+    
+    if (triwulan) {
+        url.searchParams.set('triwulan', triwulan);
+    } else {
+        url.searchParams.delete('triwulan');
+    }
+    
+    if (tahun) {
+        url.searchParams.set('tahun', tahun);
+    } else {
+        url.searchParams.delete('tahun');
+    }
+    
+    // Redirect to filtered URL
+    window.location.href = url.toString();
+}
+
+function resetFilters() {
+    // Reset all select elements
+    document.getElementById('semester_filter').value = '';
+    document.getElementById('triwulan_filter').value = '';
+    document.getElementById('tahun_filter').value = '';
+    
+    // Clear all query parameters and reload
+    let url = new URL(window.location.href);
+    url.searchParams.delete('semester');
+    url.searchParams.delete('triwulan');
+    url.searchParams.delete('tahun');
+    
+    window.location.href = url.toString();
+}
+
+// Set filter values from URL parameters on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const semester = urlParams.get('semester');
+    const triwulan = urlParams.get('triwulan');
+    const tahun = urlParams.get('tahun');
+    
+    if (semester) {
+        document.getElementById('semester_filter').value = semester;
+    }
+    
+    if (triwulan) {
+        document.getElementById('triwulan_filter').value = triwulan;
+    }
+    
+    if (tahun) {
+        document.getElementById('tahun_filter').value = tahun;
+    }
+});
+</script>
+@endpush

@@ -265,14 +265,14 @@
                                     <a href="/superadmin/penilaian/jadwal"
                                         class="nav-link {{request()->is('superadmin/penilaian/jadwal*') ? 'active':''}}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Jadwal Penialain </p>
+                                        <p>Jadwal Penilaian </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/superadmin/penilaian/hasil"
                                         class="nav-link {{request()->is('superadmin/penilaian/hasil*') ? 'active':''}}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Hasil Penialaian</p>
+                                        <p>Hasil Penilaian</p>
                                     </a>
                                 </li>
 
