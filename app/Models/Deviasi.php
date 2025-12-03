@@ -89,4 +89,30 @@ class Deviasi extends Model
     {
         return round($this->skorDeviasi($tahun, $bulan) * 20 / 100, 2);
     }
+    public function skorPenyerapan($tahun, $bulan)
+    {
+        // Convert month number to month name
+        $monthNames = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+
+        $bulanNama = $monthNames[$bulan] ?? $bulan;
+
+        return optional($this->detail()->where('tahun', $tahun)->where('bulan', $bulanNama)->first())->penyerapanAnggaran() ?? 0;
+    }
+    public function skorPenyerapanTertimbang($tahun, $bulan)
+    {
+        return round($this->skorPenyerapan($tahun, $bulan) * 30 / 100, 2);
+    }
 }

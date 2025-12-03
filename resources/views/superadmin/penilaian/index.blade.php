@@ -129,8 +129,8 @@
                                     @endif
                                 </td>
                                 <td style="text-align: center">
-                                    @if($ikpaData && $tahun && $bulan)
-                                    {{$ikpaData->skorPenyerapanTertimbang($tahun, $bulan)}}
+                                    @if($deviasiData && $tahun && $bulan)
+                                    {{$deviasiData->skorPenyerapanTertimbang($tahun, $bulan)}}
                                     @else
                                     0
                                     @endif

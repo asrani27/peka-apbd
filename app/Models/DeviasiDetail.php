@@ -190,7 +190,8 @@ class DeviasiDetail extends Model
     }
     public function penyerapanAnggaran()
     {
-        return ($this->RAKRealisasiKB() / $this->deviasi->totalPagu()) * 100;
+        $totalPagu = $this->deviasi->totalPagu();
+        return $totalPagu > 0 ? ($this->RAKRealisasiKB() / $totalPagu) * 100 : 0;
     }
     function bulanKeAngka($bulan)
     {
