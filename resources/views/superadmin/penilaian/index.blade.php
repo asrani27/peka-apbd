@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data SKPD</h3>
+                <h3 class="card-title">Data SKPD.</h3>
 
                 <div class="card-tools">
                 </div>
@@ -106,9 +106,19 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach ($skpd as $key => $item)
+
                             @php
                             $ikpaData = $item->ikpa->first(); // Get first IKPA record for this SKPD
+
+                            // Convert month number to month name
+                            $monthNames = [
+                            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+                            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+                            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+                            ];
+                            $bulanNama = $monthNames[$bulan] ?? $bulan;
                             @endphp
                             <tr>
                                 <td>{{$key + 1}}</td>
@@ -157,7 +167,11 @@
                                     {{$semester ?? '-'}}
                                 </td>
                                 <td style="text-align: center">
-                                    {{$triwulan ?? '-'}}
+                                    @if($bulanNama)
+                                    {{ $tahun ? $bulanNama . ' ' . $tahun : $bulanNama }}
+                                    @else
+                                    {{ $triwulan ?? '-' }}
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

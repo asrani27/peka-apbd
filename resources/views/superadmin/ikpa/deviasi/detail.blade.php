@@ -30,8 +30,7 @@
                     <div class="alert alert-info">
                         <strong>Nilai IKPA September:</strong>
 
-                        <span class="float-right font-weight-bold">{{ number_format($septemberData->nilai_ikpa, 2)
-                            }}</span>
+                        <span class="float-right font-weight-bold">{{ number_format($septemberData->nilai_ikpa, 2) }} / {{ number_format($septemberData->nilai_ikpa * 0.2, 2) }}</span>
                     </div>
                 </div>
                 @endif
