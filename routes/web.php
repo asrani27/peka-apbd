@@ -21,6 +21,15 @@ use App\Http\Controllers\CapaianController;
 use App\Http\Controllers\JadwalController;
 
 Route::get('/', [LoginController::class, 'welcome']);
+Route::get('/welcome1', function () {
+    return view('welcome1');
+});
+Route::get('/welcome2', function () {
+    return view('welcome2');
+});
+Route::get('/welcome3', function () {
+    return view('welcome3');
+});
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 

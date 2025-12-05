@@ -163,7 +163,7 @@
 </head>
 
 <body class="font-poppins bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
-    <div class="min-h-screen flex flex-col">
+
     <!--====== NAVBAR PART START ======-->
     <nav
         class="bg-gradient-to-r from-blue-600/90 via-indigo-600/90 to-purple-600/90 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b border-white/20">
@@ -229,7 +229,7 @@
     </nav>
 
     <!--====== HERO SECTION START ======-->
-    <section class="relative overflow-hidden pt-2 pb-8 flex-1">
+    <section class="relative overflow-hidden pt-2 pb-8">
         <!-- Animated Background -->
         <div class="absolute inset-0">
             <div
@@ -241,6 +241,58 @@
             <div
                 class="absolute bottom-20 left-1/2 w-72 h-72 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000">
             </div>
+        </div>
+
+        <!-- Animated Wave Background (Behind Cards) -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden z-0">
+            <svg class="relative block w-full h-32 animate-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="wave-gradient-bg" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.1" />
+                        <stop offset="33%" style="stop-color:#8B5CF6;stop-opacity:0.15" />
+                        <stop offset="66%" style="stop-color:#EC4899;stop-opacity:0.1" />
+                        <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:0.05" />
+                    </linearGradient>
+                    <linearGradient id="wave-gradient-bg2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.08" />
+                        <stop offset="50%" style="stop-color:#EC4899;stop-opacity:0.12" />
+                        <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.08" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Back wave layer -->
+                <path d="M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z" 
+                    fill="url(#wave-gradient-bg)" opacity="0.6">
+                    <animate attributeName="d" 
+                        values="M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z;
+                                M0,60 C150,30 350,90 600,60 C850,30 1050,90 1200,60 L1200,120 L0,120 Z;
+                                M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z"
+                        dur="8s" 
+                        repeatCount="indefinite" />
+                </path>
+                
+                <!-- Middle wave layer -->
+                <path d="M0,80 C200,50 400,110 600,80 C800,50 1000,110 1200,80 L1200,120 L0,120 Z" 
+                    fill="url(#wave-gradient-bg2)" opacity="0.8">
+                    <animate attributeName="d" 
+                        values="M0,80 C200,50 400,110 600,80 C800,50 1000,110 1200,80 L1200,120 L0,120 Z;
+                                M0,80 C200,110 400,50 600,80 C800,110 1000,50 1200,80 L1200,120 L0,120 Z;
+                                M0,80 C200,50 400,110 600,80 C800,50 1000,110 1200,80 L1200,120 L0,120 Z"
+                        dur="6s" 
+                        repeatCount="indefinite" />
+                </path>
+                
+                <!-- Front wave layer -->
+                <path d="M0,100 C150,70 350,130 600,100 C850,70 1050,130 1200,100 L1200,120 L0,120 Z" 
+                    fill="url(#wave-gradient-bg)" opacity="1">
+                    <animate attributeName="d" 
+                        values="M0,100 C150,70 350,130 600,100 C850,70 1050,130 1200,100 L1200,120 L0,120 Z;
+                                M0,100 C150,130 350,70 600,100 C850,130 1050,70 1200,100 L1200,120 L0,120 Z;
+                                M0,100 C150,70 350,130 600,100 C850,70 1050,130 1200,100 L1200,120 L0,120 Z"
+                        dur="10s" 
+                        repeatCount="indefinite" />
+                </path>
+            </svg>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -327,6 +379,27 @@
                                     <i class="fas fa-quote-right text-purple-400 absolute bottom-2 right-2 text-xs"></i>
                                 </div>
 
+                                <!-- Social Media with Hover Effects -->
+                                <div class="flex justify-center space-x-3 pt-2">
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-facebook-f text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-twitter text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-instagram text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -464,7 +537,7 @@
                             <div class="p-6 pt-4 text-center space-y-4">
                                 <!-- Name with Decorative Underline -->
                                 <div class="relative">
-                                    <h3 class="text-xl font-bold text-gray-900 relative z-10">Hj. Ananda
+                                    <h3 class="text-xl font-bold text-gray-900 relative z-10">H. Ananda
                                     </h3>
                                     <div
                                         class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full">
@@ -494,6 +567,27 @@
                                     <i class="fas fa-quote-right text-pink-400 absolute bottom-2 right-2 text-xs"></i>
                                 </div>
 
+                                <!-- Social Media with Hover Effects -->
+                                <div class="flex justify-center space-x-3 pt-2">
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-facebook-f text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-twitter text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div
+                                            class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300 cursor-pointer">
+                                            <i class="fab fa-instagram text-white text-sm"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -518,7 +612,6 @@
             }
         });
     </script>
-    </div>
 </body>
 
 </html>
