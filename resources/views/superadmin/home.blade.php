@@ -219,6 +219,20 @@
         updateFilterVisibility();
     });
 
+    // Sortir SKPD berdasarkan kode SKPD (angka di awal label)
+    skpd.sort((a, b) => {
+        // Extract kode SKPD (angka di awal label)
+        const getKodeSkpd = (label) => {
+            const match = label.match(/^(\d+)\./);
+            return match ? parseInt(match[1]) : 0;
+        };
+        
+        const kodeA = getKodeSkpd(a.label);
+        const kodeB = getKodeSkpd(b.label);
+        
+        return kodeA - kodeB;
+    });
+
     skpd = skpd.map(item => ({
         label: item.label, // Nama SKPD tetap sebagai label di sumbu X
         y: item.y, // Nilai capaian
@@ -229,6 +243,9 @@
     }));
 
     window.onload = function () {
+        // Debug: Log sorted data untuk memastikan konsistensi
+        console.log("Data for Horizontal Chart:", skpd);
+        console.log("Data for Vertical Chart:", skpd);
         
         // Horizontal Bar Chart (First Chart)
         var chartHorizontal = new CanvasJS.Chart("chartContainer", {
@@ -262,7 +279,7 @@
                 type: "bar", 
                 dataPointWidth: 1,
                 yValueFormatString: "#,##0.00",
-                dataPoints: skpd,
+                dataPoints: skpd, // Menggunakan data yang sudah di-sortir
                 color: "#007bff" // Primary blue color
             }]
         });
@@ -292,7 +309,7 @@
             data: [{
                 type: "column",
                 yValueFormatString: "#,##0.00",
-                dataPoints: skpd,
+                dataPoints: skpd, // Menggunakan data yang sama sudah di-sortir
                 color: "#28a745" // Green color for vertical chart
             }]
         });
