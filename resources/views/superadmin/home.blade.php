@@ -128,9 +128,17 @@
             </div>
         </div>
     </div>
+    <!-- Chart Horizontal -->
     <div class="col-md-12">
         <div class="card">
-            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer" style="height: 600px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- Horizontal Bar Chart -->
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div id="chartContainerHorizontal" style="height: 500px; width: 100%;"></div>
         </div>
     </div>
 </div>
@@ -214,24 +222,63 @@
     skpd = skpd.map(item => ({
         label: item.label, // Nama SKPD tetap sebagai label di sumbu X
         y: item.y, // Nilai capaian
-        indexLabel: item.y.toFixed(2) + "%", // Menampilkan nilai Y di atas batang
+        indexLabel: item.y.toFixed(2), // Menampilkan nilai Y di atas batang tanpa %
         indexLabelFontWeight: "bold", // Buat teks lebih tebal
         indexLabelFontSize: 14, // Ukuran font lebih besar agar mudah dibaca
         indexLabelFontColor: "black" // Warna teks hitam agar kontras
     }));
 
     window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer", {
+        
+        // Horizontal Bar Chart (First Chart)
+        var chartHorizontal = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "light2",
             title: {
-                text: getChartTitle(penilaianType),
+                text: getChartTitle(penilaianType) + " (Horizontal)",
+                fontSize: 10,
+                fontWeight: "bold"
+            },
+        axisX: {
+                interval: 1,
+                labelFontSize: 12,
+                },
+        axisY: {
+                title: "",
+                labelFontSize: 12,
+                includeZero: true,
+                scaleBreaks: {
+                    type: "wavy",
+                    customBreaks: [{
+                        startValue: 80,
+                        endValue: 210
+                    },{
+                        startValue: 230,
+                        endValue: 600
+                    }]
+                }
+            },
+            data: [{
+                type: "bar", 
+                dataPointWidth: 1,
+                yValueFormatString: "#,##0.00",
+                dataPoints: skpd,
+                color: "#007bff" // Primary blue color
+            }]
+        });
+        chartHorizontal.render();
+        
+        // Vertical Column Chart (Second Chart)
+        var chartVertical = new CanvasJS.Chart("chartContainerHorizontal", {
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: getChartTitle(penilaianType) + " (Vertical)",
                 fontSize: 18,
                 fontWeight: "bold"
             },
             axisY: {
                 title: "Nilai",
-                suffix: "%",
                 titleFontSize: 14
             },
             axisX: {
@@ -244,12 +291,12 @@
             },
             data: [{
                 type: "column",
-                yValueFormatString: "#,##0.00"%"",
+                yValueFormatString: "#,##0.00",
                 dataPoints: skpd,
-                color: "#007bff" // Primary blue color
+                color: "#28a745" // Green color for vertical chart
             }]
         });
-        chart.render();
+        chartVertical.render();
     }
 </script>
 @endpush
