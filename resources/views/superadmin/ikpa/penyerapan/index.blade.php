@@ -20,8 +20,8 @@
                     <thead class="bg-primary">
                         <tr>
                             <th>No</th>
-                            <th>SKPD</th>
                             <th>Tahun</th>
+                            <th>SKPD</th>
                             <th>Detail</th>
 
                         </tr>
@@ -30,8 +30,8 @@
                         @foreach ($data as $key => $item)
                         <tr style="font-size:14px">
                             <td>{{$key + 1}}</td>
-                            <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
+                            <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>
                                 <a href="/superadmin/ikpa/penyerapan/detail/{{$item->id}}" class="btn btn-sm btn-info">
                                     <i class="fa fa-eye"></i> Detail Penyerapan Anggaran

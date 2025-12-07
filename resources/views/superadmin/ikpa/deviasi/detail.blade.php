@@ -21,19 +21,41 @@
                 <a href="/superadmin/ikpa/deviasi/detail/{{$data->skpd->kode}}/{{$data->tahun}}/tarikdata"
                     class="btn btn-primary"><i class="fa fa-sync"></i> Tarik Data Kenangan</a>
 
-                @php
-                $septemberData = $data->detail->where('bulan', 'September')->first();
-                @endphp
-
-                @if($septemberData)
                 <div class="mt-3">
-                    <div class="alert alert-info">
-                        <strong>Nilai IKPA September:</strong>
+                    <div class="form-group">
+                        <label for="bulanSelect"><strong>Pilih Bulan untuk Nilai IKPA:</strong></label>
+                        <select class="form-control" id="bulanSelect" style="width: 200px; display: inline-block;">
+                            <option value="">- Pilih Bulan -</option>
+                            @foreach($data->detail as $detail)
+                            <option value="{{ $detail->bulan }}" {{ request('bulan')==$detail->bulan ? 'selected' : ''
+                                }}>
+                                {{ $detail->bulan }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <span class="float-right font-weight-bold">{{ number_format($septemberData->nilai_ikpa, 2) }} / {{ number_format($septemberData->nilai_ikpa * 0.2, 2) }}</span>
+                    <div id="nilaiIkpaContainer">
+                        @php
+                        $selectedBulan = request('bulan', '');
+                        $selectedData = $data->detail->where('bulan', $selectedBulan)->first();
+                        @endphp
+
+                        @if($selectedData)
+                        <div class="alert alert-info">
+                            <strong>Nilai IKPA {{ $selectedBulan }}:</strong>
+                            <span class="float-right font-weight-bold">
+                                {{ number_format($cumulativeData[$selectedData->id]['nilai_ikpa'], 2) }} / {{
+                                number_format($cumulativeData[$selectedData->id]['nilai_ikpa'] * 0.2, 2) }}
+                            </span>
+                        </div>
+                        @else
+                        <div class="alert alert-warning">
+                            <strong>Belum ada data untuk bulan yang dipilih</strong>
+                        </div>
+                        @endif
                     </div>
                 </div>
-                @endif
             </div>
             <!-- /.card-body -->
         </div>
@@ -119,68 +141,68 @@
 
                         <td></td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK51(),2)}} %
+                            {{number_format($proporsiPagu['RAK51'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK52(),2)}} %
+                            {{number_format($proporsiPagu['RAK52'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK53(),2)}} %
+                            {{number_format($proporsiPagu['RAK53'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK54(),2)}} %
+                            {{number_format($proporsiPagu['RAK54'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($data->totalProporsiPagu(),2)}} %
+                            {{number_format($proporsiPagu['Total'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi51(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_51'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi52(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_52'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi53(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_53'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasi54(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_54'],2)}} %
                         </td>
 
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi51(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['koreksi_51'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi52(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['koreksi_52'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi53(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['koreksi_53'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->koreksi54(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['koreksi_54'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang51(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_51'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang52(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_52'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang53(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_53'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiTertimbang54(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_54'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->seluruhDeviasi(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['seluruh_deviasi'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->akumulasiDeviasi(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['akumulasi_deviasi'],2)}} %
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->deviasiRataRata(),2)}}
+                            {{number_format($cumulativeData[$item2->id]['deviasi_rata_rata'],2)}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->nilai_ikpa,2)}}
+                            {{number_format($cumulativeData[$item2->id]['nilai_ikpa'],2)}}
                         </td>
 
 
@@ -190,35 +212,35 @@
 
                         <td style=" border:1px solid black" colspan="2">JUMLAH</td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_c'))}}
+                            {{number_format($totals['kolom_c'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_d'))}}
+                            {{number_format($totals['kolom_d'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_e'))}}
+                            {{number_format($totals['kolom_e'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_f'))}}
+                            {{number_format($totals['kolom_f'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_g'))}}
+                            {{number_format($totals['kolom_g'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_h'))}}
+                            {{number_format($totals['kolom_h'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_i'))}}
+                            {{number_format($totals['kolom_i'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_j'))}}
+                            {{number_format($totals['kolom_j'])}}
                         </td>
                     </tr>
 
                     <tr style="font-size:12px;font-weight:bold;background-color:bisque; font-family: 'Roboto Mono', monospace;"">
                         <td style=" border:1px solid black" colspan="2">TOTAL PAGU</td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->totalPagu())}}
+                            {{number_format($totalPagu)}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
 
@@ -246,16 +268,16 @@
                         <td style=" border:1px solid black" colspan="2">*Proporsi pagu berdasarkan kelompok belanja
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK51(),2)}} %
+                            {{number_format($proporsiPagu['RAK51'],2)}} %
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK52(),2)}} %
+                            {{number_format($proporsiPagu['RAK52'],2)}} %
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK53(),2)}} %
+                            {{number_format($proporsiPagu['RAK53'],2)}} %
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->proporsiPaguRAK54(),2)}} %
+                            {{number_format($proporsiPagu['RAK54'],2)}} %
                         </td>
                         <td style="border:1px solid black;text-align:right">
 
@@ -313,3 +335,56 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    $(document).ready(function() {
+    // Store all detail data and cumulative data for dynamic access
+    const detailData = @json($data->detail);
+    const cumulativeData = @json($cumulativeData);
+    
+    // Handle bulan dropdown change
+    $('#bulanSelect').on('change', function() {
+        const selectedBulan = $(this).val();
+        const container = $('#nilaiIkpaContainer');
+        
+        if (!selectedBulan) {
+            container.html(`
+                <div class="alert alert-warning">
+                    <strong>Silakan pilih bulan terlebih dahulu</strong>
+                </div>
+            `);
+            return;
+        }
+        
+        // Find data for selected month
+        const selectedData = detailData.find(item => item.bulan === selectedBulan);
+        
+        if (selectedData) {
+            // Get nilai_ikpa from cumulativeData
+            const nilaiIkpa = cumulativeData[selectedData.id] ? cumulativeData[selectedData.id].nilai_ikpa : 0;
+            
+            container.html(`
+                <div class="alert alert-info">
+                    <strong>Nilai IKPA ${selectedBulan}:</strong>
+                    <span class="float-right font-weight-bold">
+                        ${parseFloat(nilaiIkpa).toFixed(2)} / ${(parseFloat(nilaiIkpa) * 0.2).toFixed(2)}
+                    </span>
+                </div>
+            `);
+        } else {
+            container.html(`
+                <div class="alert alert-warning">
+                    <strong>Belum ada data untuk bulan ${selectedBulan}</strong>
+                </div>
+            `);
+        }
+    });
+    
+    // Trigger change on page load to display initial value
+    if ($('#bulanSelect').val()) {
+        $('#bulanSelect').trigger('change');
+    }
+});
+</script>
+@endpush

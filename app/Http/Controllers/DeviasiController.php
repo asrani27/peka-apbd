@@ -169,8 +169,79 @@ class DeviasiController extends Controller
     }
     public function detail($id)
     {
-        $data = Deviasi::find($id);
-        return view('superadmin.ikpa.deviasi.detail', compact('data'));
+        $data = Deviasi::with(['skpd', 'detail' => function($query) {
+            $query->orderBy('id', 'asc');
+        }])->find($id);
+        
+        if (!$data) {
+            abort(404);
+        }
+
+        // Pre-compute all values to avoid N+1 queries
+        $details = $data->detail;
+        $cumulativeData = [];
+        
+        // Pre-compute proporsi pagu values once
+        $proporsiPagu = [
+            'RAK51' => $data->proporsiPaguRAK51(),
+            'RAK52' => $data->proporsiPaguRAK52(),
+            'RAK53' => $data->proporsiPaguRAK53(),
+            'RAK54' => $data->proporsiPaguRAK54(),
+            'Total' => $data->totalProporsiPagu(),
+        ];
+        
+        foreach ($details as $index => $detail) {
+            // Get all details up to current index for cumulative calculations
+            $previousDetails = $details->slice(0, $index + 1);
+            
+            $cumulativeData[$detail->id] = [
+                'deviasi_51' => $detail->deviasi51(),
+                'deviasi_52' => $detail->deviasi52(),
+                'deviasi_53' => $detail->deviasi53(),
+                'deviasi_54' => $detail->deviasi54(),
+                'koreksi_51' => $detail->koreksi51(),
+                'koreksi_52' => $detail->koreksi52(),
+                'koreksi_53' => $detail->koreksi53(),
+                'koreksi_54' => $detail->koreksi54(),
+                'deviasi_tertimbang_51' => $detail->deviasiTertimbang51(),
+                'deviasi_tertimbang_52' => $detail->deviasiTertimbang52(),
+                'deviasi_tertimbang_53' => $detail->deviasiTertimbang53(),
+                'deviasi_tertimbang_54' => $detail->deviasiTertimbang54(),
+                'seluruh_deviasi' => $detail->seluruhDeviasi(),
+                'akumulasi_deviasi' => $previousDetails->sum(function($item) {
+                    return $item->seluruhDeviasi();
+                }),
+                'deviasi_rata_rata' => 0, // Will be calculated below
+                'nilai_ikpa' => 0, // Will be calculated below
+            ];
+            
+            // Calculate deviasi rata-rata
+            $bulanAngka = $detail->bulanKeAngka($detail->bulan);
+            $cumulativeData[$detail->id]['deviasi_rata_rata'] = $bulanAngka > 0 
+                ? ($cumulativeData[$detail->id]['akumulasi_deviasi'] / $bulanAngka) 
+                : 0;
+            
+            // Calculate nilai IKPA
+            $deviasiRataRata = $cumulativeData[$detail->id]['deviasi_rata_rata'];
+            $cumulativeData[$detail->id]['nilai_ikpa'] = ($deviasiRataRata <= 15) ? 100 : (100 - $deviasiRataRata);
+        }
+        
+        // Pre-compute totals for summary row
+        $totals = [
+            'kolom_c' => $details->sum('kolom_c'),
+            'kolom_d' => $details->sum('kolom_d'),
+            'kolom_e' => $details->sum('kolom_e'),
+            'kolom_f' => $details->sum('kolom_f'),
+            'kolom_g' => $details->sum('kolom_g'),
+            'kolom_h' => $details->sum('kolom_h'),
+            'kolom_i' => $details->sum('kolom_i'),
+            'kolom_j' => $details->sum('kolom_j'),
+        ];
+        
+        // Pre-compute total pagu
+        $totalPagu = $data->totalPagu();
+        
+        return view('superadmin.ikpa.deviasi.detail', compact('data', 'cumulativeData', 'totals', 'proporsiPagu', 'totalPagu'));
     }
     public function add()
     {

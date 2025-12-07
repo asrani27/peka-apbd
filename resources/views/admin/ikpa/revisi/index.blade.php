@@ -11,6 +11,7 @@
                     {{-- <a href="/superadmin/ikpa/add" class='btn btn-sm btn-primary'>Tambah Data</a> --}}
                 </div>
             </div>
+            {{dd('dd')}}
             <!-- /.card-header -->
             <div class="card-body table-responsive">
                 <table class="table table-hover text-nowrap table-sm table-bordered">
@@ -40,6 +41,8 @@
                                 </a>
 
                             </td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         @endforeach
 

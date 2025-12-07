@@ -12,8 +12,8 @@
                         Excel</a>
                     <a href="/superadmin/ikpa/deviasi/add" class='btn btn-sm btn-primary'>Tambah
                         Data</a>
-                    <a href="/superadmin/ikpa/deviasi/insert-all-2025" class='btn btn-sm btn-success' 
-                       onclick="return confirm('Apakah Anda yakin ingin menambahkan data deviasi untuk semua SKPD tahun 2025?');">
+                    <a href="/superadmin/ikpa/deviasi/insert-all-2025" class='btn btn-sm btn-success'
+                        onclick="return confirm('Apakah Anda yakin ingin menambahkan data deviasi untuk semua SKPD tahun 2025?');">
                         <i class="fa fa-plus"></i> Masukkan Semua SKPD Tahun 2025
                     </a>
                 </div>
@@ -24,9 +24,8 @@
                     <thead class="bg-primary">
                         <tr>
                             <th>No</th>
-                            <th>Kode</th>
-                            <th>SKPD</th>
                             <th>Tahun</th>
+                            <th>SKPD</th>
                             <th>Detail</th>
                             <th>Aksi</th>
                         </tr>
@@ -35,12 +34,11 @@
                         @foreach ($data as $key => $item)
                         <tr style="font-size:14px">
                             <td>{{$key + 1}}</td>
-                            <td>{{$item->skpd == null ? null : $item->skpd->kode}}</td>
-                            <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
+                            <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>
-                                <a href="/superadmin/ikpa/deviasi/detail/{{$item->id}}" 
-                                   class="btn btn-sm {{$item->detail()->sum('kolom_c') > 0 ? 'btn-success' : 'btn-danger'}}">
+                                <a href="/superadmin/ikpa/deviasi/detail/{{$item->id}}"
+                                    class="btn btn-sm {{$item->detail()->sum('kolom_c') > 0 ? 'btn-success' : 'btn-danger'}}">
                                     <i class="fa fa-eye"></i> Detail Deviasi
                                 </a>
                                 {{-- <table width="100%" cellpadding="5">

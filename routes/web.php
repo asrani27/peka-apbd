@@ -57,6 +57,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/ikpa/capaian/edit/{id}', [AdminCapaianController::class, 'update']);
     Route::get('/admin/ikpa/capaian/delete/{id}', [AdminCapaianController::class, 'delete']);
     Route::get('/admin/ikpa/capaian/detail/{id}', [AdminCapaianController::class, 'detail']);
+    Route::post('/admin/ikpa/capaian/insert-all-skpd', [AdminCapaianController::class, 'insertAllSkpd']);
+    Route::delete('/admin/ikpa/capaian/delete-all-skpd', [AdminCapaianController::class, 'deleteAllSkpd']);
 });
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
@@ -73,15 +75,20 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::post('/superadmin/ikpa/add', [IkpaController::class, 'store']);
     Route::get('/superadmin/ikpa/edit/{id}', [IkpaController::class, 'edit']);
     Route::post('/superadmin/ikpa/edit/{id}', [IkpaController::class, 'update']);
-    Route::get('/superadmin/ikpa/delete/{id}', [IkpaController::class, 'delete']);
+    // Route::get('/superadmin/ikpa/delete/{id}', [IkpaController::class, 'delete']);
 
-    Route::get('/superadmin/ikpa/revisi', [IkpaController::class, 'revisi']);
-    Route::post('/superadmin/ikpa/revisi/insert-all-skpd', [IkpaController::class, 'insertAllSkpd']);
-    Route::get('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'index']);
+    Route::get('/superadmin/ikpa/revisi', [RevisiController::class, 'index']);
+    Route::post('/superadmin/ikpa/revisi/insert-all-skpd', [RevisiController::class, 'insertAllSkpd']);
+    Route::delete('/superadmin/ikpa/revisi/delete-all-skpd', [RevisiController::class, 'deleteAllSkpd']);
+    Route::get('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'detail']);
+    Route::post('/superadmin/ikpa/revisi/{id}/import', [RevisiController::class, 'import']);
+    Route::get('/superadmin/ikpa/revisi/detail/{id}/edit', [RevisiController::class, 'editDetail']);
+    Route::put('/superadmin/ikpa/revisi/detail/{id}/update', [RevisiController::class, 'updateDetail']);
+    Route::delete('/superadmin/ikpa/revisi/detail/{id}/delete', [RevisiController::class, 'deleteDetail']);
     Route::post('/superadmin/ikpa/revisi/{id}', [RevisiController::class, 'store']);
     Route::get('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'edit']);
     Route::post('/superadmin/ikpa/revisi/{id}/edit/{revisi_id}', [RevisiController::class, 'update']);
-    Route::get('/superadmin/ikpa/revisi/{id}/delete/{revisi_id}', [RevisiController::class, 'delete']);
+    Route::get('/superadmin/ikpa/revisi/{id}/delete', [RevisiController::class, 'delete']);
 
     Route::get('/superadmin/ikpa/deviasi', [DeviasiController::class, 'index']);
     Route::get('/superadmin/ikpa/deviasi/add', [DeviasiController::class, 'add']);
@@ -99,10 +106,13 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/capaian', [CapaianController::class, 'index']);
     Route::get('/superadmin/ikpa/capaian/add', [CapaianController::class, 'add']);
     Route::post('/superadmin/ikpa/capaian/add', [CapaianController::class, 'store']);
-    Route::get('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'edit']);
-    Route::get('/superadmin/ikpa/capaian/detail/{id}', [CapaianController::class, 'detail']);
-    Route::post('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'update']);
+    Route::get('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'edit'])->name('capaian.edit');
+    Route::get('/superadmin/ikpa/capaian/detail/{id}', [CapaianController::class, 'detail'])->name('capaian.detail');
+    Route::post('/superadmin/ikpa/capaian/detail/{id}/import', [CapaianController::class, 'importDetail']);
+    Route::post('/superadmin/ikpa/capaian/edit/{id}', [CapaianController::class, 'update'])->name('capaian.update');
     Route::get('/superadmin/ikpa/capaian/delete/{id}', [CapaianController::class, 'delete']);
+    Route::post('/superadmin/ikpa/capaian/insert-all-skpd', [CapaianController::class, 'insertAllSkpd']);
+    Route::delete('/superadmin/ikpa/capaian/delete-all-skpd', [CapaianController::class, 'deleteAllSkpd']);
 
     Route::get('/superadmin/jadwal', [JadwalController::class, 'index']);
     Route::get('/superadmin/jadwal/add', [JadwalController::class, 'add']);

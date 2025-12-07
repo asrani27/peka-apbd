@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2" id="semesterGroup">
                             <div class="form-group">
                                 <label for="semester">
                                     <i class="fas fa-calendar-alt"></i> Semester
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2" id="triwulanGroup">
                             <div class="form-group">
                                 <label for="triwulan">
                                     <i class="fas fa-chart-pie"></i> Triwulan
@@ -54,6 +54,28 @@
                                     <option value="2" {{($triwulan ?? old('triwulan')) == '2' ? 'selected' : ''}}>Triwulan 2</option>
                                     <option value="3" {{($triwulan ?? old('triwulan')) == '3' ? 'selected' : ''}}>Triwulan 3</option>
                                     <option value="4" {{($triwulan ?? old('triwulan')) == '4' ? 'selected' : ''}}>Triwulan 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" id="bulanGroup" style="display: none;">
+                            <div class="form-group">
+                                <label for="bulan">
+                                    <i class="fas fa-calendar"></i> Bulan
+                                </label>
+                                <select class="form-control" name="bulan" id="bulan">
+                                    <option value="">- Pilih -</option>
+                                    <option value="1" {{($bulan ?? old('bulan')) == '1' ? 'selected' : ''}}>Januari</option>
+                                    <option value="2" {{($bulan ?? old('bulan')) == '2' ? 'selected' : ''}}>Februari</option>
+                                    <option value="3" {{($bulan ?? old('bulan')) == '3' ? 'selected' : ''}}>Maret</option>
+                                    <option value="4" {{($bulan ?? old('bulan')) == '4' ? 'selected' : ''}}>April</option>
+                                    <option value="5" {{($bulan ?? old('bulan')) == '5' ? 'selected' : ''}}>Mei</option>
+                                    <option value="6" {{($bulan ?? old('bulan')) == '6' ? 'selected' : ''}}>Juni</option>
+                                    <option value="7" {{($bulan ?? old('bulan')) == '7' ? 'selected' : ''}}>Juli</option>
+                                    <option value="8" {{($bulan ?? old('bulan')) == '8' ? 'selected' : ''}}>Agustus</option>
+                                    <option value="9" {{($bulan ?? old('bulan')) == '9' ? 'selected' : ''}}>September</option>
+                                    <option value="10" {{($bulan ?? old('bulan')) == '10' ? 'selected' : ''}}>Oktober</option>
+                                    <option value="11" {{($bulan ?? old('bulan')) == '11' ? 'selected' : ''}}>November</option>
+                                    <option value="12" {{($bulan ?? old('bulan')) == '12' ? 'selected' : ''}}>Desember</option>
                                 </select>
                             </div>
                         </div>
@@ -106,23 +128,69 @@
     // Function to reset form
     function resetForm() {
         document.getElementById('chartForm').reset();
+        updateFilterVisibility();
+    }
+    
+    // Function to update filter visibility based on penilaian type
+    function updateFilterVisibility() {
+        const penilaian = document.getElementById('penilaian').value;
+        const semesterGroup = document.getElementById('semesterGroup');
+        const triwulanGroup = document.getElementById('triwulanGroup');
+        const bulanGroup = document.getElementById('bulanGroup');
+        
+        if (penilaian === 'REVISI') {
+            // Show only Semester and Tahun for REVISI
+            semesterGroup.style.display = 'block';
+            triwulanGroup.style.display = 'none';
+            bulanGroup.style.display = 'none';
+        } else if (penilaian === 'DEVIASI') {
+            // Show only Bulan and Tahun for DEVIASI
+            semesterGroup.style.display = 'none';
+            triwulanGroup.style.display = 'none';
+            bulanGroup.style.display = 'block';
+        } else if (penilaian === 'PENYERAPAN') {
+            // Show only Bulan and Tahun for PENYERAPAN
+            semesterGroup.style.display = 'none';
+            triwulanGroup.style.display = 'none';
+            bulanGroup.style.display = 'block';
+        } else if (penilaian === 'CAPAIAN') {
+            // Show only Triwulan and Tahun for CAPAIAN
+            semesterGroup.style.display = 'none';
+            triwulanGroup.style.display = 'block';
+            bulanGroup.style.display = 'none';
+        } else {
+            // Hide all filters for other penilaian types
+            semesterGroup.style.display = 'none';
+            triwulanGroup.style.display = 'none';
+            bulanGroup.style.display = 'none';
+        }
     }
     
     // Function to get chart title based on penilaian type
     function getChartTitle(penilaian) {
         switch(penilaian) {
             case 'REVISI':
-                return 'NILAI REVISI DPA PER SKPD';
+                return 'NILAI SKOR IT REVISI DPA PER SKPD';
             case 'DEVIASI':
                 return 'NILAI DEVIASI DPA PER SKPD';
             case 'PENYERAPAN':
                 return 'NILAI PENYERAPAN ANGGARAN PER SKPD';
             case 'CAPAIAN':
-                return 'TOTAL NILAI CAPAIAN PER SKPD';
+                return 'SKOR INDIKATOR TERTIMBANG CAPAIAN (35%) PER SKPD';
             default:
                 return 'CAPAIAN PER SKPD';
         }
     }
+    
+    // Handle penilaian change
+    document.getElementById('penilaian').addEventListener('change', function() {
+        updateFilterVisibility();
+    });
+    
+    // Initialize filter visibility on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateFilterVisibility();
+    });
 
     skpd = skpd.map(item => ({
         label: item.label, // Nama SKPD tetap sebagai label di sumbu X

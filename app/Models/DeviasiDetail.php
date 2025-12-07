@@ -9,7 +9,8 @@ class DeviasiDetail extends Model
     protected $table = 'deviasi_detail';
     protected $guarded = ['id'];
 
-    protected $appends = ['nilai_ikpa'];
+    // Comment out to prevent automatic loading and improve performance
+    // protected $appends = ['nilai_ikpa'];
 
     public function deviasi()
     {

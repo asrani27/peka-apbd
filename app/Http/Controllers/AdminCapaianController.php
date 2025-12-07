@@ -13,10 +13,19 @@ use Illuminate\Support\Facades\Session;
 class AdminCapaianController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = Capaian::where('skpd_id', Auth::user()->skpd->id)->orderBy('id', 'DESC')->paginate(10);
-        return view('admin.ikpa.capaian.index', compact('data'));
+        $tahun = $request->get('tahun');
+        
+        $query = Capaian::with('skpd')->orderBy('id', 'DESC');
+        
+        if ($tahun) {
+            $query->where('tahun', $tahun);
+        }
+        
+        $data = $query->paginate(10);
+        
+        return view('admin.ikpa.capaian.index', compact('data', 'tahun'));
     }
     public function add()
     {
@@ -89,5 +98,91 @@ class AdminCapaianController extends Controller
     {
         $data = Capaian::find($id);
         return view('admin.ikpa.capaian.detail', compact('data'));
+    }
+
+    public function insertAllSkpd(Request $request)
+    {
+        try {
+            $tahun = $request->tahun;
+            
+            // Validate year
+            if ($tahun < 2024 || $tahun > 2026) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tahun harus antara 2024-2026!'
+                ]);
+            }
+
+            // Get all SKPD
+            $skpds = \App\Models\Skpd::all();
+            $insertedCount = 0;
+            $skippedCount = 0;
+
+            foreach ($skpds as $skpd) {
+                // Check if capaian already exists for this SKPD and year
+                $existing = Capaian::where('skpd_id', $skpd->id)->where('tahun', $tahun)->first();
+                
+                if (!$existing) {
+                    // Create new capaian
+                    $capaian = new Capaian();
+                    $capaian->skpd_id = $skpd->id;
+                    $capaian->tahun = $tahun;
+                    $capaian->save();
+                    $insertedCount++;
+                } else {
+                    $skippedCount++;
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil memasukkan {$insertedCount} data SKPD untuk tahun {$tahun}. " . 
+                            ($skippedCount > 0 ? "{$skippedCount} data sudah ada dan dilewati." : "")
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function deleteAllSkpd(Request $request)
+    {
+        try {
+            $tahun = $request->tahun;
+            
+            // Validate year
+            if ($tahun < 2024 || $tahun > 2026) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tahun harus antara 2024-2026!'
+                ]);
+            }
+
+            // Get all capaian for the specified year
+            $capaians = Capaian::where('tahun', $tahun)->get();
+            $deletedCount = 0;
+
+            foreach ($capaians as $capaian) {
+                // Delete related details first
+                $capaian->detail()->delete();
+                // Then delete the capaian
+                $capaian->delete();
+                $deletedCount++;
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil menghapus {$deletedCount} data SKPD untuk tahun {$tahun}"
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ]);
+        }
     }
 }

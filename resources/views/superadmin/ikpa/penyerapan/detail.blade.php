@@ -20,12 +20,53 @@
                 </table>
                 <br />
 
+                <div class="mt-3">
+                    <div class="form-group">
+                        <label for="bulanSelect"><strong>Pilih Bulan untuk Nilai Penyerapan Anggaran:</strong></label>
+                        <select class="form-control" id="bulanSelect" style="width: 200px; display: inline-block;">
+                            <option value="">- Pilih Bulan -</option>
+                            @foreach($data->detail as $detail)
+                            <option value="{{ $detail->bulan }}" {{ request('bulan')==$detail->bulan ? 'selected' : ''
+                                }}>
+                                {{ $detail->bulan }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div id="nilaiPenyerapanContainer">
+                        @php
+                        $selectedBulan = request('bulan', '');
+                        $selectedData = $data->detail->where('bulan', $selectedBulan)->first();
+                        @endphp
+
+                        @if($selectedData)
+                        <div class="alert alert-info">
+                            <strong>Nilai Penyerapan Anggaran {{ $selectedBulan }}:</strong>
+                            <span class="float-right font-weight-bold">
+
+                                {{number_format($cumulativeData[$selectedData->id]['penyerapan_anggaran'],2)}}
+                                %
+                            </span>
+
+                        </div>
+                        @elseif($selectedBulan === '')
+                        <div class="alert alert-warning">
+                            <strong>Silakan pilih bulan terlebih dahulu</strong>
+                        </div>
+                        @else
+                        <div class="alert alert-warning">
+                            <strong>Belum ada data untuk bulan {{ $selectedBulan }}</strong>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </div>
-
 
     <div class="col-md-12">
         <h2>Penyerapan Anggaran</h2>
@@ -68,7 +109,7 @@
                         <td style="border:1px solid black; min-width:110px;">Kumulatif Realisasi RAK</td>
                     </tr>
                     @foreach ($data->detail as $key=> $item2)
-                    <tr style="font-size:10px;font-weight:bold; font-family: 'Roboto Mono', monospace;"">
+                    <tr style="font-size:10px;font-weight:bold; font-family: 'Roboto Mono', monospace;">
                         <td style=" border:1px solid black">{{$key + 1}}</td>
                         <td style=" border:1px solid black">{{$item2->bulan}}</td>
                         <td style=" border:1px solid black;text-align:right">
@@ -90,38 +131,38 @@
 
                         <td></td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKKomulatif51())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_komulatif_51'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKKomulatif52())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_komulatif_52'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKKomulatif53())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_komulatif_53'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKKomulatif54())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_komulatif_54'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKKomulatifKB())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_komulatif_kb'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKRealisasi51())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_realisasi_51'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKRealisasi52())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_realisasi_52'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKRealisasi53())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_realisasi_53'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKRealisasi54())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_realisasi_54'])}}
                         </td>
 
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->RAKRealisasiKB())}}
+                            {{number_format($cumulativeData[$item2->id]['rak_realisasi_kb'])}}
                         </td>
                         <td style=" border:1px solid black;text-align:right">
-                            {{number_format($item2->penyerapanAnggaran(),2)}} %
+                            {{number_format($cumulativeData[$item2->id]['penyerapan_anggaran'],2)}} %
                         </td>
 
 
@@ -131,28 +172,28 @@
 
                         <td style=" border:1px solid black" colspan="2">JUMLAH</td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_c'))}}
+                            {{number_format($totals['kolom_c'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_d'))}}
+                            {{number_format($totals['kolom_d'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_e'))}}
+                            {{number_format($totals['kolom_e'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_f'))}}
+                            {{number_format($totals['kolom_f'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_g'))}}
+                            {{number_format($totals['kolom_g'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_h'))}}
+                            {{number_format($totals['kolom_h'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_i'))}}
+                            {{number_format($totals['kolom_i'])}}
                         </td>
                         <td style="border:1px solid black;text-align:right">
-                            {{number_format($data->detail()->sum('kolom_j'))}}
+                            {{number_format($totals['kolom_j'])}}
                         </td>
                     </tr>
 
@@ -199,3 +240,74 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        // Store all detail data for dynamic access
+        const detailData = @json($data->detail);
+        const totalPagu = @json($data->totalPagu());
+        
+        // Handle bulan dropdown change
+        $('#bulanSelect').on('change', function() {
+            const selectedBulan = $(this).val();
+            const container = $('#nilaiPenyerapanContainer');
+            console.log(selectedBulan,container);
+            if (!selectedBulan) {
+                container.html(`
+                    <div class="alert alert-warning">
+                        <strong>Silakan pilih bulan terlebih dahulu</strong>
+                    </div>
+                `);
+                return;
+            }
+            
+            // Find data for selected month
+            const selectedData = detailData.find(item => item.bulan === selectedBulan);
+            
+            if (selectedData) {
+                // Calculate cumulative RAKRealisasiKB up to the selected month
+                // Get all months up to and including the selected month
+                const monthOrder = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                const selectedMonthIndex = monthOrder.indexOf(selectedBulan);
+                
+                let cumulativeRealisasiKB = 0;
+                
+                // Sum up all realisasi values for months up to the selected month
+                detailData.forEach(item => {
+                    const itemMonthIndex = monthOrder.indexOf(item.bulan);
+                    if (itemMonthIndex >= 0 && itemMonthIndex <= selectedMonthIndex) {
+                        cumulativeRealisasiKB += parseFloat(item.kolom_g || 0) + 
+                                              parseFloat(item.kolom_h || 0) + 
+                                              parseFloat(item.kolom_i || 0) + 
+                                              parseFloat(item.kolom_j || 0);
+                    }
+                });
+                
+                const penyerapanAnggaran = totalPagu > 0 ? (cumulativeRealisasiKB / totalPagu) * 100 : 0;
+                
+            console.log(penyerapanAnggaran,totalPagu,cumulativeRealisasiKB,selectedData);
+                container.html(`
+                    <div class="alert alert-info">
+                        <strong>Nilai Penyerapan Anggaran ${selectedBulan}:</strong>
+                        <span class="float-right font-weight-bold">
+                            ${penyerapanAnggaran.toFixed(2)} %
+                        </span>
+                    </div>
+                `);
+            } else {
+                container.html(`
+                    <div class="alert alert-warning">
+                        <strong>Belum ada data untuk bulan ${selectedBulan}</strong>
+                    </div>
+                `);
+            }
+        });
+        
+        // Trigger change on page load to display initial value
+        if ($('#bulanSelect').val()) {
+            $('#bulanSelect').trigger('change');
+        }
+    });
+</script>
+@endpush
