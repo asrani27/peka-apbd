@@ -22,12 +22,16 @@
                                 <label for="penilaian">
                                     <i class="fas fa-chart-bar"></i> Jenis Penilaian
                                 </label>
-                                    <select class="form-control" name="penilaian" id="penilaian">
+                                <select class="form-control" name="penilaian" id="penilaian">
                                     <option value="">- Pilih Penilaian -</option>
-                                    <option value="REVISI" {{($penilaian ?? old('penilaian')) == 'REVISI' ? 'selected' : ''}}>REVISI</option>
-                                    <option value="DEVIASI" {{($penilaian ?? old('penilaian')) == 'DEVIASI' ? 'selected' : ''}}>DEVIASI</option>
-                                    <option value="PENYERAPAN" {{($penilaian ?? old('penilaian')) == 'PENYERAPAN' ? 'selected' : ''}}>PENYERAPAN</option>
-                                    <option value="CAPAIAN" {{($penilaian ?? old('penilaian')) == 'CAPAIAN' ? 'selected' : ''}}>CAPAIAN</option>
+                                    <option value="REVISI" {{($penilaian ?? old('penilaian'))=='REVISI' ? 'selected'
+                                        : '' }}>REVISI</option>
+                                    <option value="DEVIASI" {{($penilaian ?? old('penilaian'))=='DEVIASI' ? 'selected'
+                                        : '' }}>DEVIASI</option>
+                                    <option value="PENYERAPAN" {{($penilaian ?? old('penilaian'))=='PENYERAPAN'
+                                        ? 'selected' : '' }}>PENYERAPAN</option>
+                                    <option value="CAPAIAN" {{($penilaian ?? old('penilaian'))=='CAPAIAN' ? 'selected'
+                                        : '' }}>CAPAIAN</option>
                                 </select>
                             </div>
                         </div>
@@ -38,8 +42,10 @@
                                 </label>
                                 <select class="form-control" name="semester" id="semester">
                                     <option value="">- Pilih -</option>
-                                    <option value="1" {{($semester ?? old('semester')) == '1' ? 'selected' : ''}}>Semester 1</option>
-                                    <option value="2" {{($semester ?? old('semester')) == '2' ? 'selected' : ''}}>Semester 2</option>
+                                    <option value="1" {{($semester ?? old('semester'))=='1' ? 'selected' : '' }}>
+                                        Semester 1</option>
+                                    <option value="2" {{($semester ?? old('semester'))=='2' ? 'selected' : '' }}>
+                                        Semester 2</option>
                                 </select>
                             </div>
                         </div>
@@ -50,10 +56,14 @@
                                 </label>
                                 <select class="form-control" name="triwulan" id="triwulan">
                                     <option value="">- Pilih -</option>
-                                    <option value="1" {{($triwulan ?? old('triwulan')) == '1' ? 'selected' : ''}}>Triwulan 1</option>
-                                    <option value="2" {{($triwulan ?? old('triwulan')) == '2' ? 'selected' : ''}}>Triwulan 2</option>
-                                    <option value="3" {{($triwulan ?? old('triwulan')) == '3' ? 'selected' : ''}}>Triwulan 3</option>
-                                    <option value="4" {{($triwulan ?? old('triwulan')) == '4' ? 'selected' : ''}}>Triwulan 4</option>
+                                    <option value="1" {{($triwulan ?? old('triwulan'))=='1' ? 'selected' : '' }}>
+                                        Triwulan 1</option>
+                                    <option value="2" {{($triwulan ?? old('triwulan'))=='2' ? 'selected' : '' }}>
+                                        Triwulan 2</option>
+                                    <option value="3" {{($triwulan ?? old('triwulan'))=='3' ? 'selected' : '' }}>
+                                        Triwulan 3</option>
+                                    <option value="4" {{($triwulan ?? old('triwulan'))=='4' ? 'selected' : '' }}>
+                                        Triwulan 4</option>
                                 </select>
                             </div>
                         </div>
@@ -64,18 +74,27 @@
                                 </label>
                                 <select class="form-control" name="bulan" id="bulan">
                                     <option value="">- Pilih -</option>
-                                    <option value="1" {{($bulan ?? old('bulan')) == '1' ? 'selected' : ''}}>Januari</option>
-                                    <option value="2" {{($bulan ?? old('bulan')) == '2' ? 'selected' : ''}}>Februari</option>
-                                    <option value="3" {{($bulan ?? old('bulan')) == '3' ? 'selected' : ''}}>Maret</option>
-                                    <option value="4" {{($bulan ?? old('bulan')) == '4' ? 'selected' : ''}}>April</option>
-                                    <option value="5" {{($bulan ?? old('bulan')) == '5' ? 'selected' : ''}}>Mei</option>
-                                    <option value="6" {{($bulan ?? old('bulan')) == '6' ? 'selected' : ''}}>Juni</option>
-                                    <option value="7" {{($bulan ?? old('bulan')) == '7' ? 'selected' : ''}}>Juli</option>
-                                    <option value="8" {{($bulan ?? old('bulan')) == '8' ? 'selected' : ''}}>Agustus</option>
-                                    <option value="9" {{($bulan ?? old('bulan')) == '9' ? 'selected' : ''}}>September</option>
-                                    <option value="10" {{($bulan ?? old('bulan')) == '10' ? 'selected' : ''}}>Oktober</option>
-                                    <option value="11" {{($bulan ?? old('bulan')) == '11' ? 'selected' : ''}}>November</option>
-                                    <option value="12" {{($bulan ?? old('bulan')) == '12' ? 'selected' : ''}}>Desember</option>
+                                    <option value="1" {{($bulan ?? old('bulan'))=='1' ? 'selected' : '' }}>Januari
+                                    </option>
+                                    <option value="2" {{($bulan ?? old('bulan'))=='2' ? 'selected' : '' }}>Februari
+                                    </option>
+                                    <option value="3" {{($bulan ?? old('bulan'))=='3' ? 'selected' : '' }}>Maret
+                                    </option>
+                                    <option value="4" {{($bulan ?? old('bulan'))=='4' ? 'selected' : '' }}>April
+                                    </option>
+                                    <option value="5" {{($bulan ?? old('bulan'))=='5' ? 'selected' : '' }}>Mei</option>
+                                    <option value="6" {{($bulan ?? old('bulan'))=='6' ? 'selected' : '' }}>Juni</option>
+                                    <option value="7" {{($bulan ?? old('bulan'))=='7' ? 'selected' : '' }}>Juli</option>
+                                    <option value="8" {{($bulan ?? old('bulan'))=='8' ? 'selected' : '' }}>Agustus
+                                    </option>
+                                    <option value="9" {{($bulan ?? old('bulan'))=='9' ? 'selected' : '' }}>September
+                                    </option>
+                                    <option value="10" {{($bulan ?? old('bulan'))=='10' ? 'selected' : '' }}>Oktober
+                                    </option>
+                                    <option value="11" {{($bulan ?? old('bulan'))=='11' ? 'selected' : '' }}>November
+                                    </option>
+                                    <option value="12" {{($bulan ?? old('bulan'))=='12' ? 'selected' : '' }}>Desember
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -86,8 +105,8 @@
                                 </label>
                                 <select class="form-control" name="tahun" id="tahun">
                                     <option value="">- Pilih -</option>
-                                    <option value="2024" {{($tahun ?? old('tahun')) == '2024' ? 'selected' : ''}}>2024</option>
-                                    <option value="2025" {{($tahun ?? old('tahun')) == '2025' ? 'selected' : ''}}>2025</option>
+                                    <option value="2025" {{($tahun ?? old('tahun'))=='2025' ? 'selected' : '' }}>2025
+                                    </option>
                                 </select>
                             </div>
                         </div>
