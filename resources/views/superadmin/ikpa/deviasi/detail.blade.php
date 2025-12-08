@@ -21,7 +21,7 @@
                 <a href="/superadmin/ikpa/deviasi/detail/{{$data->skpd->kode}}/{{$data->tahun}}/tarikdata"
                     class="btn btn-primary"><i class="fa fa-sync"></i> Tarik Data Kenangan</a>
 
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <div class="form-group">
                         <label for="bulanSelect"><strong>Pilih Bulan untuk Nilai IKPA:</strong></label>
                         <select class="form-control" id="bulanSelect" style="width: 200px; display: inline-block;">
@@ -55,7 +55,7 @@
                         </div>
                         @endif
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!-- /.card-body -->
         </div>
@@ -75,7 +75,7 @@
                         <td rowspan="2" style="border:1px solid black; min-width:110px;">BULAN</td>
                         <td colspan="4" style="border:1px solid black">RAK Tahunan</td>
                         <td colspan="4" style="border:1px solid black">Realisasi RAK</td>
-                        <td rowspan="2" style="background-color: white"></td>
+                        {{-- <td rowspan="2" style="background-color: white"></td>
                         <td colspan="5" style="border:1px solid black">Proporsi Pagu*</td>
 
                         <td colspan="4" style="border:1px solid black">Deviasi*</td>
@@ -88,6 +88,7 @@
                             (dalam nilai
                             absolut)</td>
                         <td rowspan="2" style="border:1px solid black; min-width:110px;">Nilai IKPA (Interval 15%)</td>
+                        --}}
 
 
                     </tr>
@@ -100,7 +101,7 @@
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
                         <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
+                        {{-- <td style="border:1px solid black; min-width:110px;">51</td>
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
                         <td style="border:1px solid black; min-width:110px;">54</td>
@@ -116,7 +117,7 @@
                         <td style="border:1px solid black; min-width:110px;">51</td>
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
+                        <td style="border:1px solid black; min-width:110px;">54</td> --}}
                     </tr>
                     @foreach ($data->detail as $key=> $item2)
                     <tr style="font-size:10px;font-weight:bold; font-family: 'Roboto Mono', monospace;">
@@ -139,7 +140,7 @@
                         <td style=" border:1px solid black;text-align:right">
                             {{number_format($item2->kolom_j)}}</td>
 
-                        <td></td>
+                        {{-- <td></td>
                         <td style=" border:1px solid black;text-align:right">
                             {{number_format($proporsiPagu['RAK51'],2)}} %
                         </td>
@@ -203,7 +204,7 @@
                         </td>
                         <td style=" border:1px solid black;text-align:right">
                             {{number_format($cumulativeData[$item2->id]['nilai_ikpa'],2)}}
-                        </td>
+                        </td> --}}
 
 
                     </tr>
