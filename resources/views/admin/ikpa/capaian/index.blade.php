@@ -49,8 +49,9 @@
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>{{$item->tahun}}</td>
                             <td>
-                                <a href="/admin/ikpa/capaian/detail/{{$item->id}}" class="btn btn-sm btn-info">
-                                    <i class="fa fa-eye"></i> Lihat Detail Capaian
+                                <a href="/admin/ikpa/capaian/detail/{{$item->id}}" 
+                                   class="btn btn-sm {{$item->detail()->count() > 0 ? 'btn-success' : 'btn-danger'}}">
+                                    <i class="fa fa-eye"></i>Detail Capaian
                                 </a>
                             </td>
                             <td>
