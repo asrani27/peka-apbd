@@ -35,7 +35,7 @@
                             <th>No</th>
                             <th>Tahun</th>
                             <th>SKPD</th>
-                            <th>Skor</th>
+                            <th>Detail</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,14 +45,13 @@
                             <td>{{$key + 1}}</td>
                             <td>{{$item->tahun}}</td>
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
-                            <td style="font-family: 'Roboto Mono', monospace;">
-                                <div>Skor IT Semester 1: <strong>{{ number_format($item->skorITSemester1(), 2, ',', '.') }}</strong></div>
-                                <div>Skor IT Semester 2: <strong>{{ number_format($item->skorITSemester2(), 2, ',', '.') }}</strong></div>
-                            </td>
                             <td>
                                 <a href="/superadmin/ikpa/revisi/{{$item->id}}"
-                                    class="btn btn-info btn-sm rounded-pill"><i class="fa fa-eye"></i> Detail
+                                    class="btn btn-sm rounded-pill {{$item->details()->count() > 0 ? 'btn-success' : 'btn-danger'}}">
+                                    <i class="fa fa-eye"></i> Detail Revisi
                                 </a>
+                            </td>
+                            <td>
                                 <a href="/superadmin/ikpa/revisi/{{$item->id}}/delete" class="btn btn-sm btn-danger"
                                     onclick="return confirm('Yakin ingin dihapus?');"><i class="fa fa-trash"></i></a>
                             </td>

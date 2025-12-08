@@ -128,12 +128,6 @@
             </div>
         </div>
     </div>
-    <!-- Chart Horizontal -->
-    <div class="col-md-12">
-        <div class="card">
-            <div id="chartContainer" style="height: 600px; width: 100%;"></div>
-        </div>
-    </div>
 
     <!-- Horizontal Bar Chart -->
     <div class="col-md-12 mt-3">
@@ -219,18 +213,9 @@
         updateFilterVisibility();
     });
 
-    // Sortir SKPD berdasarkan kode SKPD (angka di awal label)
+    // Sortir SKPD berdasarkan nilai skor dari terendah ke tertinggi
     skpd.sort((a, b) => {
-        // Extract kode SKPD (angka di awal label)
-        const getKodeSkpd = (label) => {
-            const match = label.match(/^(\d+)\./);
-            return match ? parseInt(match[1]) : 0;
-        };
-        
-        const kodeA = getKodeSkpd(a.label);
-        const kodeB = getKodeSkpd(b.label);
-        
-        return kodeA - kodeB;
+        return a.y - b.y;
     });
 
     skpd = skpd.map(item => ({
@@ -244,53 +229,14 @@
 
     window.onload = function () {
         // Debug: Log sorted data untuk memastikan konsistensi
-        console.log("Data for Horizontal Chart:", skpd);
         console.log("Data for Vertical Chart:", skpd);
         
-        // Horizontal Bar Chart (First Chart)
-        var chartHorizontal = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            theme: "light2",
-            title: {
-                text: getChartTitle(penilaianType) + " (Horizontal)",
-                fontSize: 10,
-                fontWeight: "bold"
-            },
-        axisX: {
-                interval: 1,
-                labelFontSize: 12,
-                },
-        axisY: {
-                title: "",
-                labelFontSize: 12,
-                includeZero: true,
-                scaleBreaks: {
-                    type: "wavy",
-                    customBreaks: [{
-                        startValue: 80,
-                        endValue: 210
-                    },{
-                        startValue: 230,
-                        endValue: 600
-                    }]
-                }
-            },
-            data: [{
-                type: "bar", 
-                dataPointWidth: 1,
-                yValueFormatString: "#,##0.00",
-                dataPoints: skpd, // Menggunakan data yang sudah di-sortir
-                color: "#007bff" // Primary blue color
-            }]
-        });
-        chartHorizontal.render();
-        
-        // Vertical Column Chart (Second Chart)
+        // Vertical Column Chart (Only Chart)
         var chartVertical = new CanvasJS.Chart("chartContainerHorizontal", {
             animationEnabled: true,
             theme: "light2",
             title: {
-                text: getChartTitle(penilaianType) + " (Vertical)",
+                text: getChartTitle(penilaianType),
                 fontSize: 18,
                 fontWeight: "bold"
             },

@@ -33,7 +33,9 @@
                             <td>{{$item->tahun}}</td>
                             <td>{{$item->skpd == null ? null : $item->skpd->nama}}</td>
                             <td>
-                                <a href="/superadmin/ikpa/penyerapan/detail/{{$item->id}}" class="btn btn-sm btn-info">
+
+                                <a href="/superadmin/ikpa/penyerapan/detail/{{$item->id}}"
+                                    class="btn btn-sm {{$item->detail()->sum('kolom_c') > 0 ? 'btn-success' : 'btn-danger'}}">
                                     <i class="fa fa-eye"></i> Detail Penyerapan Anggaran
                                 </a>
                             </td>
