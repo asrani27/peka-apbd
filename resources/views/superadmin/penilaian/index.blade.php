@@ -196,7 +196,7 @@
                             $penyerapanAnggaranValueDecimal +
                             $capaianOutputValueDecimal;
 
-                            $totalFormatted = formatIndonesianNumber($totalDecimal);
+                            // $totalFormatted = formatIndonesianNumber($totalDecimal);
                             $keterangan = getPerformanceRating($totalDecimal);
                             @endphp
                             <tr>
@@ -207,7 +207,7 @@
                                 <td>{{$deviasiDpaValue}}</td>
                                 <td>{{$penyerapanAnggaranValue}}</td>
                                 <td>{{$capaianOutputValue}}</td>
-                                <td>{{$totalFormatted}}</td>
+                                <td>{{$totalDecimal}}</td>
                                 <td>{{$keterangan}}</td>
                             </tr>
                             @endforeach
