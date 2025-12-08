@@ -187,11 +187,15 @@
                             $capaianData->getFormattedSkorIndikatorTertimbangDenganBobot($triwulan);
                             }
 
+                            $revisiDpaValueDecimal = floatval(str_replace(',', '.', $revisiDpaValue));
+                            $deviasiDpaValueDecimal = floatval(str_replace(',', '.', $deviasiDpaValue));
+                            $penyerapanAnggaranValueDecimal = floatval(str_replace(',', '.', $penyerapanAnggaranValue));
+                            $capaianOutputValueDecimal = floatval(str_replace(',', '.', $capaianOutputValue));
                             // Calculate total using automatic mutators and format for display
-                            $totalDecimal = getDecimalValue($revisiDpaValue) +
-                            getDecimalValue($deviasiDpaValue) +
-                            getDecimalValue($penyerapanAnggaranValue) +
-                            $capaianOutputValue;
+                            $totalDecimal = $revisiDpaValueDecimal + $deviasiDpaValueDecimal +
+                            $penyerapanAnggaranValueDecimal +
+                            $capaianOutputValueDecimal;
+
                             $totalFormatted = formatIndonesianNumber($totalDecimal);
                             $keterangan = getPerformanceRating($totalDecimal);
                             @endphp
