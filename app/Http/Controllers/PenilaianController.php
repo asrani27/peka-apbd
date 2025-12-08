@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Skpd;
 use App\Models\Ikpa;
 use Illuminate\Http\Request;
+use PDF;
 
 class PenilaianController extends Controller
 {
@@ -47,9 +48,9 @@ class PenilaianController extends Controller
                 $query->where('tahun', $tahun);
             }, 'deviasi' => function ($query) use ($tahun) {
                 $query->where('tahun', $tahun)
-                      ->with(['detail' => function ($detailQuery) {
-                          $detailQuery->orderBy('id', 'asc');
-                      }]);
+                    ->with(['detail' => function ($detailQuery) {
+                        $detailQuery->orderBy('id', 'asc');
+                    }]);
             }, 'capaian' => function ($query) use ($tahun) {
                 $query->where('tahun', $tahun);
             }])->orderBy('kode')->get();
@@ -62,22 +63,22 @@ class PenilaianController extends Controller
                     $details = $deviasiData->detail;
                     $cumulativeData = [];
                     $akumulasiDeviasiTotal = 0;
-                    
+
                     foreach ($details as $index => $detail) {
                         // Calculate seluruh deviasi for this detail
                         $seluruhDeviasi = $detail->seluruhDeviasi();
                         $akumulasiDeviasiTotal += $seluruhDeviasi;
-                        
+
                         // Calculate deviasi rata-rata
                         $bulanAngka = $detail->bulanKeAngka($detail->bulan);
                         $deviasiRataRata = $bulanAngka > 0 ? ($akumulasiDeviasiTotal / $bulanAngka) : 0;
-                        
+
                         // Calculate nilai IKPA
                         $nilaiIkpa = ($deviasiRataRata <= 15) ? 100 : (100 - $deviasiRataRata);
-                        
+
                         // Calculate penyerapan anggaran
                         $penyerapanAnggaran = $detail->penyerapanAnggaran();
-                        
+
                         $cumulativeData[$detail->id] = [
                             'akumulasi_deviasi' => $akumulasiDeviasiTotal,
                             'deviasi_rata_rata' => $deviasiRataRata,
@@ -85,7 +86,7 @@ class PenilaianController extends Controller
                             'penyerapan_anggaran' => $penyerapanAnggaran,
                         ];
                     }
-                    
+
                     $deviasiCumulativeData[$item->id] = [
                         'details' => $details,
                         'cumulativeData' => $cumulativeData,
@@ -98,5 +99,110 @@ class PenilaianController extends Controller
         }
 
         return view('superadmin.penilaian.index', compact('skpd', 'semester', 'triwulan', 'tahun', 'bulan', 'deviasiCumulativeData'));
+    }
+
+    public function exportPDF(Request $request)
+    {
+        // Get filter parameters
+        $semester = $request->get('semester');
+        $triwulan = $request->get('triwulan');
+        $tahun = $request->get('tahun');
+        $bulan = $request->get('bulan');
+
+        // Set default year if not provided
+        $tahun = $tahun ?: date('Y');
+
+        // Function to get last month of triwulan
+        $getTriwulanMonth = function ($triwulan) {
+            switch ($triwulan) {
+                case 1:
+                    return 3;  // March (last month of Q1)
+                case 2:
+                    return 6;  // June (last month of Q2)
+                case 3:
+                    return 9;  // September (last month of Q3)
+                case 4:
+                    return 12; // December (last month of Q4)
+                default:
+                    return null;
+            }
+        };
+
+        $bulan = $bulan ?: ($triwulan ? $getTriwulanMonth($triwulan) : null);
+
+        // Get all SKPD with their IKPA, Revisi, Deviasi, and Capaian data, sorted by kode
+        $skpd = Skpd::with(['ikpa' => function ($query) use ($tahun) {
+            $query->where('tahun', $tahun);
+        }, 'revisi' => function ($query) use ($tahun) {
+            $query->where('tahun', $tahun);
+        }, 'deviasi' => function ($query) use ($tahun) {
+            $query->where('tahun', $tahun)
+                ->with(['detail' => function ($detailQuery) {
+                    $detailQuery->orderBy('id', 'asc');
+                }]);
+        }, 'capaian' => function ($query) use ($tahun) {
+            $query->where('tahun', $tahun);
+        }])->orderBy('kode')->get();
+
+        // Pre-compute cumulative data for each SKPD's deviasi
+        $deviasiCumulativeData = [];
+        foreach ($skpd as $item) {
+            $deviasiData = $item->deviasi->first();
+            if ($deviasiData && $deviasiData->detail) {
+                $details = $deviasiData->detail;
+                $cumulativeData = [];
+                $akumulasiDeviasiTotal = 0;
+
+                foreach ($details as $index => $detail) {
+                    // Calculate seluruh deviasi for this detail
+                    $seluruhDeviasi = $detail->seluruhDeviasi();
+                    $akumulasiDeviasiTotal += $seluruhDeviasi;
+
+                    // Calculate deviasi rata-rata
+                    $bulanAngka = $detail->bulanKeAngka($detail->bulan);
+                    $deviasiRataRata = $bulanAngka > 0 ? ($akumulasiDeviasiTotal / $bulanAngka) : 0;
+
+                    // Calculate nilai IKPA
+                    $nilaiIkpa = ($deviasiRataRata <= 15) ? 100 : (100 - $deviasiRataRata);
+
+                    // Calculate penyerapan anggaran
+                    $penyerapanAnggaran = $detail->penyerapanAnggaran();
+
+                    $cumulativeData[$detail->id] = [
+                        'akumulasi_deviasi' => $akumulasiDeviasiTotal,
+                        'deviasi_rata_rata' => $deviasiRataRata,
+                        'nilai_ikpa' => $nilaiIkpa,
+                        'penyerapan_anggaran' => $penyerapanAnggaran,
+                    ];
+                }
+
+                $deviasiCumulativeData[$item->id] = [
+                    'details' => $details,
+                    'cumulativeData' => $cumulativeData,
+                ];
+            }
+        }
+
+        // Generate filename
+        $filename = 'penilaian_skpd_';
+        if ($semester) $filename .= 'semester_' . $semester . '_';
+        if ($triwulan) $filename .= 'triwulan_' . $triwulan . '_';
+        if ($bulan) {
+            $monthNames = [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'];
+            $filename .= strtolower($monthNames[$bulan]) . '_';
+        }
+        $filename .= 'tahun_' . $tahun . '.pdf';
+
+        // Load PDF view
+        $html = view('superadmin.penilaian.pdf', compact('skpd', 'semester', 'triwulan', 'tahun', 'bulan', 'deviasiCumulativeData'))->render();
+
+        // Create PDF
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // Download PDF
+        return $dompdf->stream($filename);
     }
 }

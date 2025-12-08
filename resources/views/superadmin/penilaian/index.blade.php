@@ -93,6 +93,12 @@
                                                     onclick="applyFilters()">
                                                     <i class="fas fa-search"></i> <span id="btnText">Terapkan</span>
                                                 </button>
+                                                @if($semester || $triwulan || $tahun || $bulan)
+                                                <button type="button" class="btn btn-danger btn-sm ml-1"
+                                                    onclick="exportToPDF()">
+                                                    <i class="fas fa-file-pdf"></i> Export PDF
+                                                </button>
+                                                @endif
                                                 <button type="button" class="btn btn-default btn-sm ml-1"
                                                     onclick="resetFilters()">
                                                     <i class="fas fa-redo"></i> Reset
@@ -404,5 +410,25 @@
             document.getElementById('tahun_filter').value = tahun;
         }
     });
+
+    function exportToPDF() {
+        const semester = document.getElementById('semester_filter').value;
+        const triwulan = document.getElementById('triwulan_filter').value;
+        const bulan = document.getElementById('bulan_filter').value;
+        const tahun = document.getElementById('tahun_filter').value;
+        
+        // Build export URL with current filter parameters
+        let baseUrl = '{{ route("penilaian.export-pdf") }}';
+        let url = new URL(baseUrl);
+        
+        // Add filter parameters
+        if (semester) url.searchParams.set('semester', semester);
+        if (triwulan) url.searchParams.set('triwulan', triwulan);
+        if (bulan) url.searchParams.set('bulan', bulan);
+        if (tahun) url.searchParams.set('tahun', tahun);
+        
+        // Open PDF in new window
+        window.open(url.toString(), '_blank');
+    }
 </script>
 @endpush

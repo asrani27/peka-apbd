@@ -65,6 +65,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::post('/superadmin', [HomeController::class, 'superadmin']);
     Route::get('/superadmin/penilaian/hasil', [PenilaianController::class, 'index']);
     Route::get('/superadmin/penilaian', [PenilaianController::class, 'index']);
+    Route::get('/superadmin/penilaian/export-pdf', [PenilaianController::class, 'exportPDF'])->name('penilaian.export-pdf');
     Route::get('/superadmin/skpd', [SkpdController::class, 'index']);
     Route::get('/superadmin/skpd/createuser/{id}', [SkpdController::class, 'createuser']);
     Route::get('/superadmin/skpd/resetpass/{id}', [SkpdController::class, 'resetpass']);
