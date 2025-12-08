@@ -137,6 +137,94 @@ class HomeController extends Controller
                             $param['y'] = round($skorDenganBobot, 2);
                         }
                         break;
+                        
+                    case 'HASIL':
+                        // Calculate total nilai capaian like in penilaian page
+                        $currentSemester = $semester ?? 1;
+                        
+                        // Get data once per SKPD
+                        $deviasiData = Deviasi::where('skpd_id', $item->id)
+                                          ->where('tahun', $tahun)
+                                          ->first();
+                        $revisiData = Revisi::where('skpd_id', $item->id)
+                                         ->where('tahun', $tahun)
+                                         ->first();
+                        $capaianData = Capaian::where('skpd_id', $item->id)
+                                            ->where('tahun', $tahun)
+                                            ->first();
+                        
+                        $totalDecimal = 0;
+                        
+                        // Calculate Revisi DPA value
+                        $revisiDpaValue = 0;
+                        if ($revisiData) {
+                            $revisiDpaValue = ($currentSemester == 1)
+                                ? $revisiData->skorITSemester1()
+                                : $revisiData->skorITSemester2();
+                        }
+                        
+                        // Calculate Deviasi DPA and Penyerapan Anggaran values
+                        $deviasiDpaValue = 0;
+                        $penyerapanAnggaranValue = 0;
+                        if ($deviasiData) {
+                            // Convert month number to month name
+                            $monthNames = [
+                                1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+                                5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+                                9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+                            ];
+                            $bulanNama = $monthNames[$bulan] ?? null;
+                            
+                            if ($bulanNama) {
+                                // Get DeviasiDetail for selected month
+                                $deviasiDetail = DeviasiDetail::where('deviasi_id', $deviasiData->id)
+                                                             ->where('bulan', $bulanNama)
+                                                             ->first();
+                                
+                                if ($deviasiDetail) {
+                                    // Calculate cumulative values like in penilaian page
+                                    $details = DeviasiDetail::where('deviasi_id', $deviasiData->id)
+                                                               ->orderBy('id', 'asc')
+                                                               ->get();
+                                    
+                                    $akumulasiDeviasiTotal = 0;
+                                    $cumulativeData = [];
+                                    
+                                    foreach ($details as $index => $detail) {
+                                        $bulanAngka = $detail->bulanKeAngka($detail->bulan);
+                                        $seluruhDeviasi = $detail->seluruhDeviasi();
+                                        $akumulasiDeviasiTotal += $seluruhDeviasi;
+                                        
+                                        $deviasiRataRata = $bulanAngka > 0 ? ($akumulasiDeviasiTotal / $bulanAngka) : 0;
+                                        $nilaiIkpa = ($deviasiRataRata <= 15) ? 100 : (100 - $deviasiRataRata);
+                                        $penyerapanAnggaran = $detail->penyerapanAnggaran();
+                                        
+                                        $cumulativeData[$detail->id] = [
+                                            'nilai_ikpa' => $nilaiIkpa,
+                                            'penyerapan_anggaran' => $penyerapanAnggaran,
+                                        ];
+                                        
+                                        // Stop at the selected month
+                                        if ($detail->bulan === $bulanNama) {
+                                            $deviasiDpaValue = $nilaiIkpa * 0.2;
+                                            $penyerapanAnggaranValue = $penyerapanAnggaran * 0.3;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Calculate Capaian Output value
+                        $capaianOutputValue = 0;
+                        if ($capaianData && $triwulan) {
+                            $capaianOutputValue = $capaianData->getSkorIndikatorTertimbangDenganBobot($triwulan);
+                        }
+                        
+                        // Calculate total decimal
+                        $totalDecimal = $revisiDpaValue + $deviasiDpaValue + $penyerapanAnggaranValue + $capaianOutputValue;
+                        $param['y'] = round($totalDecimal, 2);
+                        break;
                 }
                 
                 return $param;

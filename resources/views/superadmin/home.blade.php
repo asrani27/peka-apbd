@@ -32,6 +32,8 @@
                                         ? 'selected' : '' }}>PENYERAPAN</option>
                                     <option value="CAPAIAN" {{($penilaian ?? old('penilaian'))=='CAPAIAN' ? 'selected'
                                         : '' }}>CAPAIAN</option>
+                                    <option value="HASIL" {{($penilaian ?? old('penilaian'))=='HASIL' ? 'selected' : ''
+                                        }}>HASIL PENILAIAN</option>
                                 </select>
                             </div>
                         </div>
@@ -179,6 +181,11 @@
             semesterGroup.style.display = 'none';
             triwulanGroup.style.display = 'block';
             bulanGroup.style.display = 'none';
+        } else if (penilaian === 'HASIL') {
+            // Show Semester, Triwulan, Bulan, and Tahun for HASIL
+            semesterGroup.style.display = 'block';
+            triwulanGroup.style.display = 'block';
+            bulanGroup.style.display = 'block';
         } else {
             // Hide all filters for other penilaian types
             semesterGroup.style.display = 'none';
@@ -198,8 +205,98 @@
                 return 'NILAI PENYERAPAN ANGGARAN PER SKPD';
             case 'CAPAIAN':
                 return 'SKOR INDIKATOR TERTIMBANG CAPAIAN (35%) PER SKPD';
+            case 'HASIL':
+                return 'HASIL PENILAIAN SKPD';
             default:
                 return 'CAPAIAN PER SKPD';
+        }
+    }
+    
+    // Function to update triwulan options based on semester
+    function updateTriwulanOptions() {
+        const semester = document.getElementById('semester').value;
+        const triwulanSelect = document.getElementById('triwulan');
+        
+        if (semester === '1') {
+            // Show only Triwulan 1 and 2 for Semester 1
+            triwulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="1" {{($triwulan ?? old('triwulan'))=='1' ? 'selected' : '' }}>Triwulan 1</option>
+                <option value="2" {{($triwulan ?? old('triwulan'))=='2' ? 'selected' : '' }}>Triwulan 2</option>
+            `;
+        } else if (semester === '2') {
+            // Show only Triwulan 3 and 4 for Semester 2
+            triwulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="3" {{($triwulan ?? old('triwulan'))=='3' ? 'selected' : '' }}>Triwulan 3</option>
+                <option value="4" {{($triwulan ?? old('triwulan'))=='4' ? 'selected' : '' }}>Triwulan 4</option>
+            `;
+        } else {
+            // Show all triwulan when no semester selected
+            triwulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="1" {{($triwulan ?? old('triwulan'))=='1' ? 'selected' : '' }}>Triwulan 1</option>
+                <option value="2" {{($triwulan ?? old('triwulan'))=='2' ? 'selected' : '' }}>Triwulan 2</option>
+                <option value="3" {{($triwulan ?? old('triwulan'))=='3' ? 'selected' : '' }}>Triwulan 3</option>
+                <option value="4" {{($triwulan ?? old('triwulan'))=='4' ? 'selected' : '' }}>Triwulan 4</option>
+            `;
+        }
+    }
+    
+    // Function to update bulan options based on triwulan
+    function updateBulanOptions() {
+        const triwulan = document.getElementById('triwulan').value;
+        const bulanSelect = document.getElementById('bulan');
+        
+        if (triwulan === '1') {
+            // Show Januari, Februari, Maret for Triwulan 1
+            bulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="1" {{($bulan ?? old('bulan'))=='1' ? 'selected' : '' }}>Januari</option>
+                <option value="2" {{($bulan ?? old('bulan'))=='2' ? 'selected' : '' }}>Februari</option>
+                <option value="3" {{($bulan ?? old('bulan'))=='3' ? 'selected' : '' }}>Maret</option>
+            `;
+        } else if (triwulan === '2') {
+            // Show April, Mei, Juni for Triwulan 2
+            bulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="4" {{($bulan ?? old('bulan'))=='4' ? 'selected' : '' }}>April</option>
+                <option value="5" {{($bulan ?? old('bulan'))=='5' ? 'selected' : '' }}>Mei</option>
+                <option value="6" {{($bulan ?? old('bulan'))=='6' ? 'selected' : '' }}>Juni</option>
+            `;
+        } else if (triwulan === '3') {
+            // Show Juli, Agustus, September for Triwulan 3
+            bulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="7" {{($bulan ?? old('bulan'))=='7' ? 'selected' : '' }}>Juli</option>
+                <option value="8" {{($bulan ?? old('bulan'))=='8' ? 'selected' : '' }}>Agustus</option>
+                <option value="9" {{($bulan ?? old('bulan'))=='9' ? 'selected' : '' }}>September</option>
+            `;
+        } else if (triwulan === '4') {
+            // Show Oktober, November, Desember for Triwulan 4
+            bulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="10" {{($bulan ?? old('bulan'))=='10' ? 'selected' : '' }}>Oktober</option>
+                <option value="11" {{($bulan ?? old('bulan'))=='11' ? 'selected' : '' }}>November</option>
+                <option value="12" {{($bulan ?? old('bulan'))=='12' ? 'selected' : '' }}>Desember</option>
+            `;
+        } else {
+            // Show all months when no triwulan selected
+            bulanSelect.innerHTML = `
+                <option value="">- Pilih -</option>
+                <option value="1" {{($bulan ?? old('bulan'))=='1' ? 'selected' : '' }}>Januari</option>
+                <option value="2" {{($bulan ?? old('bulan'))=='2' ? 'selected' : '' }}>Februari</option>
+                <option value="3" {{($bulan ?? old('bulan'))=='3' ? 'selected' : '' }}>Maret</option>
+                <option value="4" {{($bulan ?? old('bulan'))=='4' ? 'selected' : '' }}>April</option>
+                <option value="5" {{($bulan ?? old('bulan'))=='5' ? 'selected' : '' }}>Mei</option>
+                <option value="6" {{($bulan ?? old('bulan'))=='6' ? 'selected' : '' }}>Juni</option>
+                <option value="7" {{($bulan ?? old('bulan'))=='7' ? 'selected' : '' }}>Juli</option>
+                <option value="8" {{($bulan ?? old('bulan'))=='8' ? 'selected' : '' }}>Agustus</option>
+                <option value="9" {{($bulan ?? old('bulan'))=='9' ? 'selected' : '' }}>September</option>
+                <option value="10" {{($bulan ?? old('bulan'))=='10' ? 'selected' : '' }}>Oktober</option>
+                <option value="11" {{($bulan ?? old('bulan'))=='11' ? 'selected' : '' }}>November</option>
+                <option value="12" {{($bulan ?? old('bulan'))=='12' ? 'selected' : '' }}>Desember</option>
+            `;
         }
     }
     
@@ -208,9 +305,22 @@
         updateFilterVisibility();
     });
     
+    // Handle semester change
+    document.getElementById('semester').addEventListener('change', function() {
+        updateTriwulanOptions();
+        updateBulanOptions(); // Also update bulan when triwulan options change
+    });
+    
+    // Handle triwulan change
+    document.getElementById('triwulan').addEventListener('change', function() {
+        updateBulanOptions();
+    });
+    
     // Initialize filter visibility on page load
     document.addEventListener('DOMContentLoaded', function() {
         updateFilterVisibility();
+        updateTriwulanOptions();
+        updateBulanOptions();
     });
 
     // Sortir SKPD berdasarkan nilai skor dari terendah ke tertinggi
