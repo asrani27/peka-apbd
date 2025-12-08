@@ -201,8 +201,8 @@ class PenilaianController extends Controller
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-
-        // Download PDF
-        return $dompdf->stream($filename);
+        
+        // Stream PDF to browser (view first, then download option)
+        return $dompdf->stream($filename, array("Attachment" => false));
     }
 }
