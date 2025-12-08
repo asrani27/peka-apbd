@@ -24,4 +24,13 @@ class Skpd extends Model
     {
         return $this->hasMany(Deviasi::class, 'skpd_id');
     }
+    public function revisi()
+    {
+        return $this->hasMany(Revisi::class, 'skpd_id');
+    }
+    
+    public function capaian()
+    {
+        return $this->hasMany(Capaian::class, 'skpd_id');
+    }
 }
