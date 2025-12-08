@@ -291,7 +291,7 @@
                     <div class="alert alert-info">
                         <strong>Nilai Penyerapan Anggaran ${selectedBulan}:</strong>
                         <span class="float-right font-weight-bold">
-                            ${penyerapanAnggaran.toFixed(2)} %
+                            ${(penyerapanAnggaran * 0.30).toFixed(2)} %
                         </span>
                     </div>
                 `);

@@ -170,7 +170,7 @@
                             $penyerapanAnggaran = $cumulativeData[$selectedDetail->id]['penyerapan_anggaran'];
 
                             $deviasiDpaValue = number_format($nilaiIkpa * 0.2, 2, ',', '.');
-                            $penyerapanAnggaranValue = number_format($penyerapanAnggaran, 2, ',', '.');
+                            $penyerapanAnggaranValue = number_format($penyerapanAnggaran * 0.3, 2, ',', '.');
                             }
                             }
 
@@ -181,18 +181,13 @@
                             $capaianData->getFormattedSkorIndikatorTertimbangDenganBobot($triwulan);
                             }
 
-                            // Pre-calculate Total Nilai Capaian
-                            $totalNilaiCapaianValue = '';
-                            if ($revisiDpaValue || $deviasiDpaValue || $penyerapanAnggaranValue || $capaianOutputValue) {
-                                // Convert formatted strings back to numbers for calculation
-                                $revisiNum = $revisiDpaValue ? parseIndonesianNumber($revisiDpaValue) : 0;
-                                $deviasiNum = $deviasiDpaValue ? parseIndonesianNumber($deviasiDpaValue) : 0;
-                                $penyerapanNum = $penyerapanAnggaranValue ? parseIndonesianNumber($penyerapanAnggaranValue) : 0;
-                                $capaianNum = $capaianOutputValue ? parseIndonesianNumber($capaianOutputValue) : 0;
-                                
-                                $total = $revisiNum + $deviasiNum + $penyerapanNum + $capaianNum;
-                                $totalNilaiCapaianValue = number_format($total, 2, ',', '.');
-                            }
+                            // Calculate total using automatic mutators and format for display
+                            $totalDecimal = getDecimalValue($revisiDpaValue) +
+                            getDecimalValue($deviasiDpaValue) +
+                            getDecimalValue($penyerapanAnggaranValue) +
+                            $capaianOutputValue;
+                            $totalFormatted = formatIndonesianNumber($totalDecimal);
+                            $keterangan = getPerformanceRating($totalDecimal);
                             @endphp
                             <tr>
                                 <td>{{$key + 1}}</td>
@@ -202,8 +197,8 @@
                                 <td>{{$deviasiDpaValue}}</td>
                                 <td>{{$penyerapanAnggaranValue}}</td>
                                 <td>{{$capaianOutputValue}}</td>
-                                <td>{{$totalNilaiCapaianValue}}</td>
-                                <td></td>
+                                <td>{{$totalFormatted}}</td>
+                                <td>{{$keterangan}}</td>
                             </tr>
                             @endforeach
 
