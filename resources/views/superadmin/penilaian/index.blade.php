@@ -190,11 +190,11 @@
                             $revisiDpaValueDecimal = floatval(str_replace(',', '.', $revisiDpaValue));
                             $deviasiDpaValueDecimal = floatval(str_replace(',', '.', $deviasiDpaValue));
                             $penyerapanAnggaranValueDecimal = floatval(str_replace(',', '.', $penyerapanAnggaranValue));
-                            $capaianOutputValueDecimal = floatval(str_replace(',', '.', $capaianOutputValue));
+
                             // Calculate total using automatic mutators and format for display
                             $totalDecimal = $revisiDpaValueDecimal + $deviasiDpaValueDecimal +
                             $penyerapanAnggaranValueDecimal +
-                            $capaianOutputValueDecimal;
+                            $capaianOutputValue;
 
                             $totalFormatted = formatIndonesianNumber($totalDecimal);
                             $keterangan = getPerformanceRating($totalDecimal);
