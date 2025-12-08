@@ -191,22 +191,21 @@
                             $deviasiDpaValueDecimal = floatval(str_replace(',', '.', $deviasiDpaValue));
                             $penyerapanAnggaranValueDecimal = floatval(str_replace(',', '.', $penyerapanAnggaranValue));
                             $capaianOutputValueDecimal = floatval(str_replace(',', '.', $capaianOutputValue));
-                            // Calculate total using automatic mutators and format for display
+
                             $totalDecimal = $revisiDpaValueDecimal + $deviasiDpaValueDecimal +
                             $penyerapanAnggaranValueDecimal +
                             $capaianOutputValueDecimal;
-
-                            // $totalFormatted = formatIndonesianNumber($totalDecimal);
+                            
                             $keterangan = getPerformanceRating($totalDecimal);
                             @endphp
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$item->kode}}</td>
                                 <td>{{$item->nama}}</td>
-                                <td>{{$revisiDpaValue}}</td>
-                                <td>{{$deviasiDpaValue}}</td>
-                                <td>{{$penyerapanAnggaranValue}}</td>
-                                <td>{{$capaianOutputValue}}</td>
+                                <td>{{$revisiDpaValueDecimal}}</td>
+                                <td>{{$deviasiDpaValueDecimal}}</td>
+                                <td>{{$penyerapanAnggaranValueDecimal}}</td>
+                                <td>{{$capaianOutputValueDecimal}}</td>
                                 <td>{{$totalDecimal}}</td>
                                 <td>{{$keterangan}}</td>
                             </tr>

@@ -117,14 +117,14 @@
     </div>
 
     @php
-        $monthNames = [
-            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
-        ];
-        $bulanNama = $monthNames[$bulan] ?? $bulan;
+    $monthNames = [
+    1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+    5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+    9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+    ];
+    $bulanNama = $monthNames[$bulan] ?? $bulan;
     @endphp
-    
+
     <div class="filter-info">
         <p><strong>Filter:</strong></p>
         @if($semester)
@@ -210,22 +210,25 @@
             $capaianData->getFormattedSkorIndikatorTertimbangDenganBobot($triwulan);
             }
 
-            // Calculate total using automatic mutators and format for display
-            $totalDecimal = getDecimalValue($revisiDpaValue) +
-            getDecimalValue($deviasiDpaValue) +
-            getDecimalValue($penyerapanAnggaranValue) +
-            $capaianOutputValue;
-            $totalFormatted = formatIndonesianNumber($totalDecimal);
+            $revisiDpaValueDecimal = floatval(str_replace(',', '.', $revisiDpaValue));
+            $deviasiDpaValueDecimal = floatval(str_replace(',', '.', $deviasiDpaValue));
+            $penyerapanAnggaranValueDecimal = floatval(str_replace(',', '.', $penyerapanAnggaranValue));
+            $capaianOutputValueDecimal = floatval(str_replace(',', '.', $capaianOutputValue));
+
+            $totalDecimal = $revisiDpaValueDecimal + $deviasiDpaValueDecimal +
+            $penyerapanAnggaranValueDecimal +
+            $capaianOutputValueDecimal;
+
             $keterangan = getPerformanceRating($totalDecimal);
             @endphp
             <tr>
                 <td class="no">{{ $key + 1 }}</td>
                 <td class="nama">{{ $item->nama }}</td>
-                <td class="nilai">{{ $revisiDpaValue }}</td>
-                <td class="nilai">{{ $deviasiDpaValue }}</td>
-                <td class="nilai">{{ $penyerapanAnggaranValue }}</td>
-                <td class="nilai">{{ $capaianOutputValue }}</td>
-                <td class="nilai">{{ $totalFormatted }}</td>
+                <td class="nilai">{{ $revisiDpaValueDecimal }}</td>
+                <td class="nilai">{{ $deviasiDpaValueDecimal }}</td>
+                <td class="nilai">{{ $penyerapanAnggaranValueDecimal }}</td>
+                <td class="nilai">{{ $capaianOutputValueDecimal }}</td>
+                <td class="nilai">{{ $totalDecimal }}</td>
                 <td class="keterangan">{{ $keterangan }}</td>
             </tr>
             @endforeach
