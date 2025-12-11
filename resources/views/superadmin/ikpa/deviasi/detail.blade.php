@@ -20,6 +20,9 @@
                 <br />
                 <a href="/superadmin/ikpa/deviasi/detail/{{$data->skpd->kode}}/{{$data->tahun}}/tarikdata"
                     class="btn btn-primary"><i class="fa fa-sync"></i> Tarik Data Kenangan</a>
+                
+                <a href="/superadmin/ikpa/deviasi/detail/{{$data->id}}/export-excel"
+                    class="btn btn-success"><i class="fa fa-file-excel"></i> Export Excel</a>
 
                 {{-- <div class="mt-3">
                     <div class="form-group">
@@ -75,22 +78,6 @@
                         <td rowspan="2" style="border:1px solid black; min-width:110px;">BULAN</td>
                         <td colspan="4" style="border:1px solid black">RAK Tahunan</td>
                         <td colspan="4" style="border:1px solid black">Realisasi RAK</td>
-                        {{-- <td rowspan="2" style="background-color: white"></td>
-                        <td colspan="5" style="border:1px solid black">Proporsi Pagu*</td>
-
-                        <td colspan="4" style="border:1px solid black">Deviasi*</td>
-                        <td colspan="4" style="border:1px solid black">Koreksi Deviasi Maksimal 100%</td>
-                        <td colspan="4" style="border:1px solid black">Deviasi Tertimbang***</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Deviasi Seluruh KB</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Akumulatif Deviasi Seluruh KB
-                        </td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Dev DIPAn Rata-Rata per Bulan
-                            (dalam nilai
-                            absolut)</td>
-                        <td rowspan="2" style="border:1px solid black; min-width:110px;">Nilai IKPA (Interval 15%)</td>
-                        --}}
-
-
                     </tr>
                     <tr class="bg-warning" style="font-size:12px;font-weight:bold;text-align:center">
                         <td style="border:1px solid black; min-width:110px;">51</td>
@@ -101,23 +88,6 @@
                         <td style="border:1px solid black; min-width:110px;">52</td>
                         <td style="border:1px solid black; min-width:110px;">53</td>
                         <td style="border:1px solid black; min-width:110px;">54</td>
-                        {{-- <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">TOTAL</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td>
-                        <td style="border:1px solid black; min-width:110px;">51</td>
-                        <td style="border:1px solid black; min-width:110px;">52</td>
-                        <td style="border:1px solid black; min-width:110px;">53</td>
-                        <td style="border:1px solid black; min-width:110px;">54</td> --}}
                     </tr>
                     @foreach ($data->detail as $key=> $item2)
                     <tr style="font-size:10px;font-weight:bold; font-family: 'Roboto Mono', monospace;">
@@ -139,73 +109,6 @@
                             {{number_format($item2->kolom_i)}}</td>
                         <td style=" border:1px solid black;text-align:right">
                             {{number_format($item2->kolom_j)}}</td>
-
-                        {{-- <td></td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($proporsiPagu['RAK51'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($proporsiPagu['RAK52'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($proporsiPagu['RAK53'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($proporsiPagu['RAK54'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($proporsiPagu['Total'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_51'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_52'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_53'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_54'],2)}} %
-                        </td>
-
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['koreksi_51'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['koreksi_52'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['koreksi_53'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['koreksi_54'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_51'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_52'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_53'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_tertimbang_54'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['seluruh_deviasi'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['akumulasi_deviasi'],2)}} %
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['deviasi_rata_rata'],2)}}
-                        </td>
-                        <td style=" border:1px solid black;text-align:right">
-                            {{number_format($cumulativeData[$item2->id]['nilai_ikpa'],2)}}
-                        </td> --}}
-
 
                     </tr>
                     @endforeach
@@ -294,43 +197,7 @@
                         </td>
                     </tr>
                 </table>
-                {{-- <br /><br />
-                <table class="table table-sm" style="border: 1px solid black; text-align:center">
-                    <thead>
-                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Jumlah Revisi</th>
-                            <th style="border: 1px solid black">NKRA Semester {{$data->semester}}</th>
-                            <th style="border: 1px solid black">NKRA Tahunan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
-                            <td style="border: 1px solid black">{{$jml_revisi}}</td>
-                            <td style="border: 1px solid black">{{$nkra_semester}}</td>
-                            <td style="border: 1px solid black">{{$nkra_tahunan}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <table class="table table-sm" style="border: 1px solid black; text-align:center">
-                    <thead>
-                        <tr style="font-size:12px" class="bg-warning" style="border: 1px solid black">
-                            <th style="border: 1px solid black">Indikator</th>
-                            <th style="border: 1px solid black">Skor</th>
-                            <th style="border: 1px solid black">Bobot</th>
-                            <th style="border: 1px solid black">Skor Indikator Tertimbang</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="background-color: rgb(234, 233, 231); font-size:12px">
-                            <td style="border: 1px solid black">Revisi DPA</td>
-                            <td style="border: 1px solid black">{{$skor}}</td>
-                            <td style="border: 1px solid black">{{$bobot_revisi * 100}} %</td>
-                            <td style="border: 1px solid black">{{$sit}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br /> --}}
+
             </div>
         </div>
     </div>

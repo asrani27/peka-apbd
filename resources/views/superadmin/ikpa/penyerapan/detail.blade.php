@@ -19,6 +19,9 @@
 
                 </table>
                 <br />
+                <a href="/superadmin/ikpa/penyerapan/detail/{{$data->id}}/export-excel" 
+                   class="btn btn-success"><i class="fa fa-file-excel"></i> Export Excel</a>
+                <br />
 
                 <div class="mt-3">
                     <div class="form-group">

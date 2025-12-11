@@ -113,17 +113,22 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>&nbsp;</label>
-                                <div class="d-block">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-chart-bar"></i> TAMPILKAN
-                                    </button>
-                                    <button type="button" class="btn btn-secondary ml-1" onclick="resetForm()">
-                                        <i class="fas fa-redo"></i> RESET
-                                    </button>
-                                </div>
-                            </div>
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <div class="d-block">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-chart-bar"></i> TAMPILKAN
+                                            </button>
+                                            @if($penilaian ?? false)
+                                            <button type="button" class="btn btn-danger ml-1" onclick="exportChartToPDF()">
+                                                <i class="fas fa-file-pdf"></i> EXPORT PDF
+                                            </button>
+                                            @endif
+                                            <button type="button" class="btn btn-secondary ml-1" onclick="resetForm()">
+                                                <i class="fas fa-redo"></i> RESET
+                                            </button>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                 </form>
@@ -336,6 +341,26 @@
         indexLabelFontSize: 14, // Ukuran font lebih besar agar mudah dibaca
         indexLabelFontColor: "black" // Warna teks hitam agar kontras
     }));
+    
+    // Function to export chart to PDF
+    function exportChartToPDF() {
+        const penilaian = document.getElementById('penilaian').value;
+        const semester = document.getElementById('semester').value;
+        const triwulan = document.getElementById('triwulan').value;
+        const bulan = document.getElementById('bulan').value;
+        const tahun = document.getElementById('tahun').value;
+        
+        // Build export URL with current filter parameters
+        let url = '/superadmin/home/export-pdf?' + 
+                 'penilaian=' + encodeURIComponent(penilaian) +
+                 '&semester=' + encodeURIComponent(semester || '') +
+                 '&triwulan=' + encodeURIComponent(triwulan || '') +
+                 '&bulan=' + encodeURIComponent(bulan || '') +
+                 '&tahun=' + encodeURIComponent(tahun || '');
+        
+        // Open PDF in new window
+        window.open(url, '_blank');
+    }
 
     window.onload = function () {
         // Debug: Log sorted data untuk memastikan konsistensi

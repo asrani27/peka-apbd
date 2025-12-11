@@ -63,6 +63,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin', [HomeController::class, 'superadmin']);
     Route::post('/superadmin', [HomeController::class, 'superadmin']);
+    Route::get('/superadmin/home/export-pdf', [HomeController::class, 'exportChartToPDF'])->name('home.export-pdf');
     Route::get('/superadmin/penilaian/hasil', [PenilaianController::class, 'index']);
     Route::get('/superadmin/penilaian', [PenilaianController::class, 'index']);
     Route::get('/superadmin/penilaian/export-pdf', [PenilaianController::class, 'exportPDF'])->name('penilaian.export-pdf');
@@ -97,11 +98,13 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/ikpa/deviasi/insert-all-2025', [DeviasiController::class, 'insertAllSkpd2025']);
     Route::get('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'edit']);
     Route::get('/superadmin/ikpa/deviasi/detail/{id}', [DeviasiController::class, 'detail']);
+    Route::get('/superadmin/ikpa/deviasi/detail/{id}/export-excel', [DeviasiController::class, 'exportExcel']);
     Route::post('/superadmin/ikpa/deviasi/edit/{id}', [DeviasiController::class, 'update']);
     Route::get('/superadmin/ikpa/deviasi/delete/{id}', [DeviasiController::class, 'delete']);
     Route::get('/superadmin/ikpa/deviasi/detail/{kode_skpd}/{tahun}/tarikdata', [DeviasiController::class, 'tarikdata']);
     Route::get('/superadmin/ikpa/penyerapan', [PenyerapanController::class, 'index']);
     Route::get('/superadmin/ikpa/penyerapan/detail/{id}', [PenyerapanController::class, 'detail']);
+    Route::get('/superadmin/ikpa/penyerapan/detail/{id}/export-excel', [PenyerapanController::class, 'exportExcel']);
 
 
     Route::get('/superadmin/ikpa/capaian', [CapaianController::class, 'index']);

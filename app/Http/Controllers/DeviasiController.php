@@ -7,6 +7,7 @@ use App\Models\Deviasi;
 use Illuminate\Http\Request;
 use App\Models\DeviasiDetail;
 use App\Imports\DeviasiImport;
+use App\Exports\DeviasiDetailExport;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -242,6 +243,18 @@ class DeviasiController extends Controller
         $totalPagu = $data->totalPagu();
         
         return view('superadmin.ikpa.deviasi.detail', compact('data', 'cumulativeData', 'totals', 'proporsiPagu', 'totalPagu'));
+    }
+
+    public function exportExcel($id)
+    {
+        $data = Deviasi::find($id);
+        if (!$data) {
+            abort(404);
+        }
+
+        $filename = 'deviasi_dpa_' . str_replace(' ', '_', strtolower($data->skpd->nama)) . '_' . $data->tahun . '.xlsx';
+        
+        return Excel::download(new DeviasiDetailExport($id), $filename);
     }
     public function add()
     {

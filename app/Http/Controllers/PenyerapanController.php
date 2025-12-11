@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Deviasi;
 use Illuminate\Http\Request;
+use App\Exports\PenyerapanDetailExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PenyerapanController extends Controller
 {
@@ -81,5 +83,17 @@ class PenyerapanController extends Controller
         }
 
         return view('superadmin.ikpa.penyerapan.detail', compact('data', 'cumulativeData', 'totals'));
+    }
+
+    public function exportExcel($id)
+    {
+        $data = Deviasi::find($id);
+        if (!$data) {
+            abort(404);
+        }
+
+        $filename = 'penyerapan_anggaran_' . str_replace(' ', '_', strtolower($data->skpd->nama)) . '_' . $data->tahun . '.xlsx';
+        
+        return Excel::download(new PenyerapanDetailExport($id), $filename);
     }
 }
