@@ -297,6 +297,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/superadmin/laporan"
+                                class="nav-link {{request()->is('superadmin/laporan*') ? 'active':''}}">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>
+                                    Laporan
+                                </p>
+                            </a>
+                        </li>
                         @else
 
                         <li class="nav-item">

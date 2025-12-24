@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminPenyerapanController;
 use App\Http\Controllers\AdminRevisiController;
 use App\Http\Controllers\CapaianController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', [LoginController::class, 'welcome']);
 Route::get('/welcome1', function () {
@@ -124,6 +125,10 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::get('/superadmin/jadwal/edit/{id}', [JadwalController::class, 'edit']);
     Route::post('/superadmin/jadwal/edit/{id}', [JadwalController::class, 'update']);
     Route::get('/superadmin/jadwal/delete/{id}', [JadwalController::class, 'delete']);
+
+    Route::get('/superadmin/laporan', [LaporanController::class, 'index']);
+    Route::post('/superadmin/laporan', [LaporanController::class, 'index']);
+    Route::get('/superadmin/laporan/export', [LaporanController::class, 'exportExcel'])->name('superadmin.laporan.export');
 
     Route::get(
         '/superadmin/ikpa/penyerapan/{id}',
