@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -12,40 +13,23 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Sample data - in a real application, this would come from database
-        $jadwalList = [
-            [
-                'id' => 1,
-                'kegiatan' => 'Penilaian Triwulan 1',
-                'periode' => 'Triwulan 1 - Semester 1',
-                'tanggal_mulai' => '2025-04-01',
-                'tanggal_selesai' => '2025-04-30',
-                'status' => 'aktif',
-                'target_skpd' => 45
-            ],
-            [
-                'id' => 2,
-                'kegiatan' => 'Penilaian Semester 1',
-                'periode' => 'Semester 1',
-                'tanggal_mulai' => '2025-07-01',
-                'tanggal_selesai' => '2025-07-31',
-                'status' => 'draft',
-                'target_skpd' => 45
-            ],
-            [
-                'id' => 3,
-                'kegiatan' => 'Penilaian Triwulan 3',
-                'periode' => 'Triwulan 3 - Semester 2',
-                'tanggal_mulai' => '2025-10-01',
-                'tanggal_selesai' => '2025-10-31',
-                'status' => 'draft',
-                'target_skpd' => 45
-            ]
-        ];
+        $query = Jadwal::orderBy('tahun', 'desc')->orderBy('created_at', 'desc');
 
-        return view('superadmin.jadwal.index', compact('jadwalList'));
+        // Filter by tahun
+        if ($request->has('tahun') && $request->tahun != '') {
+            $query->where('tahun', $request->tahun);
+        }
+
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        $jadwals = $query->get();
+
+        return view('superadmin.jadwal.index', compact('jadwals'));
     }
 
     /**
@@ -53,9 +37,9 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
-        return view('superadmin.jadwal.add');
+        return view('superadmin.jadwal.create');
     }
 
     /**
@@ -66,24 +50,37 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
-            'kegiatan' => 'required|string|max:255',
-            'tahun' => 'required|integer|min:2020|max:2030',
-            'semester' => 'required|integer|in:1,2',
+            'tahun' => 'required|string|max:4',
+            'periode' => 'required|string|max:100',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after:tanggal_mulai',
-            'status' => 'required|in:draft,aktif',
-            'triwulan' => 'nullable|integer|in:1,2,3,4',
-            'deskripsi' => 'nullable|string|max:1000'
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'status' => 'required|in:draft,aktif,selesai',
+        ], [
+            'tanggal_selesai.after_or_equal' => 'Tanggal selesai harus sama atau setelah tanggal mulai.',
         ]);
 
-        // In a real application, you would save this to the database
-        // For now, we'll just flash a success message
-        
+        Jadwal::create([
+            'tahun' => $request->tahun,
+            'periode' => $request->periode,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'status' => $request->status,
+        ]);
+
         Session::flash('success', 'Jadwal penilaian berhasil disimpan!');
-        
-        return redirect('/superadmin/jadwal');
+        return redirect('/superadmin/penilaian/jadwal');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -94,19 +91,7 @@ class JadwalController extends Controller
      */
     public function edit($id)
     {
-        // In a real application, you would fetch the jadwal from database
-        $jadwal = [
-            'id' => $id,
-            'kegiatan' => 'Penilaian Triwulan 1',
-            'tahun' => 2025,
-            'semester' => 1,
-            'tanggal_mulai' => '2025-04-01',
-            'tanggal_selesai' => '2025-04-30',
-            'status' => 'aktif',
-            'triwulan' => 1,
-            'deskripsi' => 'Penilaian untuk triwulan pertama tahun 2025'
-        ];
-
+        $jadwal = Jadwal::findOrFail($id);
         return view('superadmin.jadwal.edit', compact('jadwal'));
     }
 
@@ -119,24 +104,27 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate the request
         $request->validate([
-            'kegiatan' => 'required|string|max:255',
-            'tahun' => 'required|integer|min:2020|max:2030',
-            'semester' => 'required|integer|in:1,2',
+            'tahun' => 'required|string|max:4',
+            'periode' => 'required|string|max:100',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after:tanggal_mulai',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'status' => 'required|in:draft,aktif,selesai',
-            'triwulan' => 'nullable|integer|in:1,2,3,4',
-            'deskripsi' => 'nullable|string|max:1000'
+        ], [
+            'tanggal_selesai.after_or_equal' => 'Tanggal selesai harus sama atau setelah tanggal mulai.',
         ]);
 
-        // In a real application, you would update the database
-        // For now, we'll just flash a success message
-        
+        $jadwal = Jadwal::findOrFail($id);
+        $jadwal->update([
+            'tahun' => $request->tahun,
+            'periode' => $request->periode,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'status' => $request->status,
+        ]);
+
         Session::flash('success', 'Jadwal penilaian berhasil diperbarui!');
-        
-        return redirect('/superadmin/jadwal');
+        return redirect('/superadmin/penilaian/jadwal');
     }
 
     /**
@@ -145,13 +133,12 @@ class JadwalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function destroy($id)
     {
-        // In a real application, you would delete from database
-        // For now, we'll just flash a success message
-        
+        $jadwal = Jadwal::findOrFail($id);
+        $jadwal->delete();
+
         Session::flash('success', 'Jadwal penilaian berhasil dihapus!');
-        
-        return redirect('/superadmin/jadwal');
+        return redirect('/superadmin/penilaian/jadwal');
     }
 }

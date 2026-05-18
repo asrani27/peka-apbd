@@ -119,12 +119,12 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
     Route::post('/superadmin/ikpa/capaian/insert-all-skpd', [CapaianController::class, 'insertAllSkpd']);
     Route::delete('/superadmin/ikpa/capaian/delete-all-skpd', [CapaianController::class, 'deleteAllSkpd']);
 
-    Route::get('/superadmin/jadwal', [JadwalController::class, 'index']);
-    Route::get('/superadmin/jadwal/add', [JadwalController::class, 'add']);
-    Route::post('/superadmin/jadwal/add', [JadwalController::class, 'store']);
-    Route::get('/superadmin/jadwal/edit/{id}', [JadwalController::class, 'edit']);
-    Route::post('/superadmin/jadwal/edit/{id}', [JadwalController::class, 'update']);
-    Route::get('/superadmin/jadwal/delete/{id}', [JadwalController::class, 'delete']);
+    Route::get('/superadmin/penilaian/jadwal', [JadwalController::class, 'index']);
+    Route::get('/superadmin/penilaian/jadwal/create', [JadwalController::class, 'create']);
+    Route::post('/superadmin/penilaian/jadwal/create', [JadwalController::class, 'store']);
+    Route::get('/superadmin/penilaian/jadwal/edit/{id}', [JadwalController::class, 'edit']);
+    Route::post('/superadmin/penilaian/jadwal/edit/{id}', [JadwalController::class, 'update']);
+    Route::get('/superadmin/penilaian/jadwal/delete/{id}', [JadwalController::class, 'destroy']);
 
     Route::get('/superadmin/laporan', [LaporanController::class, 'index']);
     Route::post('/superadmin/laporan', [LaporanController::class, 'index']);
