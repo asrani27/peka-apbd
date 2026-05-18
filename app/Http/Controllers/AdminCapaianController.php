@@ -16,15 +16,15 @@ class AdminCapaianController extends Controller
     public function index(Request $request)
     {
         $tahun = $request->get('tahun');
-        
-        $query = Capaian::with('skpd')->orderBy('id', 'DESC');
-        
+
+        $query = Capaian::where('skpd_id', Auth::user()->skpd->id)->with('skpd')->orderBy('id', 'DESC');
+
         if ($tahun) {
             $query->where('tahun', $tahun);
         }
-        
+
         $data = $query->paginate(10);
-        
+
         return view('admin.ikpa.capaian.index', compact('data', 'tahun'));
     }
     public function add()
@@ -104,7 +104,7 @@ class AdminCapaianController extends Controller
     {
         try {
             $tahun = $request->tahun;
-            
+
             // Validate year
             if ($tahun < 2024 || $tahun > 2026) {
                 return response()->json([
@@ -121,7 +121,7 @@ class AdminCapaianController extends Controller
             foreach ($skpds as $skpd) {
                 // Check if capaian already exists for this SKPD and year
                 $existing = Capaian::where('skpd_id', $skpd->id)->where('tahun', $tahun)->first();
-                
+
                 if (!$existing) {
                     // Create new capaian
                     $capaian = new Capaian();
@@ -136,10 +136,9 @@ class AdminCapaianController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => "Berhasil memasukkan {$insertedCount} data SKPD untuk tahun {$tahun}. " . 
-                            ($skippedCount > 0 ? "{$skippedCount} data sudah ada dan dilewati." : "")
+                'message' => "Berhasil memasukkan {$insertedCount} data SKPD untuk tahun {$tahun}. " .
+                    ($skippedCount > 0 ? "{$skippedCount} data sudah ada dan dilewati." : "")
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -152,7 +151,7 @@ class AdminCapaianController extends Controller
     {
         try {
             $tahun = $request->tahun;
-            
+
             // Validate year
             if ($tahun < 2024 || $tahun > 2026) {
                 return response()->json([
@@ -177,7 +176,6 @@ class AdminCapaianController extends Controller
                 'success' => true,
                 'message' => "Berhasil menghapus {$deletedCount} data SKPD untuk tahun {$tahun}"
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
